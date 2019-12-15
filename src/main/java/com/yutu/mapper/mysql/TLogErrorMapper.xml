@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.mysql.TLogErrorMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TLogError">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="log_level" jdbcType="VARCHAR" property="logLevel" />
+    <result column="log_category" jdbcType="VARCHAR" property="logCategory" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="thread_name" jdbcType="VARCHAR" property="threadName" />
+    <result column="log_line" jdbcType="VARCHAR" property="logLine" />
+    <result column="all_category" jdbcType="VARCHAR" property="allCategory" />
+    <result column="log_message" jdbcType="VARCHAR" property="logMessage" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, project_name, create_date, log_level, log_category, file_name, thread_name, 
+    log_line, all_category, log_message, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_log_error
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_log_error
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yutu.entity.table.TLogError">
+    insert into t_log_error (uuid, project_name, create_date, 
+      log_level, log_category, file_name, 
+      thread_name, log_line, all_category, 
+      log_message, remarks)
+    values (#{uuid,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{logLevel,jdbcType=VARCHAR}, #{logCategory,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{threadName,jdbcType=VARCHAR}, #{logLine,jdbcType=VARCHAR}, #{allCategory,jdbcType=VARCHAR}, 
+      #{logMessage,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TLogError">
+    insert into t_log_error
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="logLevel != null">
+        log_level,
+      </if>
+      <if test="logCategory != null">
+        log_category,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="threadName != null">
+        thread_name,
+      </if>
+      <if test="logLine != null">
+        log_line,
+      </if>
+      <if test="allCategory != null">
+        all_category,
+      </if>
+      <if test="logMessage != null">
+        log_message,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="logLevel != null">
+        #{logLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="logCategory != null">
+        #{logCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null">
+        #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="logLine != null">
+        #{logLine,jdbcType=VARCHAR},
+      </if>
+      <if test="allCategory != null">
+        #{allCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="logMessage != null">
+        #{logMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TLogError">
+    update t_log_error
+    <set>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="logLevel != null">
+        log_level = #{logLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="logCategory != null">
+        log_category = #{logCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null">
+        thread_name = #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="logLine != null">
+        log_line = #{logLine,jdbcType=VARCHAR},
+      </if>
+      <if test="allCategory != null">
+        all_category = #{allCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="logMessage != null">
+        log_message = #{logMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TLogError">
+    update t_log_error
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      log_level = #{logLevel,jdbcType=VARCHAR},
+      log_category = #{logCategory,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      thread_name = #{threadName,jdbcType=VARCHAR},
+      log_line = #{logLine,jdbcType=VARCHAR},
+      all_category = #{allCategory,jdbcType=VARCHAR},
+      log_message = #{logMessage,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

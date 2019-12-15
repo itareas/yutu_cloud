@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.mysql.TSysRoleMenusysMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TSysRoleMenusys">
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="role_uuid" jdbcType="VARCHAR" property="roleUuid" />
+    <result column="menusys_uuid" jdbcType="VARCHAR" property="menusysUuid" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yutu.entity.table.TSysRoleMenusys">
+    insert into t_sys_role_menusys (uuid, role_uuid, menusys_uuid, 
+      remarks)
+    values (#{uuid,jdbcType=VARCHAR}, #{roleUuid,jdbcType=VARCHAR}, #{menusysUuid,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TSysRoleMenusys">
+    insert into t_sys_role_menusys
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="roleUuid != null">
+        role_uuid,
+      </if>
+      <if test="menusysUuid != null">
+        menusys_uuid,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleUuid != null">
+        #{roleUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="menusysUuid != null">
+        #{menusysUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
