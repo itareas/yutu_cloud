@@ -5,117 +5,70 @@ import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.XmlElement;
-import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.config.PropertyRegistry;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Set;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /**
- * @author fendo
- * @version V1.0
- * @Title: MyCommentGenerator.java
- * @Package com.fendo.mybatis_generator_plus
+ * @Author: zhaobc
+ * @Date: 2019-12-16 10:31
  * @Description: mybatis generator 自定义comment生成器.
- * 基于MBG 1.3.5
- * @date 2017年10月5日 下午3:07:26
  */
 public class MyCommentGenerator implements CommentGenerator {
-
     /**
-     * properties配置文件
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:35
+     * @Description: 内部配置文件
      */
     private Properties properties;
-    /**
-     * properties配置文件
-     */
-    private Properties systemPro;
 
-    /*
-     * 父类时间
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:35
+     * @Description: 作者
+     */
+    private String author;
+
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:36
+     * @Description: 注释生成器取消日期
      */
     private boolean suppressDate;
 
     /**
-     * 父类所有注释
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:36
+     * @Description: 注释生成器禁止所有注释
      */
     private boolean suppressAllComments;
 
     /**
-     * 当前时间
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:36
+     * @Description: 当前时间
      */
-    private String currentDateStr;
+    private String datetime;
 
     public MyCommentGenerator() {
         super();
         properties = new Properties();
-        systemPro = System.getProperties();
+        //author = System.getProperties().getProperty("user.name");
+        author="zhaobc";
         suppressDate = false;
         suppressAllComments = false;
-        currentDateStr = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
+        datetime = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(new Date());
     }
 
     /**
-     * Java类的类注释
-     */
-    @Override
-    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
-        if (suppressAllComments) {
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        innerClass.addJavaDocLine("/**");
-        sb.append(" * ");
-        sb.append(introspectedTable.getFullyQualifiedTable());
-        sb.append(" ");
-        sb.append(getDateString());
-        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
-        innerClass.addJavaDocLine(" */");
-    }
-
-    /**
-     * 为类添加注释
-     */
-    @Override
-    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
-        if (suppressAllComments) {
-            return;
-        }
-        StringBuilder sb = new StringBuilder();
-        innerClass.addJavaDocLine("/**");
-        sb.append(" * ");
-        sb.append(" * ");
-        sb.append(introspectedTable.getFullyQualifiedTable());
-        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
-        sb.setLength(0);
-        sb.append(" * @author ");
-        sb.append(systemPro.getProperty("user.name"));
-        sb.append(" ");
-        sb.append(currentDateStr);
-        innerClass.addJavaDocLine(" */");
-    }
-
-
-    /**
-     * Mybatis的Mapper.xml文件里面的注释
-     */
-    @Override
-    public void addComment(XmlElement xmlElement) {
-
-    }
-
-    /**
-     * @return
-     * @throws
-     * @Title addConfigurationProperties
-     * @Description: 从该配置中的任何属性添加此实例的属性CommentGenerator配置。
-     * 这个方法将在任何其他方法之前被调用。
-     * @Author fendo
-     * @Date 2017年10月5日 下午3:45:58
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:37
+     * @Description: 从该配置中的任何属性添加此实例的属性CommentGenerator配置。这个方法将在任何其他方法之前被调用。
      */
     @Override
     public void addConfigurationProperties(Properties properties) {
@@ -125,63 +78,33 @@ public class MyCommentGenerator implements CommentGenerator {
     }
 
     /**
-     * @return
-     * @throws
-     * @Title getDateString
-     * @Description: 此方法返回格式化的日期字符串以包含在Javadoc标记中和XML注释。 如果您不想要日期，则可以返回null在这些文档元素中。
-     * @Author fendo
-     * @Date 2017年10月5日 下午3:45:58
-     */
-    protected String getDateString() {
-        String result = null;
-        if (!suppressDate) {
-            result = currentDateStr;
-        }
-        return result;
-    }
-
-    /**
-     * @param javaElement
-     * @param markAsDoNotDelete
-     * @throws
-     * @Title addJavadocTag
-     * @Description: 此方法为其添加了自定义javadoc标签。
-     * @Author fendo
-     * @Date 2017年10月5日 下午3:49:05
-     */
-    protected void addJavadocTag(JavaElement javaElement, boolean markAsDoNotDelete) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        javaElement.addJavaDocLine(" *");
-        StringBuilder sb = new StringBuilder();
-        sb.append("* @Author: zhaobc");
-        javaElement.addJavaDocLine(sb.toString().replace("\n", " "));
-        sb.setLength(0);
-        sb.append("* @Date " + sdf.format(new Date()) + "");
-        javaElement.addJavaDocLine(sb.toString().replace("\n", " "));
-        sb.setLength(0);
-        sb.append("* @Description: ");
-        javaElement.addJavaDocLine(sb.toString());
-    }
-
-
-    /**
-     * 为枚举添加注释
-     */
+     * @Author: zhaobc
+     * @Date: 2019-12-16 10:53
+     * @Description: java属性注解
+     * */
     @Override
-    public void addEnumComment(InnerEnum innerEnum, IntrospectedTable introspectedTable) {
+    public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
         if (suppressAllComments) {
             return;
         }
         StringBuilder sb = new StringBuilder();
-        innerEnum.addJavaDocLine("/**");
-        sb.append(" * ");
-        sb.append(introspectedTable.getFullyQualifiedTable());
-        innerEnum.addJavaDocLine(sb.toString().replace("\n", " "));
-        innerEnum.addJavaDocLine(" */");
+        field.addJavaDocLine("/**");
+        sb.append("* @Author: "+this.author);
+        field.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Date "+this.datetime);
+        field.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Description: ");
+        sb.append(introspectedColumn.getRemarks());
+        field.addJavaDocLine(sb.toString().replace("\n", " "));
+        field.addJavaDocLine("**/");
     }
 
     /**
-     * Java属性注释
+     * @Author: zhaobc
+     * @Date: 2019-12-16 11:38
+     * @Description: 属性注释
      */
     @Override
     public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
@@ -190,124 +113,193 @@ public class MyCommentGenerator implements CommentGenerator {
         }
         StringBuilder sb = new StringBuilder();
         field.addJavaDocLine("/**");
-        sb.append(" * ");
+        sb.append("* @Author: "+this.author);
+        field.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Date "+this.datetime);
+        field.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Description: ");
         sb.append(introspectedTable.getFullyQualifiedTable());
         field.addJavaDocLine(sb.toString().replace("\n", " "));
-        field.addJavaDocLine(" */");
+        field.addJavaDocLine("**/");
+    }
 
+    @Override
+    public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 
     }
 
     /**
-     * 为字段添加注释
-     */
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:40
+    * @Description: 类注释位置
+    **/
     @Override
-    public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
             return;
         }
         StringBuilder sb = new StringBuilder();
-        field.addJavaDocLine("/**");
-        sb.append(" * ");
-        sb.append(introspectedColumn.getRemarks());
-        field.addJavaDocLine(sb.toString().replace("\n", " "));
-        field.addJavaDocLine(" */");
+        innerClass.addJavaDocLine("/**");
+        sb.append("* @Author: "+this.author);
+        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Date "+this.datetime);
+        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Description: ");
+        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
+        innerClass.addJavaDocLine("**/");
     }
 
     /**
-     * 普通方法的注释，这里主要是XXXMapper.java里面的接口方法的注释
-     */
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:41
+    * @Description: 类注释位置
+    **/
+    @Override
+    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean b) {
+        if (suppressAllComments) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        innerClass.addJavaDocLine("/**");
+        sb.append("* @Author: "+this.author);
+        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Date "+this.datetime);
+        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Description: ");
+        innerClass.addJavaDocLine(sb.toString().replace("\n", " "));
+        innerClass.addJavaDocLine("**/");
+    }
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:42
+    * @Description: 枚举注释位置
+    **/
+    @Override
+    public void addEnumComment(InnerEnum innerEnum, IntrospectedTable introspectedTable) {
+        if (suppressAllComments) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        innerEnum.addJavaDocLine("/**");
+        sb.append("* @Author: "+this.author);
+        innerEnum.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Date "+this.datetime);
+        innerEnum.addJavaDocLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Description: ");
+        innerEnum.addJavaDocLine(sb.toString().replace("\n", " "));
+        innerEnum.addJavaDocLine("**/");
+    }
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:43
+    * @Description: Get方法注释位置
+    **/
+    @Override
+    public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) { }
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:43
+    * @Description: Set方法注释位置
+    **/
+    @Override
+    public void addSetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) { }
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:43
+    * @Description: 通方法的注释，这里主要是XXXMapper.java里面的接口方法的注释
+    **/
     @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
             return;
         }
-        method.addJavaDocLine("/**");
-        addJavadocTag(method, false);
-        method.addJavaDocLine(" */");
-    }
-
-
-    /**
-     * 给getter方法加注释
-     */
-    @Override
-    public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-        if (suppressAllComments) {
-            return;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        method.addJavaDocLine("/**");
         StringBuilder sb = new StringBuilder();
-        sb.append("* @Author: zhaobc");
+        method.addJavaDocLine("/**");
+        sb.append("* @Author: "+this.author);
         method.addJavaDocLine(sb.toString().replace("\n", " "));
         sb.setLength(0);
-        sb.append("* @Date " + sdf.format(new Date()));
+        sb.append("* @Date "+this.datetime);
         method.addJavaDocLine(sb.toString().replace("\n", " "));
         sb.setLength(0);
         sb.append("* @Description: ");
         method.addJavaDocLine(sb.toString().replace("\n", " "));
-        sb.setLength(0);
-//        sb.append(" * @return ");
-//        sb.append(introspectedColumn.getActualColumnName());
-//        sb.append(" ");
-//        sb.append(introspectedColumn.getRemarks());
-//        method.addJavaDocLine(sb.toString().replace("\n", " "));
-        method.addJavaDocLine(" */");
+        method.addJavaDocLine("**/");
     }
 
     /**
-     * 给Java文件加注释，这个注释是在文件的顶部，也就是package上面。
-     */
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:44
+    * @Description: 给Java文件加注释，这个注释是在文件的顶部，也就是package上面。
+    **/
     @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        compilationUnit.addFileCommentLine("/*");
-        compilationUnit.addFileCommentLine("*");
-        compilationUnit.addFileCommentLine("* @Author: zhaobc");
-        compilationUnit.addFileCommentLine("* @Date " + sdf.format(new Date()) + "");
-        compilationUnit.addFileCommentLine("* @Description: ");
-        compilationUnit.addFileCommentLine("*/");
-    }
-
-    /**
-     * 为模型类添加注释
-     */
-    @Override
-    public void addModelClassComment(TopLevelClass arg0, IntrospectedTable arg1) {
-
-    }
-
-    /**
-     * 为调用此方法作为根元素的第一个子节点添加注释。
-     */
-    @Override
-    public void addRootComment(XmlElement arg0) {
-
-    }
-
-
-    /**
-     * 给setter方法加注释
-     */
-    @Override
-    public void addSetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-        if (suppressAllComments) {
-            return;
-        }
-        method.addJavaDocLine("/**");
         StringBuilder sb = new StringBuilder();
-        sb.append(" * ");
-        sb.append(introspectedColumn.getRemarks());
-        method.addJavaDocLine(sb.toString().replace("\n", " "));
-        Parameter parm = method.getParameters().get(0);
+        compilationUnit.addFileCommentLine("/**");
+        sb.append("* @Author: "+this.author);
+        compilationUnit.addFileCommentLine(sb.toString().replace("\n", " "));
         sb.setLength(0);
-//        sb.append(" * @param ");
-//        sb.append(parm.getName());
-//        sb.append(" ");
-//        sb.append(introspectedColumn.getRemarks());
-//        method.addJavaDocLine(sb.toString().replace("\n", " "));
-        method.addJavaDocLine(" */");
+        sb.append("* @Date "+this.datetime);
+        compilationUnit.addFileCommentLine(sb.toString().replace("\n", " "));
+        sb.setLength(0);
+        sb.append("* @Description: ");
+        compilationUnit.addFileCommentLine(sb.toString().replace("\n", " "));
+        compilationUnit.addFileCommentLine("**/");
     }
 
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:46
+    * @Description: Mybatis的Mapper.xml文件里面的注释
+    **/
+    @Override
+    public void addComment(XmlElement xmlElement) {
+
+    }
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-16 11:46
+    * @Description: 为调用此方法作为根元素的第一个子节点添加注释。
+    **/
+    @Override
+    public void addRootComment(XmlElement xmlElement) {
+
+    }
+
+    @Override
+    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> set) {
+
+    }
+
+    @Override
+    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> set) {
+
+    }
+
+    @Override
+    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> set) {
+
+    }
+
+    @Override
+    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> set) {
+
+    }
+
+    @Override
+    public void addClassAnnotation(InnerClass innerClass, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> set) {
+
+    }
 }
