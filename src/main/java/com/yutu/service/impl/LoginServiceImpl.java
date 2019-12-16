@@ -5,12 +5,10 @@ import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TMenuSystem;
-import com.yutu.entity.table.TSysUser;
 import com.yutu.mapper.mysql.TLogLandingMapper;
 import com.yutu.mapper.mysql.TMenuSystemMapper;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.ILoginService;
-import org.apache.catalina.Session;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 

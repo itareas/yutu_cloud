@@ -1,13 +1,8 @@
 package com.yutu.listener;
 
-import com.yutu.entity.SessionUser;
-import com.yutu.entity.table.TLogLanding;
-
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import java.util.UUID;
 
 /**
  * @ClassName: MyHttpSessionListener

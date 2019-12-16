@@ -170,13 +170,14 @@ insert  into `t_sys_organization`(`uuid`,`org_parent`,`org_code`,`org_name`,`org
 DROP TABLE IF EXISTS `t_sys_role`;
 
 CREATE TABLE `t_sys_role` (
-  `uuid` varchar(64) DEFAULT NULL COMMENT '编码',
+  `uuid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '编码',
   `role_parent` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色父类ID（角色树）',
   `role_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色名称',
   `role_status` int(11) DEFAULT '0' COMMENT '角色状态 0：未锁定  1：已锁定',
   `order_by` int(11) DEFAULT '1' COMMENT '排序',
   `delete_status` int(11) DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
-  `remarks` text COMMENT '备注'
+  `remarks` text COMMENT '备注',
+  PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统_权限表';
 
 /*Data for the table `t_sys_role` */
@@ -188,10 +189,11 @@ insert  into `t_sys_role`(`uuid`,`role_parent`,`role_name`,`role_status`,`order_
 DROP TABLE IF EXISTS `t_sys_role_menubus`;
 
 CREATE TABLE `t_sys_role_menubus` (
-  `uuid` varchar(64) DEFAULT NULL COMMENT '编码',
+  `uuid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '编码',
   `role_uuid` varchar(64) DEFAULT NULL COMMENT '角色uuid',
   `menubus_uuid` varchar(64) DEFAULT NULL COMMENT '业务菜单uuid',
-  `remarks` text COMMENT '备注'
+  `remarks` text COMMENT '备注',
+  PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统_角色和业务菜单中间表';
 
 /*Data for the table `t_sys_role_menubus` */
@@ -201,15 +203,16 @@ CREATE TABLE `t_sys_role_menubus` (
 DROP TABLE IF EXISTS `t_sys_role_menusys`;
 
 CREATE TABLE `t_sys_role_menusys` (
-  `uuid` varchar(64) DEFAULT NULL COMMENT '编码',
+  `uuid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '编码',
   `role_uuid` varchar(64) DEFAULT NULL COMMENT '角色uuid',
   `menusys_uuid` varchar(64) DEFAULT NULL COMMENT '系统菜单uuid',
-  `remarks` text COMMENT '备注'
+  `remarks` text COMMENT '备注',
+  PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统_角色和系统菜单中间表';
 
 /*Data for the table `t_sys_role_menusys` */
 
-insert  into `t_sys_role_menusys`(`uuid`,`role_uuid`,`menusys_uuid`,`remarks`) values ('f36e6886-1f12-11ea-a564-f875a40f96a2','b5aa892c-1f11-11ea-a564-f875a40f96a2','0c0fced6-1f12-11ea-a564-f875a40f96a2',NULL),('083137d8-1f13-11ea-a564-f875a40f96a2','b5aa892c-1f11-11ea-a564-f875a40f96a2','ac4784b7-1f12-11ea-a564-f875a40f96a2',NULL),('10ea09d5-1f13-11ea-a564-f875a40f96a2','b5aa892c-1f11-11ea-a564-f875a40f96a2','d385da86-1f12-11ea-a564-f875a40f96a2',NULL);
+insert  into `t_sys_role_menusys`(`uuid`,`role_uuid`,`menusys_uuid`,`remarks`) values ('083137d8-1f13-11ea-a564-f875a40f96a2','b5aa892c-1f11-11ea-a564-f875a40f96a2','ac4784b7-1f12-11ea-a564-f875a40f96a2',NULL),('10ea09d5-1f13-11ea-a564-f875a40f96a2','b5aa892c-1f11-11ea-a564-f875a40f96a2','d385da86-1f12-11ea-a564-f875a40f96a2',NULL),('f36e6886-1f12-11ea-a564-f875a40f96a2','b5aa892c-1f11-11ea-a564-f875a40f96a2','0c0fced6-1f12-11ea-a564-f875a40f96a2',NULL);
 
 /*Table structure for table `t_sys_user` */
 

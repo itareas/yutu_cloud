@@ -2,9 +2,6 @@ package com.yutu.service;
 
 import com.yutu.entity.table.TLogLanding;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * @ClassName: ILogService
  * @Author: zhaobc
