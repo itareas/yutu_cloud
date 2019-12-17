@@ -72,29 +72,18 @@ public class SystemPropertiesConfig {
 
     /**
      * @Author: zhaobc
-     * @Date: 2019/4/17 16:15
-     * @Description: redis服务器的IP地址
-     **/
-    public static String System_Redis_Host;
-    /**
-     * @Author: zhaobc
-     * @Date: 2019/4/17 16:15
-     * @Description: redis的默认端口
-     **/
-    public static String System_Redis_Port;
-    /**
-     * @Author: zhaobc
-     * @Date: 2019/4/17 16:15
-     * @Description: redis密码
-     **/
-    public static String System_Redis_PassWord;
-
-    /**
-     * @Author: zhaobc
      * @Date: 2019/6/1 11:51
      * @Description: 系统内部所有注册的请求地址
      **/
     public static List<String> System_Register_Request;
+
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-17 16:03
+    * @Description: token过期时间
+    **/
+    public static String System_Token_TimeOut;
 
 
     @Value("${System.Interceptor.StartUp}")
@@ -137,20 +126,8 @@ public class SystemPropertiesConfig {
         System_Login_Page = system_Login_Page;
     }
 
-    @Value("${System.Redis.Host}")
-    public void setSystem_Redis_Host(String system_Redis_Host) {
-        System_Redis_Host = system_Redis_Host;
+    @Value("${System.Token.TimeOut}")
+    public void setSystem_Token_TimeOut(String system_Token_TimeOut) {
+        System_Token_TimeOut = system_Token_TimeOut;
     }
-
-    @Value("${System.Redis.Port}")
-    public void setSystem_Redis_Port(String system_Redis_Port) {
-        System_Redis_Port = system_Redis_Port;
-    }
-
-    @Value("${System.Redis.PassWord}")
-    public void setSystem_Redis_PassWord(String system_Redis_PassWord) {
-        System_Redis_PassWord = system_Redis_PassWord;
-    }
-
-
 }

@@ -1,6 +1,8 @@
 package com.yutu.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TLogLanding;
@@ -9,6 +11,7 @@ import com.yutu.mapper.mysql.TLogLandingMapper;
 import com.yutu.mapper.mysql.TMenuSystemMapper;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.ILoginService;
+import com.yutu.util.RedisUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,9 @@ public class LoginServiceImpl implements ILoginService {
     private TLogLandingMapper logLandingMapper;
     @Resource
     private TMenuSystemMapper tMenuSystemMapper;
+    @Resource
+    private RedisUtils redisUtils;
+
 
     @Override
     public MsgPack getLoginVerification(HttpServletRequest request, String userName, String userPwd) {
@@ -75,7 +81,10 @@ public class LoginServiceImpl implements ILoginService {
             sessionUser.setMenu(JSON.toJSONString(listMenu));
             //判断session 存储sesion对象
             if (session.isNew()) {
-                session.setAttribute(session.getId(), sessionUser);
+//              //存储到session中
+//              session.setAttribute(session.getId(), sessionUser);
+                //存储到redis
+                redisUtils.set(session.getId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
             }
 
             //记录登录信息并返回

@@ -2,6 +2,7 @@ package com.yutu.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -13,12 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.util.RedisUtils;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 
 import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.SessionUser;
 import com.yutu.util.BlacklistUitls;
+import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: MyFilter
@@ -26,7 +29,11 @@ import com.yutu.util.BlacklistUitls;
  * @Date: 2019/4/18
  * @Description:
  **/
+@Component
 public class MyFilter implements Filter {
+    @Resource
+    private RedisUtils redisUtils;
+
     Logger log = Logger.getLogger(MyFilter.class);
 
     @Override
@@ -53,15 +60,21 @@ public class MyFilter implements Filter {
             String url = request.getServletPath();
             //获得session用户信息
             HttpSession session = request.getSession(false);
-            SessionUser user = new SessionUser();
+            SessionUser sessionUser = new SessionUser();
             if (session != null) {
                 if (session.getId() != null) {
-                    user = (SessionUser) session.getAttribute(session.getId());
+                    //Session版获取数据
+                    //sessionUser = (SessionUser) session.getAttribute(session.getId());
+                    //Redis版获取数据
+                    sessionUser = (SessionUser) redisUtils.get(session.getId());
                 }
             }
             //判断session是否为null  sesson中存储客户端标识字段，需要进行验证是否是登陆着
-            if (session != null && user != null && user.getUserSafety().equals(security)) {
-                request.getSession().setAttribute(session.getId(), user);
+            if (session != null && sessionUser != null && sessionUser.getUserSafety().equals(security)) {
+                //为session从新赋值
+                //request.getSession().setAttribute(session.getId(), user);
+                //重新设置token过期时间
+                redisUtils.expire(session.getId(), Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
                 if (url.equals("/")) {
                     //重定向到首页
                     response.sendRedirect(SystemPropertiesConfig.System_Home_Page);
