@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.mysql.TSysOrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TSysOrganization">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="org_parent" jdbcType="VARCHAR" property="orgParent" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="org_phone" jdbcType="VARCHAR" property="orgPhone" />
+    <result column="org_address" jdbcType="VARCHAR" property="orgAddress" />
+    <result column="org_Manager" jdbcType="VARCHAR" property="orgManager" />
+    <result column="org_status" jdbcType="INTEGER" property="orgStatus" />
+    <result column="order_by" jdbcType="INTEGER" property="orderBy" />
+    <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, org_parent, org_code, org_name, org_phone, org_address, org_Manager, org_status, 
+    order_by, delete_status, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_organization
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_sys_organization
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yutu.entity.table.TSysOrganization">
+    insert into t_sys_organization (uuid, org_parent, org_code, 
+      org_name, org_phone, org_address, 
+      org_Manager, org_status, order_by, 
+      delete_status, remarks)
+    values (#{uuid,jdbcType=VARCHAR}, #{orgParent,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR}, #{orgPhone,jdbcType=VARCHAR}, #{orgAddress,jdbcType=VARCHAR}, 
+      #{orgManager,jdbcType=VARCHAR}, #{orgStatus,jdbcType=INTEGER}, #{orderBy,jdbcType=INTEGER}, 
+      #{deleteStatus,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TSysOrganization">
+    insert into t_sys_organization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="orgParent != null">
+        org_parent,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="orgName != null">
+        org_name,
+      </if>
+      <if test="orgPhone != null">
+        org_phone,
+      </if>
+      <if test="orgAddress != null">
+        org_address,
+      </if>
+      <if test="orgManager != null">
+        org_Manager,
+      </if>
+      <if test="orgStatus != null">
+        org_status,
+      </if>
+      <if test="orderBy != null">
+        order_by,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgParent != null">
+        #{orgParent,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPhone != null">
+        #{orgPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null">
+        #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orgManager != null">
+        #{orgManager,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStatus != null">
+        #{orgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderBy != null">
+        #{orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TSysOrganization">
+    update t_sys_organization
+    <set>
+      <if test="orgParent != null">
+        org_parent = #{orgParent,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPhone != null">
+        org_phone = #{orgPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null">
+        org_address = #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orgManager != null">
+        org_Manager = #{orgManager,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStatus != null">
+        org_status = #{orgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderBy != null">
+        order_by = #{orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TSysOrganization">
+    update t_sys_organization
+    set org_parent = #{orgParent,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      org_phone = #{orgPhone,jdbcType=VARCHAR},
+      org_address = #{orgAddress,jdbcType=VARCHAR},
+      org_Manager = #{orgManager,jdbcType=VARCHAR},
+      org_status = #{orgStatus,jdbcType=INTEGER},
+      order_by = #{orderBy,jdbcType=INTEGER},
+      delete_status = #{deleteStatus,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
