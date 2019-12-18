@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.SessionUser;
 import com.yutu.util.BlacklistUitls;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Component;
  * @Description:
  **/
 @Component
+@Order(2)
 public class MyFilter implements Filter {
     @Resource
     private RedisUtils redisUtils;
@@ -174,7 +176,7 @@ public class MyFilter implements Filter {
                 if (sessionUser != null) {
                     isUserData = true;
                     sessionId = token;
-                    session.setAttribute(SystemPropertiesConfig.System_Auth_Token, token);
+                    request.getSession().setAttribute(SystemPropertiesConfig.System_Auth_Token, token);
                 }
             } else {
                 if(session!=null) {
@@ -185,7 +187,6 @@ public class MyFilter implements Filter {
                     if (sessionUser != null) {
                         isUserData = true;
                         sessionId = token;
-                        session.setAttribute(SystemPropertiesConfig.System_Auth_Token, token);
                     }
                 }
             }

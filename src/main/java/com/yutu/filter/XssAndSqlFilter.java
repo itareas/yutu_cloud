@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.ConfigConstants;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +24,8 @@ import java.io.PrintWriter;
  * @Date: 2019/6/15 20:01
  * @Description:Xss和Sql注入漏洞攻击防御
  **/
+@Component
+@Order(1)
 public class XssAndSqlFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
