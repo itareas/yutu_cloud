@@ -64,7 +64,6 @@ public class LoginServiceImpl implements ILoginService {
         landing.setLoginIp(ip);
         landing.setLoginType("用户登陆");
         HttpSession session = request.getSession();
-
         //判断登录是否成功
         if (userInfo != null) {
             //session存储用户信息操作
@@ -81,10 +80,21 @@ public class LoginServiceImpl implements ILoginService {
             sessionUser.setMenu(JSON.toJSONString(listMenu));
             //判断session 存储sesion对象
             if (session.isNew()) {
-//              //存储到session中
-//              session.setAttribute(session.getId(), sessionUser);
-                //存储到redis
-                redisUtils.set(session.getId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
+                //判断用户登陆存储方式
+                switch (SystemPropertiesConfig.System_LoginStorage_Type) {
+                    case "session":
+                        //存储到session中
+                        session.setAttribute(session.getId(), sessionUser);
+                        break;
+                    case "redis":
+                        //存储到redis
+                        redisUtils.set(session.getId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
+                        break;
+                    default:
+                        //存储到session中
+                        session.setAttribute(session.getId(), sessionUser);
+                        break;
+                }
             }
 
             //记录登录信息并返回

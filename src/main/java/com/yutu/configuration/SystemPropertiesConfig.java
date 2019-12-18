@@ -14,6 +14,25 @@ import java.util.List;
 public class SystemPropertiesConfig {
     /**
      * @Author: zhaobc
+     * @Date: 2019-12-18 17:33
+     * @Description:系统登陆存储方式
+     **/
+    public static String System_LoginStorage_Type;
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-18 17:33
+     * @Description:系统用户类型
+     **/
+    public static String System_Login_Type;
+
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-18 17:33
+     * @Description:系统授权令牌名称
+     **/
+    public static String System_Auth_Token;
+    /**
+     * @Author: zhaobc
      * @Date: 2019/4/17 16:15
      * @Description: 是否启用拦截器
      **/
@@ -79,12 +98,26 @@ public class SystemPropertiesConfig {
 
 
     /**
-    * @Author: zhaobc
-    * @Date: 2019-12-17 16:03
-    * @Description: token过期时间
-    **/
+     * @Author: zhaobc
+     * @Date: 2019-12-17 16:03
+     * @Description: token过期时间
+     **/
     public static String System_Token_TimeOut;
 
+    @Value("${System.LoginStorage.Type}")
+    public void setSystem_LoginStorage_Type(String system_LoginStorage_Type) {
+        System_LoginStorage_Type = system_LoginStorage_Type;
+    }
+
+    @Value("${System.Login.Type}")
+    public void setSystem_Login_Type(String system_Login_Type) {
+        System_Login_Type = system_Login_Type;
+    }
+
+    @Value("${System.Auth.Token}")
+    public void setSystem_Auth_Token(String system_Auth_Token) {
+        System_Auth_Token = system_Auth_Token;
+    }
 
     @Value("${System.Interceptor.StartUp}")
     public void setSystem_Interceptor_StartUp(String system_Interceptor_StartUp) {

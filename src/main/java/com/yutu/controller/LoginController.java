@@ -1,5 +1,6 @@
 package com.yutu.controller;
 
+import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.service.ILoginService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @ClassName:LoginController
@@ -31,5 +34,11 @@ public class LoginController {
         String userPwd = request.getParameter("userPwd");
         MsgPack msgPak = loginService.getLoginVerification(request, userName, userPwd);
         return msgPak;
+    }
+
+
+    @RequestMapping(value = "loginSSO")
+    public void loginSSO(HttpServletResponse response) throws IOException {
+        response.sendRedirect("../index");
     }
 }
