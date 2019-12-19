@@ -10,5 +10,10 @@ import java.util.List;
  **/
 public class ConfigConstants {
 
-
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-19 16:10
+     * @Description: 登录子系统编码
+     **/
+    public static String Auth_AppKey;
 }

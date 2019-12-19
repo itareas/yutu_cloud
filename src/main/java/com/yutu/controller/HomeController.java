@@ -24,17 +24,6 @@ public class HomeController {
     @Resource
     private IHomeService homeService;
 
-    /**
-     * @Author: zhaobc
-     * @Date: 2019/6/26 17:37
-     * @Description: 获得所有数据源数据
-     **/
-    @RequestMapping(value = "getDataSource")
-    public MsgPack getDataSource() {
-        MsgPack msgPask = new MsgPack();
-        msgPask = homeService.getDataSource();
-        return msgPask;
-    }
 
     /**
     * @Author: zhaobc

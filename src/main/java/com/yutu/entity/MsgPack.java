@@ -34,6 +34,14 @@ public class MsgPack<T> {
     }
 
     public void setStatus(int status) {
+        switch (status) {
+            case 0:
+                this.msg = "failure";
+                break;
+            case 1:
+                this.msg = "success";
+                break;
+        }
         this.status = status;
     }
 

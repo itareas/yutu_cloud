@@ -5,13 +5,18 @@ import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
+import com.yutu.entity.TokenInfo;
+import com.yutu.entity.table.TCodConfig;
 import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TMenuSystem;
+import com.yutu.mapper.mysql.TCodConfigMapper;
 import com.yutu.mapper.mysql.TLogLandingMapper;
 import com.yutu.mapper.mysql.TMenuSystemMapper;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.ILoginService;
 import com.yutu.util.RedisUtils;
+import com.yutu.util.SessionUserUtils;
+import com.yutu.util.TokenManager;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName:LoginServiceImpl
@@ -38,15 +44,19 @@ public class LoginServiceImpl implements ILoginService {
     @Resource
     private TMenuSystemMapper tMenuSystemMapper;
     @Resource
+    private TCodConfigMapper tCodConfigMapper;
+    @Resource
     private RedisUtils redisUtils;
+    @Resource
+    private SessionUserUtils sessionUserUtils;
 
 
     @Override
-    public MsgPack getLoginVerification(HttpServletRequest request, String userName, String userPwd) {
+    public MsgPack getLoginVerification(HttpServletRequest request, String userAccount, String userPwd) {
         MsgPack msgPack = new MsgPack();
         //给密码md5加密
         userPwd = DigestUtils.md5Hex(userPwd + "yutu&zhaobc@2019");
-        Map<String,String> userInfo = sysUserMapper.getLoginVerification(userName, userPwd);
+        Map<String,String> userInfo = sysUserMapper.getLoginVerification(userAccount, userPwd);
 
         //获得客户端身份信息便于验证
         String address = request.getServletPath();
@@ -58,7 +68,7 @@ public class LoginServiceImpl implements ILoginService {
         TLogLanding landing = new TLogLanding();
         landing.setUuid(UUID.randomUUID().toString());
         landing.setLoginAddress(address);
-        landing.setLoginAccount(userName);
+        landing.setLoginAccount(userAccount);
         landing.setLoginDate(new Date());
         landing.setLoginIp(ip);
         landing.setLoginType("门户登陆");
@@ -114,6 +124,45 @@ public class LoginServiceImpl implements ILoginService {
         int landingCount = logLandingMapper.insert(landing);
         System.out.print("=============================>门户登陆日志插入" + landingCount + "条-------------------------------\r\n");
 
+        return msgPack;
+    }
+
+    @Override
+    public MsgPack getAuthPwdLogin(String userAccount, String userPwd) {
+        MsgPack msgPack=new MsgPack();
+        //验证用户密码
+        Map<String,String> userInfo = sysUserMapper.getLoginVerification(userAccount, userPwd);
+        if(userInfo!=null&&userInfo.size()>0){
+            msgPack.setStatus(1);
+            msgPack.setData(userInfo);
+        }else {
+            msgPack.setData(0);
+        }
+        return msgPack;
+    }
+
+    @Override
+    public MsgPack getAuthSSOLogin(String appkey,String token) {
+       MsgPack msgPack=new MsgPack();
+        //验证appkey
+       String appkeyId= ConfigConstants.Auth_AppKey;
+       List<TCodConfig> appList= tCodConfigMapper.getConfigListById(appkeyId);
+       List<TCodConfig> appResult = appList.stream().filter(a -> a.getConfigCode().equals(appkey)).collect(Collectors.toList());
+
+       if(appResult!=null&&appResult.size()>0){
+           //appkey验证不通过
+           msgPack.setStatus(0);
+           return msgPack;
+       }
+        //验证token是否过期
+        if (!TokenManager.verificationToken(token)) {
+            msgPack.setStatus(0);
+            return msgPack;
+        }
+        //获得用户信息
+        TokenInfo tokenInfo= TokenManager.getTokenInfoById(token);
+        msgPack.setData(1);
+        msgPack.setData(tokenInfo);
         return msgPack;
     }
 }

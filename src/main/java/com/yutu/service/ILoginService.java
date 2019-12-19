@@ -19,6 +19,19 @@ public interface ILoginService {
      * @Date:2019/4/16 15:20
      * @Description:查询用户名信息
      **/
-    MsgPack getLoginVerification(HttpServletRequest request, String userName, String userPwd);
+    MsgPack getLoginVerification(HttpServletRequest request, String userAccount, String userPwd);
 
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-19 15:41
+    * @Description: 对外密码登录
+    **/
+    MsgPack getAuthPwdLogin(String userAccount,String userPwd);
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2019-12-19 15:46
+    * @Description: 对外单点登录
+    **/
+    MsgPack getAuthSSOLogin(String appkey,String token);
 }

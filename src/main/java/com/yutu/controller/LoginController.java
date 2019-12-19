@@ -29,8 +29,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "login")
 public class LoginController {
-    Logger log = Logger.getLogger(LoginController.class);
-
     @Resource
     private ILoginService loginService;
     @Resource
@@ -46,9 +44,9 @@ public class LoginController {
      **/
     @RequestMapping(value = "getLoginVerification")
     public MsgPack getLoginVerification(HttpServletRequest request) {
-        String userName = request.getParameter("userName");
+        String userAccount = request.getParameter("userAccount");
         String userPwd = request.getParameter("userPwd");
-        MsgPack msgPak = loginService.getLoginVerification(request, userName, userPwd);
+        MsgPack msgPak = loginService.getLoginVerification(request, userAccount, userPwd);
         return msgPak;
     }
 
@@ -89,7 +87,7 @@ public class LoginController {
         } finally {
             landing.setLoginResult(1);
             //插入日志
-            logService.insetLog(landing, "门户注销");
+            logService.insertLandingLog(landing);
             //刷新页面
             response.sendRedirect("../login");
         }

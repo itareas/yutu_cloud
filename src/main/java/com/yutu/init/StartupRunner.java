@@ -1,5 +1,6 @@
 package com.yutu.init;
 
+import com.yutu.entity.ConfigConstants;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class StartupRunner implements CommandLineRunner {
             // 读取config配置文件，并赋值到ConfigConstants常量类静态属性中  可以进行加密处理
             Properties properties = PropertiesLoaderUtils.loadAllProperties("config/web.properties");
             //获取业务配置文件区域
-            //ConfigConstants.Home_Page=properties.getProperty("Home_Page");
+            ConfigConstants.Auth_AppKey=properties.getProperty("Auth_AppKey");
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -36,7 +36,7 @@ public class MyFilter implements Filter {
     @Resource
     private RedisUtils redisUtils;
 
-    Logger log = Logger.getLogger(MyFilter.class);
+    Logger logger = Logger.getLogger(MyFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -75,6 +75,7 @@ public class MyFilter implements Filter {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            logger.error(e);
         }
     }
 
