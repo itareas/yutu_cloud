@@ -26,7 +26,8 @@ public class LogServiceImpl implements ILogService {
      **/
     @Override
     @Transactional(transactionManager = "mySqlTransactionManager")
-    public int insetLoginLog(TLogLanding landing) {
-        return 0;
+    public void insetLog(TLogLanding landing,String msg) {
+        int landingCount= logLandingMapper.insert(landing);
+        System.out.print("=============================>"+msg+"日志插入" + landingCount + "条-------------------------------\r\n");
     }
 }

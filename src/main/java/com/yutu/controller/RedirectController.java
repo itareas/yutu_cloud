@@ -3,6 +3,9 @@ package com.yutu.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * @ClassName:RedirectController
  * @Author:zhaobc
@@ -20,6 +23,17 @@ public class RedirectController {
     @RequestMapping("/")
     public String login() {
         return "login";
+    }
+
+
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-19 9:05
+     * @Description: 单点登录地址
+     **/
+    @RequestMapping(value = "/loginSSO")
+    public void loginSSO(HttpServletResponse response) throws IOException {
+        response.sendRedirect("../index");
     }
 
     /**

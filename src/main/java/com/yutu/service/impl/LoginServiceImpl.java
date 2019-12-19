@@ -57,12 +57,12 @@ public class LoginServiceImpl implements ILoginService {
         //日志实体类 并赋值
         TLogLanding landing = new TLogLanding();
         landing.setUuid(UUID.randomUUID().toString());
-        landing.setLoginResult(msgPack.getStatus());
         landing.setLoginAddress(address);
         landing.setLoginAccount(userName);
         landing.setLoginDate(new Date());
         landing.setLoginIp(ip);
-        landing.setLoginType("用户登陆");
+        landing.setLoginType("门户登陆");
+        landing.setLoginAppname("系统门户网站");
         HttpSession session = request.getSession();
         //判断登录是否成功
         if (userInfo != null) {
@@ -103,6 +103,7 @@ public class LoginServiceImpl implements ILoginService {
             //记录日志
             landing.setLoginUserid(userInfo.get("uuid"));
             landing.setLoginSessionid(session.getId());
+            landing.setLoginResult(msgPack.getStatus());
         } else {
             //记录登录信息并返回
             msgPack.setStatus(0);
@@ -111,7 +112,7 @@ public class LoginServiceImpl implements ILoginService {
 
         //数据库存储登录日志
         int landingCount = logLandingMapper.insert(landing);
-        System.out.print("=============================>登陆日志插入" + landingCount + "条-------------------------------\r\n");
+        System.out.print("=============================>门户登陆日志插入" + landingCount + "条-------------------------------\r\n");
 
         return msgPack;
     }

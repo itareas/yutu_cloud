@@ -14,6 +14,6 @@ public interface ILogService {
      * @Date: 2019/4/21 17:32
      * @Description: 插入登陆日志
      **/
-    int insetLoginLog(TLogLanding landing);
+    void insetLog(TLogLanding landing,String msg);
 
 }

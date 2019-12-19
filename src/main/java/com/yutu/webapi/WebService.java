@@ -2,12 +2,23 @@ package com.yutu.webapi;
 
 import com.alibaba.fastjson.JSON;
 import com.yutu.entity.MsgPack;
+import com.yutu.entity.SessionUser;
+import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TSysUser;
+import com.yutu.service.ILogService;
 import com.yutu.util.AESUtils;
+import com.yutu.util.RedisUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @ClassName: WebController
@@ -18,6 +29,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/web")
 public class WebService {
+    @Resource
+    private RedisUtils redisUtils;
+    @Resource
+    private ILogService logService;
 
     @PostMapping("/getTest")
     @ResponseBody
@@ -42,5 +57,31 @@ public class WebService {
         MsgPack decryptMsgPack = aes.decrypt(aesMsgPack, Map.class);
         System.out.print("=========>" + JSON.toJSON(decryptMsgPack) + "--------------");
         return aesMsgPack;
+    }
+
+    /**
+     * @Author: zhaobc
+     * @Date: 2019-12-19 9:46
+     * @Description: 子系统登陆/注销日志
+     **/
+    @RequestMapping(value = "/manageLog")
+    public void manageLog(HttpServletRequest request, String token,String logType,String appName) {
+        //获得参数插入日志
+        TLogLanding landing = new TLogLanding();
+        if (token != null) {
+            SessionUser sessionUser = (SessionUser) redisUtils.get(token);
+            landing.setUuid(UUID.randomUUID().toString());
+            landing.setLoginUserid(sessionUser.getUuid());
+            landing.setLoginAccount(sessionUser.getUserAccount());
+            landing.setLoginAddress(request.getServletPath());
+            landing.setLoginSessionid(token);
+            landing.setLoginDate(new Date());
+            landing.setLoginType(logType);
+            landing.setLoginAppname(appName);
+            landing.setLoginIp(request.getRemoteAddr());
+        }
+        landing.setLoginResult(1);
+        //插入日志
+        logService.insetLog(landing, appName);
     }
 }
