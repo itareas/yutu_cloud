@@ -15,7 +15,7 @@ import com.yutu.mapper.mysql.TMenuSystemMapper;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.ILoginService;
 import com.yutu.util.RedisUtils;
-import com.yutu.util.SessionUserUtils;
+import com.yutu.util.SessionUserManager;
 import com.yutu.util.TokenManager;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class LoginServiceImpl implements ILoginService {
     @Resource
     private RedisUtils redisUtils;
     @Resource
-    private SessionUserUtils sessionUserUtils;
+    private SessionUserManager sessionUserUtils;
 
 
     @Override
@@ -109,7 +109,6 @@ public class LoginServiceImpl implements ILoginService {
 
             //记录登录信息并返回
             msgPack.setStatus(1);
-            msgPack.setMsg("登录成功！");
             //记录日志
             landing.setLoginUserid(userInfo.get("uuid"));
             landing.setLoginSessionid(session.getId());
@@ -117,7 +116,6 @@ public class LoginServiceImpl implements ILoginService {
         } else {
             //记录登录信息并返回
             msgPack.setStatus(0);
-            msgPack.setMsg("登录失败！");
         }
 
         //数据库存储登录日志

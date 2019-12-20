@@ -140,7 +140,7 @@
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
 
-  <select id="getConfigListById" parameterMap="BaseResultMap">
+  <select id="getConfigListById" resultMap="BaseResultMap">
       SELECT * FROM t_cod_config C WHERE C.`config_parent`=#{key}
   </select>
 

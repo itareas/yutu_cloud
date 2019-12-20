@@ -33,7 +33,7 @@ public class RedirectController {
      **/
     @RequestMapping(value = "/loginSSO")
     public void loginSSO(HttpServletResponse response) throws IOException {
-        response.sendRedirect("../index");
+        response.sendRedirect("/index");
     }
 
     /**

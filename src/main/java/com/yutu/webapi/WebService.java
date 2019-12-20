@@ -5,16 +5,13 @@ import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TSysUser;
-import com.yutu.service.ILogService;
+import com.yutu.service.ILogManagerService;
 import com.yutu.util.AESUtils;
 import com.yutu.util.RedisUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +29,7 @@ public class WebService {
     @Resource
     private RedisUtils redisUtils;
     @Resource
-    private ILogService logService;
+    private ILogManagerService logManageService;
 
     @PostMapping("/getTest")
     @ResponseBody
@@ -82,6 +79,6 @@ public class WebService {
         }
         landing.setLoginResult(1);
         //插入日志
-        logService.insetLog(landing, appName);
+        logManageService.insertLandingLog(landing);
     }
 }

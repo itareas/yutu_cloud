@@ -5,10 +5,9 @@ import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TLogOperation;
 import com.yutu.mapper.mysql.TLogLandingMapper;
 import com.yutu.mapper.mysql.TLogOperationMapper;
-import com.yutu.service.ILogService;
+import com.yutu.service.ILogManagerService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -19,13 +18,13 @@ import javax.annotation.Resource;
  * @Description: 日志操作类
  **/
 @Service
-public class LogServiceImpl implements ILogService {
+public class LogManagerServiceImpl implements ILogManagerService {
     @Resource
     private TLogLandingMapper logLandingMapper;
     @Resource
     private TLogOperationMapper logOperationMapper;
 
-    Logger logger = Logger.getLogger(LogServiceImpl.class);
+    Logger logger = Logger.getLogger(LogManagerServiceImpl.class);
     /**
      * @Author: zhaobc
      * @Date: 2019/5/20 11:20

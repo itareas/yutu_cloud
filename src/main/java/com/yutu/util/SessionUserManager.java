@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @Description:session获取管理类
  */
 @Component
-public class SessionUserUtils {
+public class SessionUserManager {
     @Resource
     private RedisUtils redisUtils;
 

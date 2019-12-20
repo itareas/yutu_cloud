@@ -5,11 +5,15 @@ import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TMenuSystem;
 import com.yutu.service.IHomeService;
 import com.yutu.util.JsonListUtil;
+import com.yutu.util.RedisUtils;
+import com.yutu.util.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +27,8 @@ import java.util.List;
 public class HomeController {
     @Resource
     private IHomeService homeService;
-
+    @Resource
+    private SessionUserManager sessionUserManager;
 
     /**
     * @Author: zhaobc
@@ -31,16 +36,23 @@ public class HomeController {
     * @Description: 获得系统菜单列表
     **/
     @RequestMapping(value = "getSysMenuList")
-    public MsgPack getSysMenuList(HttpSession session) {
+    public MsgPack getSysMenuList(HttpServletRequest request) {
         MsgPack<List<TMenuSystem>> msgPask = new MsgPack<List<TMenuSystem>>();
-        SessionUser user =(SessionUser) session.getAttribute(session.getId());
+        SessionUser user =(SessionUser) sessionUserManager.getSessionUser(request);
         if(user!=null){
             msgPask.setStatus(1);
             String strMenu=user.getMenu();
             List<TMenuSystem> menu= JsonListUtil.jsonToList(strMenu,TMenuSystem.class);
-            msgPask.setData(menu);
+            List<TMenuSystem> menuReturn=new ArrayList<>();
+            //便利菜单添加token
+            for ( TMenuSystem tMenuSystem  : menu){
+                String menuUrl=tMenuSystem.getMenuUrl();
+                tMenuSystem.setMenuUrl(menuUrl+"?token="+request.getSession().getId());
+                menuReturn.add(tMenuSystem);
+            }
+            msgPask.setData(menuReturn);
         }else {
-            msgPask.setStatus(1);
+            msgPask.setStatus(0);
         }
         return msgPask;
     }

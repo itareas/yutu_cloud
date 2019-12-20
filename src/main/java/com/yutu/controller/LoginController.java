@@ -1,14 +1,12 @@
 package com.yutu.controller;
 
-import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TLogLanding;
-import com.yutu.service.ILogService;
+import com.yutu.service.ILogManagerService;
 import com.yutu.service.ILoginService;
 import com.yutu.util.RedisUtils;
-import com.yutu.util.SessionUserUtils;
-import org.apache.log4j.Logger;
+import com.yutu.util.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,11 +30,11 @@ public class LoginController {
     @Resource
     private ILoginService loginService;
     @Resource
-    private ILogService logService;
+    private ILogManagerService logManageService;
     @Resource
     private RedisUtils redisUtils;
     @Resource
-    private SessionUserUtils sessionUserUtils;
+    private SessionUserManager sessionUserUtils;
     /**
      * @Author: zhaobc
      * @Date: 2019/4/20 21:55
@@ -87,7 +85,7 @@ public class LoginController {
         } finally {
             landing.setLoginResult(1);
             //插入日志
-            logService.insertLandingLog(landing);
+            logManageService.insertLandingLog(landing);
             //刷新页面
             response.sendRedirect("../login");
         }

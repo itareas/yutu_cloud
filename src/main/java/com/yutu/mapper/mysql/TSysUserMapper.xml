@@ -198,7 +198,7 @@
   </update>
     <select id="getLoginVerification" resultType="map">
         SELECT U.`uuid`,U.`user_account`,U.`user_name`,U.`user_code`,U.`user_email`,
-	           U.`user_phone`,U.`user_sex`,U.`user_title`  R.`role_uuid`,O.`org_uuid`
+	           U.`user_phone`,U.`user_sex`,U.`user_title`, R.`role_uuid`,O.`org_uuid`
         FROM t_sys_user U
             JOIN t_sys_user_role R ON U.`uuid`=R.`user_uuid`
             JOIN t_sys_user_organization O ON U.`uuid`=R.`user_uuid`

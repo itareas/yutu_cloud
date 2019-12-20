@@ -5,6 +5,7 @@ import com.yutu.entity.table.TSysOrganization;
 import com.yutu.mapper.mysql.TSysOrganizationMapper;
 import com.yutu.service.IOrganizationService;
 import com.yutu.service.IUserService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
  * @Date: 2019-12-19 19:05
  * @Description:
  */
+@Service
 public class OrganizationServiceImpl implements IOrganizationService {
     @Resource
     private TSysOrganizationMapper tSysOrganizationMapper;

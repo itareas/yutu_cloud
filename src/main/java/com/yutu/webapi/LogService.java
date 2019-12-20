@@ -3,7 +3,7 @@ package com.yutu.webapi;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TLogOperation;
-import com.yutu.service.ILogService;
+import com.yutu.service.ILogManagerService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @RequestMapping("/log")
 public class LogService {
     @Resource
-    private ILogService logService;
+    private ILogManagerService logManageService;
 
     /**
      * @Author: zhaobc
@@ -31,7 +31,7 @@ public class LogService {
     public MsgPack landing(TLogLanding landing) {
         MsgPack msgPack =new MsgPack();
         //插入日志
-        msgPack=logService.insertLandingLog(landing);
+        msgPack=logManageService.insertLandingLog(landing);
        return msgPack;
     }
 
@@ -45,7 +45,7 @@ public class LogService {
     public MsgPack operation(TLogOperation operation) {
         MsgPack msgPack =new MsgPack();
         //插入日志
-        msgPack=logService.insertOperationLog(operation);
+        msgPack=logManageService.insertOperationLog(operation);
 
         return msgPack;
     }

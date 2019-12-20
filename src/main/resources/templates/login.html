@@ -44,7 +44,7 @@
             url: '../login/getLoginVerification',
             type: 'POST',
             async: false,
-            data: {userName: yhm, userPwd: pass},
+            data: {userAccount: yhm, userPwd: pass},
             dataType: "JSON",
             success: function (data) {
                 if (data.status == 1) {

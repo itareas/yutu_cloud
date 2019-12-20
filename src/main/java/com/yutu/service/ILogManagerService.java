@@ -10,7 +10,7 @@ import com.yutu.entity.table.TLogOperation;
  * @Date: 2019/4/21 17:30
  * @Description: 日志操作类
  **/
-public interface ILogService {
+public interface ILogManagerService {
     /**
      * @Author: zhaobc
      * @Date: 2019/4/21 17:32
