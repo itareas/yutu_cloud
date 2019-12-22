@@ -27,16 +27,6 @@ public class RedirectController {
 
 
     /**
-     * @Author: zhaobc
-     * @Date: 2019-12-19 9:05
-     * @Description: 单点登录地址
-     **/
-    @RequestMapping(value = "/loginSSO")
-    public void loginSSO(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/index");
-    }
-
-    /**
      * @Author:zhaobc
      * @Date:2019/4/16 11:50
      * @Description:系统首页

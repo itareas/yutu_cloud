@@ -19,6 +19,7 @@ public class SessionUser implements Serializable {
     private String roleId;
     private String orgId;
     private String menu;
+    private String token;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -86,5 +87,13 @@ public class SessionUser implements Serializable {
 
     public void setMenu(String menu) {
         this.menu = menu;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

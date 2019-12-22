@@ -38,16 +38,16 @@ public class HomeController {
     @RequestMapping(value = "getSysMenuList")
     public MsgPack getSysMenuList(HttpServletRequest request) {
         MsgPack<List<TMenuSystem>> msgPask = new MsgPack<List<TMenuSystem>>();
-        SessionUser user =(SessionUser) sessionUserManager.getSessionUser();
-        if(user!=null){
+        SessionUser sessionUser =(SessionUser) sessionUserManager.getSessionUser();
+        if(sessionUser!=null){
             msgPask.setStatus(1);
-            String strMenu=user.getMenu();
+            String strMenu=sessionUser.getMenu();
             List<TMenuSystem> menu= JsonListUtil.jsonToList(strMenu,TMenuSystem.class);
             List<TMenuSystem> menuReturn=new ArrayList<>();
             //便利菜单添加token
             for ( TMenuSystem tMenuSystem  : menu){
                 String menuUrl=tMenuSystem.getMenuUrl();
-                tMenuSystem.setMenuUrl(menuUrl+"?token="+request.getSession().getId());
+                tMenuSystem.setMenuUrl(menuUrl+"?token="+sessionUser.getToken());
                 menuReturn.add(tMenuSystem);
             }
             msgPask.setData(menuReturn);

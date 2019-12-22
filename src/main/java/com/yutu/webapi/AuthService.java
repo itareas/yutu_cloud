@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description:认证服务接口服务
  */
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthService {
     @Resource
     private ILoginService loginService;
@@ -44,9 +44,9 @@ public class AuthService {
      **/
     @RequestMapping(value = "/loginSSO")
     @ResponseBody
-    public MsgPack loginSSO(String appkey, String token) {
+    public MsgPack loginSSO(String appKey, String token) {
         MsgPack msgPack = new MsgPack();
-        msgPack = loginService.getAuthSSOLogin(appkey, token);
+        msgPack = loginService.getAuthSSOLogin(appKey, token);
         return msgPack;
     }
 

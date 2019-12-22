@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * @Description:日志接口服务
  */
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/api/log")
 public class LogService {
     @Resource
     private ILogManagerService logManageService;

@@ -33,5 +33,5 @@ public interface ILoginService {
     * @Date: 2019-12-19 15:46
     * @Description: 对外单点登录
     **/
-    MsgPack getAuthSSOLogin(String appkey,String token);
+    MsgPack getAuthSSOLogin(String appKey,String token);
 }

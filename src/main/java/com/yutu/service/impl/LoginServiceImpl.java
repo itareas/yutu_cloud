@@ -76,20 +76,10 @@ public class LoginServiceImpl implements ILoginService {
         HttpSession session = request.getSession();
         //判断登录是否成功
         if (userInfo != null) {
-            //session存储用户信息操作
-            SessionUser sessionUser = new SessionUser();
-            sessionUser.setSessionId(session.getId());
-            sessionUser.setUuid(userInfo.get("uuid"));
-            sessionUser.setUserAccount(userInfo.get("user_account"));
-            sessionUser.setUserName(userInfo.get("user_name"));
-            sessionUser.setUserSafety(security);
-            sessionUser.setRoleId(userInfo.get("role_uuid"));
-            sessionUser.setOrgId(userInfo.get("org_uuid"));
             //获得菜单列表
             List<TMenuSystem> listMenu=tMenuSystemMapper.getRoleMenuSys(userInfo.get("role_uuid"));
-            sessionUser.setMenu(JSON.toJSONString(listMenu));
-            //判断session 存储sesion对象
-            msgPack= sessionUserManager.setSessionUser(sessionUser);
+            //session存储用户信息操作
+            msgPack= sessionUserManager.setSessionUser(session.getId(),security,userInfo,listMenu);
             //记录日志
             landing.setLoginUserid(userInfo.get("uuid"));
             landing.setLoginSessionid(session.getId());
@@ -121,27 +111,24 @@ public class LoginServiceImpl implements ILoginService {
     }
 
     @Override
-    public MsgPack getAuthSSOLogin(String appkey,String token) {
+    public MsgPack getAuthSSOLogin(String appKey,String token) {
        MsgPack msgPack=new MsgPack();
+        msgPack.setStatus(0);
         //验证appkey
        String appkeyId= ConfigConstants.Auth_AppKey;
        List<TCodConfig> appList= tCodConfigMapper.getConfigListById(appkeyId);
-       List<TCodConfig> appResult = appList.stream().filter(a -> a.getConfigCode().equals(appkey)).collect(Collectors.toList());
-
-       if(appResult!=null&&appResult.size()>0){
+       List<TCodConfig> appResult = appList.stream().filter(a -> a.getConfigCode().equals(appKey)).collect(Collectors.toList());
+       if(appResult.size()<1){
            //appkey验证不通过
-           msgPack.setStatus(0);
            return msgPack;
        }
         //验证token是否过期
-        if (!TokenManager.verificationToken(token)) {
-            msgPack.setStatus(0);
-            return msgPack;
-        }
-        //获得用户信息
-        TokenInfo tokenInfo= TokenManager.getTokenInfoById(token);
-        msgPack.setData(1);
-        msgPack.setData(tokenInfo);
+        TokenInfo tokenInfo=TokenManager.getTokenInfoById(token);
+         if(tokenInfo!=null){
+             msgPack.setStatus(1);
+             msgPack.setData(tokenInfo.getApiUser());
+         }
+         //返回用户信息
         return msgPack;
     }
 }

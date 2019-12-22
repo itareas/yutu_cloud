@@ -70,20 +70,10 @@ public class MyFilter implements Filter {
             //判断是否有数据
             boolean isUserData = false;
             //判断是否为单点登录
-            if (token != null && url.contains("loginSSO")) {
-                //Redis版获取数据
-                sessionUser = (SessionUser) redisUtils.get(token);
-                //判断sessionUser是否有值
-                if (sessionUser != null) {
-                    isUserData = true;
-                    request.getSession().setAttribute(SystemPropertiesConfig.System_Auth_Token, token);
-                }
-            } else {
-                //正常登录后  验证session过期时间
-                MsgPack msgPack = sessionUserManager.verificationSessionUser();
-                isUserData = msgPack.getStatus() == 1 ? true : false;
-                sessionUser = (SessionUser) msgPack.getData();
-            }
+            MsgPack msgPack = sessionUserManager.verificationSessionUser();
+            isUserData = msgPack.getStatus() == 1 ? true : false;
+            sessionUser = (SessionUser) msgPack.getData();
+
             //判断session是否为null  sesson中存储客户端标识字段，需要进行验证是否是登陆着
             if (isUserData && sessionUser.getUserSafety().equals(security)) {
                 if (url.equals("/")) {

@@ -15,10 +15,10 @@ import javax.annotation.Resource;
 /**
  * @Author: zhaobc
  * @Date: 2019-12-19 13:56
- * @Description:数据同步接口服务
+ * @Description:数据同步接口服务 调用子系统
  */
 @RestController
-@RequestMapping("/sync")
+@RequestMapping("/api/sync")
 public class SyncService {
     @Resource
     private IUserService iUserService;

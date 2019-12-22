@@ -1,20 +1,27 @@
 package com.yutu.util;
 
+import com.alibaba.fastjson.JSON;
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
+import com.yutu.entity.TokenInfo;
+import com.yutu.entity.api.ApiUser;
+import com.yutu.entity.table.TMenuSystem;
 import com.yutu.filter.MyFilter;
 import org.apache.log4j.Logger;
+import org.apache.log4j.lf5.viewer.configure.ConfigurationManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Author: zhaobc
  * @Date: 2019-12-19 11:13
- * @Description:session获取管理类
+ * @Description:session获取管理类 自己用
  */
 @Component
 public class SessionUserManager {
@@ -32,12 +39,12 @@ public class SessionUserManager {
      * @Description: 验证session是否有效
      **/
     public MsgPack verificationSessionUser() {
-        MsgPack  msgPack =new MsgPack();
+        MsgPack msgPack = new MsgPack();
         msgPack.setStatus(0);
         SessionUser sessionUser = getSessionUser();
         if (sessionUser != null) {
             //增加延迟时间
-             msgPack = expireSessionUser(sessionUser);
+            msgPack = expireSessionUser(sessionUser);
         }
         return msgPack;
     }
@@ -61,16 +68,9 @@ public class SessionUserManager {
                     }
                     break;
                 case "redis":
-                    //判断是单点登录还是普通登录
-                    if (SystemPropertiesConfig.System_Login_Type.equals("SSO")) {
-                        String token = request.getSession().getAttribute(SystemPropertiesConfig.System_Auth_Token).toString();
-                        SessionUser sessionUser = (SessionUser) redisUtils.get(token);
+                    if (session.getId() != null) {
+                        SessionUser sessionUser = (SessionUser) redisUtils.get(session.getId());
                         return sessionUser;
-                    } else {
-                        if (session.getId() != null) {
-                            SessionUser sessionUser = (SessionUser) redisUtils.get(session.getId());
-                            return sessionUser;
-                        }
                     }
                     break;
                 default:
@@ -90,23 +90,63 @@ public class SessionUserManager {
      * @Date: 2019/12/22 9:42
      * @Description: 存储Session信息
      **/
-    public MsgPack setSessionUser(SessionUser sessionUser) {
+    public MsgPack setSessionUser(String sessionId,String security, Map<String,String> userInfo,List<TMenuSystem> listMenu) {
         MsgPack msgPack = new MsgPack();
         msgPack.setStatus(0);
+        //设置sessionUser值
+        SessionUser sessionUser = new SessionUser();
+        sessionUser.setSessionId(sessionId);
+        sessionUser.setUuid(userInfo.get("uuid"));
+        sessionUser.setUserAccount(userInfo.get("user_account"));
+        sessionUser.setUserName(userInfo.get("user_name"));
+        sessionUser.setUserSafety(security);
+        sessionUser.setRoleId(userInfo.get("role_uuid"));
+        sessionUser.setOrgId(userInfo.get("org_uuid"));
+        sessionUser.setMenu(JSON.toJSONString(listMenu));
+
         //判断session
         HttpSession session = request.getSession(false);
         //判断是ses否为空
-        if (session != null && sessionUser != null && sessionUser.getSessionId().length() > 0) {
+        if (session != null && sessionId.length() > 0) {
             if (session.isNew()) {
                 switch (SystemPropertiesConfig.System_LoginStorage_Type) {
                     case "session":
+                        //设置对外tokenId到Session中
+                        String tokenId=UUID.randomUUID().toString();
+                        sessionUser.setToken(tokenId);
                         //存储到session中去 并设置超时时间
                         request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
                         request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemPropertiesConfig.System_Token_TimeOut));
                         msgPack.setStatus(1);
+
+                        //设置对外接口参数
+                        TokenInfo tokenInfo=new TokenInfo();
+                        tokenInfo.setToken(tokenId);
+                        // 获得过期时间
+                        String expirationDate = SystemPropertiesConfig.System_Token_TimeOut;
+                        SimpleDateFormat sdf = new SimpleDateFormat(
+                                "yyyy-MM-dd HH:mm:ss");// 设置日期格式
+                        Calendar nowTime = Calendar.getInstance();
+                        nowTime.add(Calendar.MINUTE,
+                                Integer.parseInt(expirationDate));
+                        tokenInfo.setExpirationDate(nowTime.getTime());
+                        //设置用户信息
+                        ApiUser apiUser=new ApiUser();
+                        apiUser.setUuid(userInfo.get("uuid"));
+                        apiUser.setUserAccount(userInfo.get("user_account"));
+                        apiUser.setUserEmail(userInfo.get("user_email"));
+                        apiUser.setUserCode(userInfo.get("user_code"));
+                        apiUser.setUserName(userInfo.get("user_name"));
+                        apiUser.setUserPhone(userInfo.get("user_phone"));
+                        apiUser.setUserSex(String.valueOf(userInfo.get("user_sex")));
+                        apiUser.setUserTitle(userInfo.get("user_title"));
+                        tokenInfo.setApiUser(apiUser);
+                        //设置token
+                        TokenManager.putSession(tokenInfo);
                         break;
                     case "redis":
                         //存储到redis
+                        sessionUser.setToken(sessionUser.getSessionId());
                         redisUtils.set(session.getId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
                         msgPack.setStatus(1);
                         break;

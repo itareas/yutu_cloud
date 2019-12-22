@@ -178,6 +178,8 @@
 >   1.  内部单点登录进行实测
 >   2.  首页菜单加载
 
-* 2019年12月22号  V0.5.7
->   1.  针对session/redis PWD/SSO版本过多问题，统一封装SessionUserManager，进行统一管理，并精简MyFilter代码
->   2.  对外部单点登录实现 session-->SSO的功能
+* 2019年12月22号  V0.5.7  对外单点登录token用TokenManager管理  对内等于SessionId 
+>   1.  针对session/redis 版本过多问题，统一封装SessionUserManager，进行统一管理，并精简MyFilter代码
+>   2.  删除本系统所有单点登录模式代码，会造成混乱
+>   3.  对外单点登录进行集成融合，增加tokenManager对token的管理，调整SessionUser增加token值
+ 
