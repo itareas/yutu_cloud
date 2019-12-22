@@ -177,3 +177,7 @@
 * 2019年12月20号  V0.5.6
 >   1.  内部单点登录进行实测
 >   2.  首页菜单加载
+
+* 2019年12月22号  V0.5.7
+>   1.  针对session/redis PWD/SSO版本过多问题，统一封装SessionUserManager，进行统一管理，并精简MyFilter代码
+>   2.  对外部单点登录实现 session-->SSO的功能

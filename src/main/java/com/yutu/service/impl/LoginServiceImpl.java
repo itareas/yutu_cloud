@@ -46,13 +46,13 @@ public class LoginServiceImpl implements ILoginService {
     @Resource
     private TCodConfigMapper tCodConfigMapper;
     @Resource
-    private RedisUtils redisUtils;
+    private SessionUserManager sessionUserManager;
     @Resource
-    private SessionUserManager sessionUserUtils;
+    private HttpServletRequest request;
 
 
     @Override
-    public MsgPack getLoginVerification(HttpServletRequest request, String userAccount, String userPwd) {
+    public MsgPack getLoginVerification(String userAccount, String userPwd) {
         MsgPack msgPack = new MsgPack();
         //给密码md5加密
         userPwd = DigestUtils.md5Hex(userPwd + "yutu&zhaobc@2019");
@@ -89,26 +89,7 @@ public class LoginServiceImpl implements ILoginService {
             List<TMenuSystem> listMenu=tMenuSystemMapper.getRoleMenuSys(userInfo.get("role_uuid"));
             sessionUser.setMenu(JSON.toJSONString(listMenu));
             //判断session 存储sesion对象
-            if (session.isNew()) {
-                //判断用户登陆存储方式
-                switch (SystemPropertiesConfig.System_LoginStorage_Type) {
-                    case "session":
-                        //存储到session中
-                        session.setAttribute(session.getId(), sessionUser);
-                        break;
-                    case "redis":
-                        //存储到redis
-                        redisUtils.set(session.getId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
-                        break;
-                    default:
-                        //存储到session中
-                        session.setAttribute(session.getId(), sessionUser);
-                        break;
-                }
-            }
-
-            //记录登录信息并返回
-            msgPack.setStatus(1);
+            msgPack= sessionUserManager.setSessionUser(sessionUser);
             //记录日志
             landing.setLoginUserid(userInfo.get("uuid"));
             landing.setLoginSessionid(session.getId());
@@ -120,7 +101,7 @@ public class LoginServiceImpl implements ILoginService {
 
         //数据库存储登录日志
         int landingCount = logLandingMapper.insert(landing);
-        System.out.print("=============================>门户登陆日志插入" + landingCount + "条-------------------------------\r\n");
+        System.out.print("=============================>"+msgPack.getMsg()+"门户登陆日志插入" + landingCount + "条-------------------------------\r\n");
 
         return msgPack;
     }

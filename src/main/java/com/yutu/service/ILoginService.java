@@ -19,7 +19,7 @@ public interface ILoginService {
      * @Date:2019/4/16 15:20
      * @Description:查询用户名信息
      **/
-    MsgPack getLoginVerification(HttpServletRequest request, String userAccount, String userPwd);
+    MsgPack getLoginVerification(String userAccount, String userPwd);
 
     /**
     * @Author: zhaobc

@@ -44,7 +44,7 @@ public class LoginController {
     public MsgPack getLoginVerification(HttpServletRequest request) {
         String userAccount = request.getParameter("userAccount");
         String userPwd = request.getParameter("userPwd");
-        MsgPack msgPak = loginService.getLoginVerification(request, userAccount, userPwd);
+        MsgPack msgPak = loginService.getLoginVerification(userAccount, userPwd);
         return msgPak;
     }
 
@@ -62,7 +62,7 @@ public class LoginController {
         TLogLanding landing = new TLogLanding();
         if (request.getSession(false) != null) {
             if (sessionId != null) {
-                SessionUser sessionUser = sessionUserUtils.getSessionUser(request);
+                SessionUser sessionUser = sessionUserUtils.getSessionUser();
                 landing.setUuid(UUID.randomUUID().toString());
                 landing.setLoginUserid(sessionUser.getUuid());
                 landing.setLoginAccount(sessionUser.getUserAccount());

@@ -38,7 +38,7 @@ public class HomeController {
     @RequestMapping(value = "getSysMenuList")
     public MsgPack getSysMenuList(HttpServletRequest request) {
         MsgPack<List<TMenuSystem>> msgPask = new MsgPack<List<TMenuSystem>>();
-        SessionUser user =(SessionUser) sessionUserManager.getSessionUser(request);
+        SessionUser user =(SessionUser) sessionUserManager.getSessionUser();
         if(user!=null){
             msgPask.setStatus(1);
             String strMenu=user.getMenu();
