@@ -1,10 +1,8 @@
 package com.yutu.webapi;
 
 import com.yutu.entity.MsgPack;
-import com.yutu.entity.sync.SyncOrganization;
-import com.yutu.entity.sync.SyncUser;
-import com.yutu.service.IOrganizationService;
-import com.yutu.service.IUserService;
+import com.yutu.service.IOrganizationManagerService;
+import com.yutu.service.IUserManagerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,9 +19,9 @@ import javax.annotation.Resource;
 @RequestMapping("/api/sync")
 public class SyncService {
     @Resource
-    private IUserService iUserService;
+    private IUserManagerService iUserService;
     @Resource
-    private IOrganizationService iOrganizationService;
+    private IOrganizationManagerService iOrganizationService;
 
     /**
      * @Author: zhaobc
@@ -32,20 +30,20 @@ public class SyncService {
      **/
     @PostMapping("/user")
     @ResponseBody
-    public MsgPack user(SyncUser user) {
+    public MsgPack user(int type) {
         MsgPack msgPack = new MsgPack();
-        switch (user.getType()) {
+        switch (type) {
             case 1:
-//                添加用户
-                msgPack = iUserService.insertUser(user);
+//                推送新增用户
+
                 break;
             case 2:
-//                修改用户
-                msgPack = iUserService.updateUser(user);
+//                推送修改用户
+
                 break;
             case 3:
-//                删除用户
-                msgPack = iUserService.delteUser(user.getUuid());
+//                推送删除用户
+
                 break;
         }
         return msgPack;
@@ -59,20 +57,20 @@ public class SyncService {
      **/
     @PostMapping("/organize")
     @ResponseBody
-    public MsgPack organize(SyncOrganization organization) {
+    public MsgPack organize(int type) {
         MsgPack msgPack = new MsgPack();
-        switch (organization.getType()) {
+        switch (type) {
             case 1:
-//                添加部门
-                msgPack = iOrganizationService.insertOrganization(organization);
+//                推送添加部门
+
                 break;
             case 2:
-//                修改部门
-                msgPack = iOrganizationService.updateOrganization(organization);
+//                推送修改部门
+
                 break;
             case 3:
-//                删除删除
-                msgPack = iOrganizationService.delteOrganization(organization.getUuid());
+//                推送删除删除
+
                 break;
         }
         return msgPack;

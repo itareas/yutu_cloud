@@ -35,6 +35,11 @@ public class LoginController {
     private RedisUtils redisUtils;
     @Resource
     private SessionUserManager sessionUserUtils;
+    @Resource
+    HttpServletRequest request;
+    @Resource
+    HttpServletResponse response;
+
     /**
      * @Author: zhaobc
      * @Date: 2019/4/20 21:55
@@ -55,7 +60,7 @@ public class LoginController {
      * @Description: 注销登录
      **/
     @RequestMapping(value = "logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void logout() throws IOException {
         HttpSession session = request.getSession();
         String sessionId = session.getId();
         //获得参数插入日志

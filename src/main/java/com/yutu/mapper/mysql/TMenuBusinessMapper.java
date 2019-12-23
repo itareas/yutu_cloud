@@ -6,6 +6,9 @@
 package com.yutu.mapper.mysql;
 
 import com.yutu.entity.table.TMenuBusiness;
+import com.yutu.entity.table.TMenuSystem;
+
+import java.util.List;
 
 public interface TMenuBusinessMapper {
     /**
@@ -49,4 +52,12 @@ public interface TMenuBusinessMapper {
     * @Description: 
     **/
     int updateByPrimaryKey(TMenuBusiness record);
+
+
+   /**
+   * @Author: zhaobc
+   * @Date: 2019-12-23 15:04
+   * @Description: 获得业务权限列表
+   **/
+    List<TMenuBusiness> getRoleMenuBus(String roleId);
 }

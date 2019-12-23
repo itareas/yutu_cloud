@@ -84,9 +84,6 @@ public class LoginServiceImpl implements ILoginService {
             landing.setLoginUserid(userInfo.get("uuid"));
             landing.setLoginSessionid(session.getId());
             landing.setLoginResult(msgPack.getStatus());
-        } else {
-            //记录登录信息并返回
-            msgPack.setStatus(0);
         }
 
         //数据库存储登录日志
@@ -104,8 +101,6 @@ public class LoginServiceImpl implements ILoginService {
         if(userInfo!=null&&userInfo.size()>0){
             msgPack.setStatus(1);
             msgPack.setData(userInfo);
-        }else {
-            msgPack.setData(0);
         }
         return msgPack;
     }
@@ -113,7 +108,6 @@ public class LoginServiceImpl implements ILoginService {
     @Override
     public MsgPack getAuthSSOLogin(String appKey,String token) {
        MsgPack msgPack=new MsgPack();
-        msgPack.setStatus(0);
         //验证appkey
        String appkeyId= ConfigConstants.Auth_AppKey;
        List<TCodConfig> appList= tCodConfigMapper.getConfigListById(appkeyId);

@@ -62,6 +62,8 @@ public class MyServletContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         //项目关闭时候进行序列化黑名单
         getSerialize();
+
+        //清空session
     }
 
     /**

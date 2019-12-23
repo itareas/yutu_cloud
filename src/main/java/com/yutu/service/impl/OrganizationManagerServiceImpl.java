@@ -3,8 +3,7 @@ package com.yutu.service.impl;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.table.TSysOrganization;
 import com.yutu.mapper.mysql.TSysOrganizationMapper;
-import com.yutu.service.IOrganizationService;
-import com.yutu.service.IUserService;
+import com.yutu.service.IOrganizationManagerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +14,7 @@ import javax.annotation.Resource;
  * @Description:
  */
 @Service
-public class OrganizationServiceImpl implements IOrganizationService {
+public class OrganizationManagerServiceImpl implements IOrganizationManagerService {
     @Resource
     private TSysOrganizationMapper tSysOrganizationMapper;
 
@@ -25,8 +24,6 @@ public class OrganizationServiceImpl implements IOrganizationService {
         int orgInsertCount= tSysOrganizationMapper.insert(organization);
         if(orgInsertCount>0){
             msgPack.setStatus(1);
-        }else {
-            msgPack.setStatus(0);
         }
         return msgPack;
     }
@@ -37,8 +34,6 @@ public class OrganizationServiceImpl implements IOrganizationService {
         int orgUpdateCount= tSysOrganizationMapper.updateByPrimaryKey(organization);
         if(orgUpdateCount>0){
             msgPack.setStatus(1);
-        }else {
-            msgPack.setStatus(0);
         }
         return msgPack;
     }
@@ -49,8 +44,6 @@ public class OrganizationServiceImpl implements IOrganizationService {
         int orgDelCount= tSysOrganizationMapper.deleteByPrimaryKey(orgId);
         if(orgDelCount>0){
             msgPack.setStatus(1);
-        }else {
-            msgPack.setStatus(0);
         }
         return msgPack;
     }

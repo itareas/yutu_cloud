@@ -8,7 +8,7 @@ import com.yutu.entity.table.TSysUser;
 * @Date: 2019-12-19 19:01
 * @Description: 用户服务层
 **/
-public interface IUserService {
+public interface IUserManagerService {
 
     /**
     * @Author: zhaobc

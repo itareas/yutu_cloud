@@ -34,4 +34,8 @@ public interface ILoginService {
     * @Description: 对外单点登录
     **/
     MsgPack getAuthSSOLogin(String appKey,String token);
+
+
+
+
 }

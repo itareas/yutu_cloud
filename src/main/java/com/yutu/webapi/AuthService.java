@@ -2,6 +2,7 @@ package com.yutu.webapi;
 
 import com.alibaba.fastjson.JSON;
 import com.yutu.entity.MsgPack;
+import com.yutu.entity.api.ApiAuth;
 import com.yutu.entity.table.TLogLanding;
 import com.yutu.service.ILoginService;
 import com.yutu.util.TokenManager;
@@ -44,22 +45,23 @@ public class AuthService {
      **/
     @RequestMapping(value = "/loginSSO")
     @ResponseBody
-    public MsgPack loginSSO(String appKey, String token) {
+    public MsgPack loginSSO(ApiAuth json) {
         MsgPack msgPack = new MsgPack();
-        msgPack = loginService.getAuthSSOLogin(appKey, token);
+        msgPack = loginService.getAuthSSOLogin(json.getAPPKEY(), json.getTOKEN());
         return msgPack;
     }
 
     /**
      * @Author: zhaobc
      * @Date: 2019-12-19 18:51
-     * @Description: 验证token
+     * @Description: 验证token 无需apk
      **/
-    @RequestMapping(value = "/verificationToken")
+    @RequestMapping(value = "/token")
     @ResponseBody
-    public MsgPack verificationToken(String token) {
+    public MsgPack token(ApiAuth json) {
+
         MsgPack msgPack = new MsgPack();
-        if (TokenManager.verificationToken(token)) {
+        if (TokenManager.verificationToken(json.getTOKEN())) {
             msgPack.setStatus(1);
 
         } else {

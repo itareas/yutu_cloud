@@ -7,9 +7,7 @@ import com.yutu.entity.SessionUser;
 import com.yutu.entity.TokenInfo;
 import com.yutu.entity.api.ApiUser;
 import com.yutu.entity.table.TMenuSystem;
-import com.yutu.filter.MyFilter;
 import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.viewer.configure.ConfigurationManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -40,7 +38,6 @@ public class SessionUserManager {
      **/
     public MsgPack verificationSessionUser() {
         MsgPack msgPack = new MsgPack();
-        msgPack.setStatus(0);
         SessionUser sessionUser = getSessionUser();
         if (sessionUser != null) {
             //增加延迟时间
@@ -92,7 +89,6 @@ public class SessionUserManager {
      **/
     public MsgPack setSessionUser(String sessionId,String security, Map<String,String> userInfo,List<TMenuSystem> listMenu) {
         MsgPack msgPack = new MsgPack();
-        msgPack.setStatus(0);
         //设置sessionUser值
         SessionUser sessionUser = new SessionUser();
         sessionUser.setSessionId(sessionId);
@@ -170,7 +166,6 @@ public class SessionUserManager {
      **/
     public MsgPack expireSessionUser(SessionUser sessionUser) {
         MsgPack msgPack = new MsgPack();
-        msgPack.setStatus(0);
         if (sessionUser != null) {
             switch (SystemPropertiesConfig.System_LoginStorage_Type) {
                 case "session":

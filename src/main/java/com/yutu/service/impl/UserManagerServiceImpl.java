@@ -3,7 +3,7 @@ package com.yutu.service.impl;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.table.TSysUser;
 import com.yutu.mapper.mysql.TSysUserMapper;
-import com.yutu.service.IUserService;
+import com.yutu.service.IUserManagerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @Description:
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserManagerServiceImpl implements IUserManagerService {
     @Resource
     private TSysUserMapper tSysUserMapper;
 
@@ -25,8 +25,6 @@ public class UserServiceImpl implements IUserService {
         int userInsertCount= tSysUserMapper.insert(user);
         if(userInsertCount>0){
             msgPack.setStatus(1);
-        }else {
-            msgPack.setStatus(0);
         }
         return msgPack;
     }
@@ -37,8 +35,6 @@ public class UserServiceImpl implements IUserService {
         int userUpdateCount= tSysUserMapper.updateByPrimaryKey(user);
         if(userUpdateCount>0){
             msgPack.setStatus(1);
-        }else {
-            msgPack.setStatus(0);
         }
         return msgPack;
     }
@@ -49,8 +45,6 @@ public class UserServiceImpl implements IUserService {
         int userDelCount= tSysUserMapper.deleteByPrimaryKey(userId);
         if(userDelCount>0){
             msgPack.setStatus(1);
-        }else {
-            msgPack.setStatus(0);
         }
         return msgPack;
     }

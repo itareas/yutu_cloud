@@ -174,4 +174,7 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
+  <select id="getRoleMenuBus" resultMap="BaseResultMap"  >
+       SELECT B.* FROM `t_menu_business` B JOIN `t_sys_role_menubus` R ON B.`uuid`=R.`menubus_uuid`  WHERE R.`role_uuid` =#{roleId} order by order_by
+  </select>
 </mapper>

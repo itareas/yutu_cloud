@@ -8,7 +8,7 @@ import com.yutu.entity.table.TSysOrganization;
 * @Date: 2019-12-19 19:01
 * @Description: 组织服务层
 **/
-public interface IOrganizationService {
+public interface IOrganizationManagerService {
 
     /**
     * @Author: zhaobc

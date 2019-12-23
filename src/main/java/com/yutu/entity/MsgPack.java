@@ -10,6 +10,15 @@ import java.util.Map;
 public class MsgPack<T> {
 
     /**
+    * @Author: zhaobc
+    * @Date: 2019-12-23 10:24
+    * @Description: 构造函数 设置默认值
+    **/
+    public  MsgPack(){
+       this.setStatus(0);
+    }
+
+    /**
      * @Author: zhaobc
      * @Date: 2019/6/22 16:42
      * @Description: 0 ：false   1:true
