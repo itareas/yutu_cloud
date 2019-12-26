@@ -1,6 +1,6 @@
 ## 核心配置区
 
-* 系统框架： **SpringBoot+Mybatis+Druid+Thymeleaf+Docker+Vue**
+* 系统框架： **SpringBoot+Mybatis+Druid+Thymeleaf+jersey+Docker+Vue**
 
 * 系统版本： **V0.5.0**
 
@@ -191,6 +191,6 @@
 * 2019年12月25日   
 >   1.  框架加入Jersey
 
-* 2019年12月26日  
+* 2019年12月26日  v0.5.9
 >   1.  idea发现apring配置文件失效，造成无法编译
->
+>   2.  对外接口改成Jersey模式的接口
