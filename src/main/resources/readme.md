@@ -1,6 +1,6 @@
 ## 核心配置区
 
-* 系统框架： **SpringBoot+Mybatis+Druid+Thymeleaf+jersey+Docker+Vue**
+* 系统框架： **SpringBoot+Mybatis+Druid+Redis+Thymeleaf+jersey+Docker+Vue**
 
 * 系统版本： **V0.5.0**
 

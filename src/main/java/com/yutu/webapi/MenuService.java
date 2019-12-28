@@ -2,7 +2,6 @@ package com.yutu.webapi;
 
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
-import com.yutu.entity.api.ApiAuth;
 import com.yutu.service.IMenuManagerService;
 import com.yutu.util.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class MenuService {
     **/
     @RequestMapping(value = "/business")
     @ResponseBody
-    public MsgPack business(ApiAuth json) {
+    public MsgPack business(String json) {
         MsgPack msgPack =new MsgPack();
         //获得用户角色
         SessionUser sessionUser =sessionUserManager.getSessionUser();
