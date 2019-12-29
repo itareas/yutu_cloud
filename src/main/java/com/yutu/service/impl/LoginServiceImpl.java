@@ -51,7 +51,7 @@ public class LoginServiceImpl implements ILoginService {
     public MsgPack getLoginVerification(String userAccount, String userPwd) {
         MsgPack msgPack = new MsgPack();
         //给密码md5加密
-        userPwd = DigestUtils.md5Hex(userPwd + "yutu&zhaobc@2019");
+        userPwd = DigestUtils.md5Hex(userPwd + "cloud&Zhaobc@2019");
         Map<String,String> userInfo = sysUserMapper.getLoginVerification(userAccount, userPwd);
 
         //获得客户端身份信息便于验证

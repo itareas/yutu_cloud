@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class TokenInfo {
 	private String token;// token
+	private String roleId;// 权限id
 	private Date expirationDate;// 过期时间
 	private ApiUser apiUser;// 是否已登陆
 
@@ -31,5 +32,13 @@ public class TokenInfo {
 
 	public void setApiUser(ApiUser apiUser) {
 		this.apiUser = apiUser;
+	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 }

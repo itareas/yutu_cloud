@@ -199,3 +199,6 @@
 >   1.  pox增加对properties识别和其他静态资源识别
 >   2.  对外单点登录接口完成,已测试通过，put get
 >   3.  日志表增加appkey token
+>   4.  更新用户密码加密方式
+>   5   tokenInfo 增加roleid字段
+>   6.  多开系统冲突问题 为解决

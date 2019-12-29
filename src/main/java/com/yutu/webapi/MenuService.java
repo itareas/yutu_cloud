@@ -2,9 +2,11 @@ package com.yutu.webapi;
 
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
+import com.yutu.entity.TokenInfo;
 import com.yutu.service.ILoginService;
 import com.yutu.service.IMenuManagerService;
 import com.yutu.util.SessionUserManager;
+import com.yutu.util.TokenManager;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,8 +24,6 @@ import javax.ws.rs.core.MediaType;
 @Component
 @Path("menu")
 public class MenuService {
-    @Resource
-    private SessionUserManager  sessionUserManager;
 
     @Resource
     private ILoginService loginService;
@@ -44,9 +44,9 @@ public class MenuService {
         msgPack = loginService.getAuthSSOLogin(APPKEY, TOKEN);
         if (msgPack.getStatus() == 1) {
             //获得用户角色
-            SessionUser sessionUser = sessionUserManager.getSessionUser();
+            TokenInfo tokenInfo = TokenManager.getTokenInfoById(TOKEN);
             //查询菜单列表
-            msgPack = menuManagerService.getBusinessMenuList(sessionUser.getRoleId());
+            msgPack = menuManagerService.getBusinessMenuList(tokenInfo.getRoleId());
         }
         return msgPack;
     }

@@ -60,20 +60,20 @@ public class SessionUserManager {
                 case "session":
                     if (session.getId() != null) {
                         //Session版获取数据
-                        SessionUser sessionUs = (SessionUser) session.getAttribute(session.getId());
+                        SessionUser sessionUs = (SessionUser) session.getAttribute("zbcCloud-"+session.getId());
                         return sessionUs;
                     }
                     break;
                 case "redis":
                     if (session.getId() != null) {
-                        SessionUser sessionUser = (SessionUser) redisUtils.get(session.getId());
+                        SessionUser sessionUser = (SessionUser) redisUtils.get("zbcCloud-"+session.getId());
                         return sessionUser;
                     }
                     break;
                 default:
                     if (session.getId() != null) {
                         //Session版获取数据
-                        SessionUser sessionUser = (SessionUser) session.getAttribute(session.getId());
+                        SessionUser sessionUser = (SessionUser) session.getAttribute("zbcCloud-"+session.getId());
                         return sessionUser;
                     }
                     break;
@@ -91,7 +91,7 @@ public class SessionUserManager {
         MsgPack msgPack = new MsgPack();
         //设置sessionUser值
         SessionUser sessionUser = new SessionUser();
-        sessionUser.setSessionId(sessionId);
+        sessionUser.setSessionId("zbcCloud-"+sessionId);
         sessionUser.setUuid(userInfo.get("uuid"));
         sessionUser.setUserAccount(userInfo.get("user_account"));
         sessionUser.setUserName(userInfo.get("user_name"));
@@ -118,6 +118,8 @@ public class SessionUserManager {
                         //设置对外接口参数
                         TokenInfo tokenInfo=new TokenInfo();
                         tokenInfo.setToken(tokenId);
+                        tokenInfo.setRoleId(userInfo.get("role_uuid"));
+
                         // 获得过期时间
                         String expirationDate = SystemPropertiesConfig.System_Token_TimeOut;
                         SimpleDateFormat sdf = new SimpleDateFormat(
