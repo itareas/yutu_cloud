@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.mysql.TLogOperationMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TLogOperation">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="operate_db" jdbcType="VARCHAR" property="operateDb" />
+    <result column="operate_dt" jdbcType="VARCHAR" property="operateDt" />
+    <result column="operate_type" jdbcType="VARCHAR" property="operateType" />
+    <result column="operate_primarykey" jdbcType="VARCHAR" property="operatePrimarykey" />
+    <result column="operate_content" jdbcType="VARCHAR" property="operateContent" />
+    <result column="operate_person" jdbcType="VARCHAR" property="operatePerson" />
+    <result column="operate_datetime" jdbcType="TIMESTAMP" property="operateDatetime" />
+    <result column="log_type" jdbcType="VARCHAR" property="logType" />
+    <result column="appkey" jdbcType="VARCHAR" property="appkey" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, operate_db, operate_dt, operate_type, operate_primarykey, operate_content, 
+    operate_person, operate_datetime, log_type, appkey, token, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_log_operation
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_log_operation
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yutu.entity.table.TLogOperation">
+    insert into t_log_operation (uuid, operate_db, operate_dt, 
+      operate_type, operate_primarykey, operate_content, 
+      operate_person, operate_datetime, log_type, 
+      appkey, token, remarks
+      )
+    values (#{uuid,jdbcType=VARCHAR}, #{operateDb,jdbcType=VARCHAR}, #{operateDt,jdbcType=VARCHAR}, 
+      #{operateType,jdbcType=VARCHAR}, #{operatePrimarykey,jdbcType=VARCHAR}, #{operateContent,jdbcType=VARCHAR}, 
+      #{operatePerson,jdbcType=VARCHAR}, #{operateDatetime,jdbcType=TIMESTAMP}, #{logType,jdbcType=VARCHAR}, 
+      #{appkey,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TLogOperation">
+    insert into t_log_operation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="operateDb != null">
+        operate_db,
+      </if>
+      <if test="operateDt != null">
+        operate_dt,
+      </if>
+      <if test="operateType != null">
+        operate_type,
+      </if>
+      <if test="operatePrimarykey != null">
+        operate_primarykey,
+      </if>
+      <if test="operateContent != null">
+        operate_content,
+      </if>
+      <if test="operatePerson != null">
+        operate_person,
+      </if>
+      <if test="operateDatetime != null">
+        operate_datetime,
+      </if>
+      <if test="logType != null">
+        log_type,
+      </if>
+      <if test="appkey != null">
+        appkey,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDb != null">
+        #{operateDb,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDt != null">
+        #{operateDt,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePrimarykey != null">
+        #{operatePrimarykey,jdbcType=VARCHAR},
+      </if>
+      <if test="operateContent != null">
+        #{operateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePerson != null">
+        #{operatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDatetime != null">
+        #{operateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null">
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TLogOperation">
+    update t_log_operation
+    <set>
+      <if test="operateDb != null">
+        operate_db = #{operateDb,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDt != null">
+        operate_dt = #{operateDt,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null">
+        operate_type = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePrimarykey != null">
+        operate_primarykey = #{operatePrimarykey,jdbcType=VARCHAR},
+      </if>
+      <if test="operateContent != null">
+        operate_content = #{operateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operatePerson != null">
+        operate_person = #{operatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDatetime != null">
+        operate_datetime = #{operateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logType != null">
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null">
+        appkey = #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TLogOperation">
+    update t_log_operation
+    set operate_db = #{operateDb,jdbcType=VARCHAR},
+      operate_dt = #{operateDt,jdbcType=VARCHAR},
+      operate_type = #{operateType,jdbcType=VARCHAR},
+      operate_primarykey = #{operatePrimarykey,jdbcType=VARCHAR},
+      operate_content = #{operateContent,jdbcType=VARCHAR},
+      operate_person = #{operatePerson,jdbcType=VARCHAR},
+      operate_datetime = #{operateDatetime,jdbcType=TIMESTAMP},
+      log_type = #{logType,jdbcType=VARCHAR},
+      appkey = #{appkey,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
