@@ -28,6 +28,6 @@ public class MenuManagerServiceImpl implements IMenuManagerService {
             msgPack.setStatus(1);
             msgPack.setData(listMenu);
         }
-        return null;
+        return msgPack;
     }
 }

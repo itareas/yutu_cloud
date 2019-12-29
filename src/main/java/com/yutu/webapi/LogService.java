@@ -1,25 +1,23 @@
 package com.yutu.webapi;
 
 import com.yutu.entity.MsgPack;
-import com.yutu.entity.sync.SyncLogLanding;
-import com.yutu.entity.sync.SyncLogOperation;
 import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TLogOperation;
 import com.yutu.service.ILogManagerService;
 import com.yutu.service.ILoginService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 /**
  * @Author: zhaobc
  * @Date: 2019-12-19 13:53
  * @Description:日志接口服务
  */
-@RestController
-@RequestMapping("/api/log")
+@Component
+@Path("log")
 public class LogService {
     @Resource
     private ILogManagerService logManageService;
@@ -32,18 +30,23 @@ public class LogService {
      * @Date: 2019-12-19 9:46
      * @Description: 子系统登陆/注销日志
      **/
-    @RequestMapping(value = "/log/landing")
-    @ResponseBody
-    public MsgPack landing(SyncLogLanding json) {
+    @POST
+    @Path(value = "landing/{type}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public MsgPack landing(@PathParam("type") String type, TLogLanding landing) {
         MsgPack msgPack = new MsgPack();
         //验证appKey 和 token
-        msgPack = loginService.getAuthSSOLogin(json.getAPPKEY(), json.getTOKEN());
-        if(msgPack.getStatus()==1){
-            TLogLanding landing=(TLogLanding) json;
-            //插入日志
-            msgPack = logManageService.insertLandingLog(landing);
+        msgPack = loginService.getAuthSSOLogin(landing.getAppkey(), landing.getToken());
+        if (msgPack.getStatus() == 1) {
+            switch (type) {
+                case "add":
+                    //插入日志
+                    if (landing.getUuid().length() > 0) {
+                        msgPack = logManageService.insertLandingLog(landing);
+                    }
+                    break;
+            }
         }
-
         return msgPack;
     }
 
@@ -52,15 +55,21 @@ public class LogService {
      * @Date: 2019-12-19 14:56
      * @Description: 系统操作日志
      **/
-    @RequestMapping(value = "/log/operation")
-    @ResponseBody
-    public MsgPack operation(SyncLogOperation json) {
+    @POST
+    @Path(value = "operation/{type}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public MsgPack operation(@PathParam("type") String type, TLogOperation operation) {
         MsgPack msgPack = new MsgPack();
-        msgPack = loginService.getAuthSSOLogin(json.getAPPKEY(), json.getTOKEN());
-        if(msgPack.getStatus()==1) {
-            TLogOperation landing = (TLogOperation) json;
-            //插入日志
-            msgPack = logManageService.insertOperationLog(landing);
+        msgPack = loginService.getAuthSSOLogin(operation.getAppkey(), operation.getToken());
+        if (msgPack.getStatus() == 1) {
+            switch (type) {
+                case "add":
+                    if (operation.getUuid().length() > 0) {
+                        //插入日志
+                        msgPack = logManageService.insertOperationLog(operation);
+                    }
+                    break;
+            }
         }
         return msgPack;
     }

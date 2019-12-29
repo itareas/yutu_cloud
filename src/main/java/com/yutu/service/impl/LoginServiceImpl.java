@@ -1,10 +1,7 @@
 package com.yutu.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.MsgPack;
-import com.yutu.entity.SessionUser;
 import com.yutu.entity.TokenInfo;
 import com.yutu.entity.table.TCodConfig;
 import com.yutu.entity.table.TLogLanding;
@@ -14,7 +11,6 @@ import com.yutu.mapper.mysql.TLogLandingMapper;
 import com.yutu.mapper.mysql.TMenuSystemMapper;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.ILoginService;
-import com.yutu.util.RedisUtils;
 import com.yutu.util.SessionUserManager;
 import com.yutu.util.TokenManager;
 import org.apache.commons.codec.digest.DigestUtils;

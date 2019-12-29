@@ -29,11 +29,10 @@ public class AuthService {
      * @Date: 2019-12-19 15:27
      * @Description: 对外普通密码登录
      **/
-    @GET
+    @PUT
     @Path(value = "login")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public MsgPack login(@FormParam("userAccount") String userAccount, @FormParam("userPwd") String userPwd) {
+    public MsgPack login(@QueryParam("USERACCOUNT") String userAccount, @QueryParam("USERPWD") String userPwd) {
         MsgPack msgPack = new MsgPack();
         msgPack = loginService.getAuthPwdLogin(userAccount, userPwd);
         return msgPack;
@@ -44,9 +43,8 @@ public class AuthService {
      * @Date: 2019-12-19 16:00
      * @Description:对外单点登录
      **/
-    @GET
+    @PUT
     @Path(value = "loginSSO")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public MsgPack loginSSO(@QueryParam("APPKEY") String APPKEY, @QueryParam("TOKEN") String TOKEN) {
         MsgPack msgPack = new MsgPack();
@@ -59,16 +57,13 @@ public class AuthService {
      * @Date: 2019-12-19 18:51
      * @Description: 验证token 无需apk
      **/
-    @GET
-    @Path(value = "/verification")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @PUT
+    @Path(value = "token")
     @Produces(MediaType.APPLICATION_JSON)
-    public MsgPack token(@QueryParam("token") String token) {
-
+    public MsgPack token(@QueryParam("TOKEN") String token) {
         MsgPack msgPack = new MsgPack();
         if (TokenManager.verificationToken(token)) {
             msgPack.setStatus(1);
-
         } else {
             msgPack.setStatus(0);
         }
