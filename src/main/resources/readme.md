@@ -2,7 +2,7 @@
 
 * 系统框架： **SpringBoot+Mybatis+Druid+Redis+Thymeleaf+jersey+Docker+Vue**
 
-* 系统版本： **V0.5.0**
+* 系统版本： **V0.6.0**
 
 * 支持数据库：**SqlServer、Oracle、MySql、Redis...**
 
