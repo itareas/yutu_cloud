@@ -18,7 +18,8 @@ public class SessionUser implements Serializable {
     private String userSafety;
     private String roleId;
     private String orgId;
-    private String menu;
+    private String menuSys;
+    private String menuBus;
     private String token;
 
     public static long getSerialVersionUID() {
@@ -81,12 +82,20 @@ public class SessionUser implements Serializable {
         this.orgId = orgId;
     }
 
-    public String getMenu() {
-        return menu;
+    public String getMenuSys() {
+        return menuSys;
     }
 
-    public void setMenu(String menu) {
-        this.menu = menu;
+    public void setMenuSys(String menuSys) {
+        this.menuSys = menuSys;
+    }
+
+    public String getMenuBus() {
+        return menuBus;
+    }
+
+    public void setMenuBus(String menuBus) {
+        this.menuBus = menuBus;
     }
 
     public String getToken() {

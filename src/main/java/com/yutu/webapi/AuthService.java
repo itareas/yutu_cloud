@@ -32,7 +32,7 @@ public class AuthService {
     @PUT
     @Path(value = "login")
     @Produces(MediaType.APPLICATION_JSON)
-    public MsgPack login(@QueryParam("USERACCOUNT") String userAccount, @QueryParam("USERPWD") String userPwd) {
+    public MsgPack login(@QueryParam("userAccount") String userAccount, @QueryParam("userPwd") String userPwd) {
         MsgPack msgPack = new MsgPack();
         msgPack = loginService.getAuthPwdLogin(userAccount, userPwd);
         return msgPack;
@@ -44,11 +44,11 @@ public class AuthService {
      * @Description:对外单点登录
      **/
     @PUT
-    @Path(value = "loginSSO")
+    @Path(value = "sso")
     @Produces(MediaType.APPLICATION_JSON)
-    public MsgPack loginSSO(@QueryParam("APPKEY") String APPKEY, @QueryParam("TOKEN") String TOKEN) {
+    public MsgPack loginSSO(@QueryParam("appkey") String appkey, @QueryParam("token") String token) {
         MsgPack msgPack = new MsgPack();
-        msgPack = loginService.getAuthSSOLogin(APPKEY, TOKEN);
+        msgPack = loginService.getAuthSSOLogin(appkey, token);
         return msgPack;
     }
 
@@ -60,7 +60,7 @@ public class AuthService {
     @PUT
     @Path(value = "token")
     @Produces(MediaType.APPLICATION_JSON)
-    public MsgPack token(@QueryParam("TOKEN") String token) {
+    public MsgPack token(@QueryParam("token") String token) {
         MsgPack msgPack = new MsgPack();
         if (TokenManager.verificationToken(token)) {
             msgPack.setStatus(1);

@@ -1,12 +1,14 @@
 package com.yutu.service.impl;
 
 import com.yutu.entity.MsgPack;
+import com.yutu.entity.table.TSysOrganization;
 import com.yutu.entity.table.TSysUser;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.IUserManagerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author: zhaobc
@@ -20,31 +22,12 @@ public class UserManagerServiceImpl implements IUserManagerService {
 
 
     @Override
-    public MsgPack insertUser(TSysUser user) {
+    public MsgPack getUserAll() {
         MsgPack msgPack=new MsgPack();
-        int userInsertCount= tSysUserMapper.insert(user);
-        if(userInsertCount>0){
+        List<TSysUser> listUserAll= tSysUserMapper.getUserAll();
+        if(listUserAll!=null&&listUserAll.size()>0){
             msgPack.setStatus(1);
-        }
-        return msgPack;
-    }
-
-    @Override
-    public MsgPack updateUser(TSysUser user) {
-        MsgPack msgPack=new MsgPack();
-        int userUpdateCount= tSysUserMapper.updateByPrimaryKey(user);
-        if(userUpdateCount>0){
-            msgPack.setStatus(1);
-        }
-        return msgPack;
-    }
-
-    @Override
-    public MsgPack delteUser(String userId) {
-        MsgPack msgPack=new MsgPack();
-        int userDelCount= tSysUserMapper.deleteByPrimaryKey(userId);
-        if(userDelCount>0){
-            msgPack.setStatus(1);
+            msgPack.setData(listUserAll);
         }
         return msgPack;
     }

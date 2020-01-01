@@ -1,5 +1,6 @@
 package com.yutu.controller;
 
+import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TLogLanding;
@@ -7,6 +8,7 @@ import com.yutu.service.ILogManagerService;
 import com.yutu.service.ILoginService;
 import com.yutu.util.RedisUtils;
 import com.yutu.util.SessionUserManager;
+import com.yutu.util.TokenManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,11 +32,7 @@ public class LoginController {
     @Resource
     private ILoginService loginService;
     @Resource
-    private ILogManagerService logManageService;
-    @Resource
-    private RedisUtils redisUtils;
-    @Resource
-    private SessionUserManager sessionUserUtils;
+    private SessionUserManager sessionUserManager;
     @Resource
     HttpServletRequest request;
     @Resource
@@ -62,37 +60,8 @@ public class LoginController {
     @RequestMapping(value = "logout")
     public void logout() throws IOException {
         HttpSession session = request.getSession();
-        String sessionId = session.getId();
-        //获得参数插入日志
-        TLogLanding landing = new TLogLanding();
-        if (request.getSession(false) != null) {
-            if (sessionId != null) {
-                SessionUser sessionUser = sessionUserUtils.getSessionUser();
-                landing.setUuid(UUID.randomUUID().toString());
-                landing.setLoginUserid(sessionUser.getUuid());
-                landing.setLoginAccount(sessionUser.getUserAccount());
-                landing.setLoginAddress(request.getServletPath());
-                landing.setLoginSessionid(sessionId);
-                landing.setLoginDate(new Date());
-                landing.setLoginType("门户注销");
-                landing.setLoginAppname("系统门户网站");
-                landing.setLoginIp(request.getRemoteAddr());
-            }
-        }
-        try {
-            //清空redis里数据
-            redisUtils.del(sessionId);
-            //清空本地session
-            session.invalidate();
-        } catch (Exception e) {
-            landing.setLoginResult(0);
-            landing.setRemarks(e.toString());
-        } finally {
-            landing.setLoginResult(1);
-            //插入日志
-            logManageService.insertLandingLog(landing);
-            //刷新页面
-            response.sendRedirect("../login");
-        }
+        sessionUserManager.logoutSessionUser(session);
+        //刷新页面
+        response.sendRedirect("../login");
     }
 }

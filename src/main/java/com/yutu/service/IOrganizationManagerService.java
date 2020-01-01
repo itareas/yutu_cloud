@@ -15,20 +15,6 @@ public interface IOrganizationManagerService {
     * @Date: 2019-12-19 19:02
     * @Description: 新增部门
     **/
-    MsgPack insertOrganization(TSysOrganization organization);
+    MsgPack getOrganizationAll();
 
-    /**
-     * @Author: zhaobc
-     * @Date: 2019-12-19 19:02
-     * @Description: 修改部门
-     **/
-    MsgPack updateOrganization(TSysOrganization organization);
-
-
-    /**
-     * @Author: zhaobc
-     * @Date: 2019-12-19 19:02
-     * @Description: 删除部门
-     **/
-    MsgPack delteOrganization(String orgId);
 }

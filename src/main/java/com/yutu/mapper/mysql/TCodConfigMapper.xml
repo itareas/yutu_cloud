@@ -141,7 +141,7 @@
   </update>
 
   <select id="getConfigListById" resultMap="BaseResultMap">
-      SELECT * FROM t_cod_config C WHERE C.`config_parent`=#{key}
+      SELECT * FROM t_cod_config C WHERE C.config_parent=#{key} and C.config_code=#{appkey}
   </select>
 
 </mapper>

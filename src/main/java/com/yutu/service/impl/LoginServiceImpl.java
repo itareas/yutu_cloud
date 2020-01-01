@@ -1,15 +1,14 @@
 package com.yutu.service.impl;
 
+import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.TokenInfo;
 import com.yutu.entity.table.TCodConfig;
 import com.yutu.entity.table.TLogLanding;
+import com.yutu.entity.table.TMenuBusiness;
 import com.yutu.entity.table.TMenuSystem;
-import com.yutu.mapper.mysql.TCodConfigMapper;
-import com.yutu.mapper.mysql.TLogLandingMapper;
-import com.yutu.mapper.mysql.TMenuSystemMapper;
-import com.yutu.mapper.mysql.TSysUserMapper;
+import com.yutu.mapper.mysql.*;
 import com.yutu.service.ILoginService;
 import com.yutu.util.SessionUserManager;
 import com.yutu.util.TokenManager;
@@ -19,10 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -39,6 +35,8 @@ public class LoginServiceImpl implements ILoginService {
     private TLogLandingMapper logLandingMapper;
     @Resource
     private TMenuSystemMapper tMenuSystemMapper;
+    @Resource
+    private TMenuBusinessMapper tMenuBusinessMapper;
     @Resource
     private TCodConfigMapper tCodConfigMapper;
     @Resource
@@ -73,9 +71,13 @@ public class LoginServiceImpl implements ILoginService {
         //判断登录是否成功
         if (userInfo != null) {
             //获得菜单列表
-            List<TMenuSystem> listMenu=tMenuSystemMapper.getRoleMenuSys(userInfo.get("role_uuid"));
+            List<TMenuSystem> listMenuSys=tMenuSystemMapper.getRoleMenuSys(userInfo.get("role_uuid"));
+            List<TMenuBusiness>listMenuBus=new ArrayList<>();
+            if(SystemPropertiesConfig.System_LoginStorage_Type.equals("redis")){
+                listMenuBus=tMenuBusinessMapper.getRoleMenuBus(userInfo.get("role_uuid"));
+            }
             //session存储用户信息操作
-            msgPack= sessionUserManager.setSessionUser(session.getId(),security,userInfo,listMenu);
+            msgPack= sessionUserManager.setSessionUser(session.getId(),security,userInfo,listMenuSys,listMenuBus);
             //记录日志
             landing.setLoginUserid(userInfo.get("uuid"));
             landing.setLoginSessionid(session.getId());
@@ -105,10 +107,10 @@ public class LoginServiceImpl implements ILoginService {
     public MsgPack getAuthSSOLogin(String appKey,String token) {
        MsgPack msgPack=new MsgPack();
         //验证appkey
-       String appkeyId= ConfigConstants.Auth_AppKey;
-       List<TCodConfig> appList= tCodConfigMapper.getConfigListById(appkeyId);
-       List<TCodConfig> appResult = appList.stream().filter(a -> a.getConfigCode().equals(appKey)).collect(Collectors.toList());
-       if(appResult.size()<1){
+       String keyId= ConfigConstants.Auth_AppKey;
+       List<TCodConfig> appList= tCodConfigMapper.getConfigListById(keyId,appKey);
+
+       if(appList!=null && appList.size()<1){
            //appkey验证不通过
            return msgPack;
        }

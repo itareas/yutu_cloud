@@ -7,6 +7,8 @@ package com.yutu.mapper.mysql;
 
 import com.yutu.entity.table.TSysOrganization;
 
+import java.util.List;
+
 public interface TSysOrganizationMapper {
     /**
     * @Author: zhaobc
@@ -49,4 +51,11 @@ public interface TSysOrganizationMapper {
     * @Description: 
     **/
     int updateByPrimaryKey(TSysOrganization record);
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2020/1/1 12:46
+    * @Description: 获得所有部门
+    **/
+    List<TSysOrganization> getOrganizationAll();
 }

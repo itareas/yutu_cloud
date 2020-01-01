@@ -6,7 +6,10 @@ import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.TokenInfo;
 import com.yutu.entity.api.ApiUser;
+import com.yutu.entity.table.TLogLanding;
+import com.yutu.entity.table.TMenuBusiness;
 import com.yutu.entity.table.TMenuSystem;
+import com.yutu.service.ILogManagerService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +28,9 @@ import java.util.*;
 public class SessionUserManager {
     @Resource
     private RedisUtils redisUtils;
+
+    @Resource
+    private ILogManagerService logManagerService;
 
     @Resource
     HttpServletRequest request;
@@ -60,20 +66,20 @@ public class SessionUserManager {
                 case "session":
                     if (session.getId() != null) {
                         //Session版获取数据
-                        SessionUser sessionUs = (SessionUser) session.getAttribute("zbcCloud-"+session.getId());
+                        SessionUser sessionUs = (SessionUser) session.getAttribute("zbcCloud-" + session.getId());
                         return sessionUs;
                     }
                     break;
                 case "redis":
                     if (session.getId() != null) {
-                        SessionUser sessionUser = (SessionUser) redisUtils.get("zbcCloud-"+session.getId());
+                        SessionUser sessionUser = (SessionUser) redisUtils.get("zbcCloud-" + session.getId());
                         return sessionUser;
                     }
                     break;
                 default:
                     if (session.getId() != null) {
                         //Session版获取数据
-                        SessionUser sessionUser = (SessionUser) session.getAttribute("zbcCloud-"+session.getId());
+                        SessionUser sessionUser = (SessionUser) session.getAttribute("zbcCloud-" + session.getId());
                         return sessionUser;
                     }
                     break;
@@ -87,19 +93,19 @@ public class SessionUserManager {
      * @Date: 2019/12/22 9:42
      * @Description: 存储Session信息
      **/
-    public MsgPack setSessionUser(String sessionId,String security, Map<String,String> userInfo,List<TMenuSystem> listMenu) {
+    public MsgPack setSessionUser(String sessionId, String security, Map<String, String> userInfo, List<TMenuSystem> listMenuSys,List<TMenuBusiness> listMenuBus) {
         MsgPack msgPack = new MsgPack();
         //设置sessionUser值
         SessionUser sessionUser = new SessionUser();
-        sessionUser.setSessionId("zbcCloud-"+sessionId);
+        sessionUser.setSessionId("zbcCloud-" + sessionId);
         sessionUser.setUuid(userInfo.get("uuid"));
         sessionUser.setUserAccount(userInfo.get("user_account"));
         sessionUser.setUserName(userInfo.get("user_name"));
         sessionUser.setUserSafety(security);
         sessionUser.setRoleId(userInfo.get("role_uuid"));
         sessionUser.setOrgId(userInfo.get("org_uuid"));
-        sessionUser.setMenu(JSON.toJSONString(listMenu));
-
+        sessionUser.setMenuSys(JSON.toJSONString(listMenuSys));
+        sessionUser.setMenuBus(JSON.toJSONString(listMenuBus));
         //判断session
         HttpSession session = request.getSession(false);
         //判断是ses否为空
@@ -108,7 +114,7 @@ public class SessionUserManager {
                 switch (SystemPropertiesConfig.System_LoginStorage_Type) {
                     case "session":
                         //设置对外tokenId到Session中
-                        String tokenId=UUID.randomUUID().toString();
+                        String tokenId = UUID.randomUUID().toString();
                         sessionUser.setToken(tokenId);
                         //存储到session中去 并设置超时时间
                         request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
@@ -116,7 +122,7 @@ public class SessionUserManager {
                         msgPack.setStatus(1);
 
                         //设置对外接口参数
-                        TokenInfo tokenInfo=new TokenInfo();
+                        TokenInfo tokenInfo = new TokenInfo();
                         tokenInfo.setToken(tokenId);
                         tokenInfo.setRoleId(userInfo.get("role_uuid"));
 
@@ -129,7 +135,7 @@ public class SessionUserManager {
                                 Integer.parseInt(expirationDate));
                         tokenInfo.setExpirationDate(nowTime.getTime());
                         //设置用户信息
-                        ApiUser apiUser=new ApiUser();
+                        ApiUser apiUser = new ApiUser();
                         apiUser.setUuid(userInfo.get("uuid"));
                         apiUser.setUserAccount(userInfo.get("user_account"));
                         apiUser.setUserEmail(userInfo.get("user_email"));
@@ -145,7 +151,7 @@ public class SessionUserManager {
                     case "redis":
                         //存储到redis
                         sessionUser.setToken(sessionUser.getSessionId());
-                        redisUtils.set(session.getId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
+                        redisUtils.set(sessionUser.getSessionId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
                         msgPack.setStatus(1);
                         break;
                     default:
@@ -155,6 +161,9 @@ public class SessionUserManager {
                         msgPack.setStatus(1);
                         break;
                 }
+            } else {
+                //session有值，不在存储
+                msgPack.setStatus(1);
             }
         }
         return msgPack;
@@ -186,5 +195,48 @@ public class SessionUserManager {
             }
         }
         return msgPack;
+    }
+
+    /**
+     * @Author: zhaobc
+     * @Date: 2020/1/1 11:47
+     * @Description: 注销session里的值
+     **/
+    public void logoutSessionUser(HttpSession session) {
+        String sessionId = session.getId();
+        //获得参数插入日志
+        TLogLanding landing = new TLogLanding();
+        SessionUser sessionUser = getSessionUser();
+        if (request.getSession(false) != null) {
+            if (sessionId != null) {
+                landing.setUuid(UUID.randomUUID().toString());
+                landing.setLoginUserid(sessionUser.getUuid());
+                landing.setLoginAccount(sessionUser.getUserAccount());
+                landing.setLoginAddress(request.getServletPath());
+                landing.setLoginSessionid(sessionId);
+                landing.setLoginDate(new Date());
+                landing.setLoginType("门户注销");
+                landing.setLoginAppname("系统门户网站");
+                landing.setLoginIp(request.getRemoteAddr());
+            }
+        }
+        try {
+            //清空本地session
+            session.invalidate();
+            if (SystemPropertiesConfig.System_LoginStorage_Type.equals("session")) {
+                //删除token值
+                TokenManager.deleteSessionById(sessionUser.getToken());
+            } else if (SystemPropertiesConfig.System_LoginStorage_Type.equals("redis")) {
+                //清空redis里数据
+                redisUtils.del(sessionUser.getSessionId());
+            }
+        } catch (Exception e) {
+            landing.setLoginResult(0);
+            landing.setRemarks(e.toString());
+        } finally {
+            landing.setLoginResult(1);
+            //插入日志
+            logManagerService.insertLandingLog(landing);
+        }
     }
 }

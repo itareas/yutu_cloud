@@ -41,7 +41,7 @@ public class HomeController {
         SessionUser sessionUser =(SessionUser) sessionUserManager.getSessionUser();
         if(sessionUser!=null){
             msgPask.setStatus(1);
-            String strMenu=sessionUser.getMenu();
+            String strMenu=sessionUser.getMenuSys();
             List<TMenuSystem> menu= JsonListUtil.jsonToList(strMenu,TMenuSystem.class);
             List<TMenuSystem> menuReturn=new ArrayList<>();
             //便利菜单添加token

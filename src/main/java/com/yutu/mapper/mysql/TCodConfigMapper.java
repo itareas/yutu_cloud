@@ -59,5 +59,5 @@ public interface TCodConfigMapper {
     * @Date: 2019-12-19 16:13
     * @Description: 获得配置文件列表
     **/
-    List<TCodConfig> getConfigListById(@Param("key") String key);
+    List<TCodConfig> getConfigListById(@Param("key") String key,@Param("appkey") String appkey);
 }

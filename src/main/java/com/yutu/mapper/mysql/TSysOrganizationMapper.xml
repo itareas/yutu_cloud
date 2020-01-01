@@ -161,4 +161,10 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
+
+  <select id="getOrganizationAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_organization
+  </select>
 </mapper>

@@ -8,6 +8,7 @@ package com.yutu.mapper.mysql;
 import com.yutu.entity.table.TSysUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TSysUserMapper {
@@ -60,4 +61,10 @@ public interface TSysUserMapper {
      **/
     Map<String,String> getLoginVerification(@Param("userName") String userName, @Param("userPwd") String userPwd);
 
+    /**
+    * @Author: zhaobc
+    * @Date: 2020/1/1 12:47
+    * @Description: 获得所有用户
+    **/
+    List<TSysUser> getUserAll();
 }

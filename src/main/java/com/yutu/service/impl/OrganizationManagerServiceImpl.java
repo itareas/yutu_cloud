@@ -7,6 +7,7 @@ import com.yutu.service.IOrganizationManagerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author: zhaobc
@@ -18,32 +19,14 @@ public class OrganizationManagerServiceImpl implements IOrganizationManagerServi
     @Resource
     private TSysOrganizationMapper tSysOrganizationMapper;
 
-    @Override
-    public MsgPack insertOrganization(TSysOrganization organization) {
-        MsgPack msgPack=new MsgPack();
-        int orgInsertCount= tSysOrganizationMapper.insert(organization);
-        if(orgInsertCount>0){
-            msgPack.setStatus(1);
-        }
-        return msgPack;
-    }
 
     @Override
-    public MsgPack updateOrganization(TSysOrganization organization) {
+    public MsgPack getOrganizationAll() {
         MsgPack msgPack=new MsgPack();
-        int orgUpdateCount= tSysOrganizationMapper.updateByPrimaryKey(organization);
-        if(orgUpdateCount>0){
+        List<TSysOrganization> listOrgAll= tSysOrganizationMapper.getOrganizationAll();
+        if(listOrgAll!=null&&listOrgAll.size()>0){
             msgPack.setStatus(1);
-        }
-        return msgPack;
-    }
-
-    @Override
-    public MsgPack delteOrganization(String orgId) {
-        MsgPack msgPack=new MsgPack();
-        int orgDelCount= tSysOrganizationMapper.deleteByPrimaryKey(orgId);
-        if(orgDelCount>0){
-            msgPack.setStatus(1);
+            msgPack.setData(listOrgAll);
         }
         return msgPack;
     }

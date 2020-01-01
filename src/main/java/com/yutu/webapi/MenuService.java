@@ -39,12 +39,12 @@ public class MenuService {
     @PUT
     @Path(value = "business")
     @Produces(MediaType.APPLICATION_JSON)
-    public MsgPack business(@QueryParam("APPKEY") String APPKEY, @QueryParam("TOKEN") String TOKEN) {
+    public MsgPack business(@QueryParam("appkey") String appkey, @QueryParam("token") String token) {
         MsgPack msgPack =new MsgPack();
-        msgPack = loginService.getAuthSSOLogin(APPKEY, TOKEN);
+        msgPack = loginService.getAuthSSOLogin(appkey, token);
         if (msgPack.getStatus() == 1) {
             //获得用户角色
-            TokenInfo tokenInfo = TokenManager.getTokenInfoById(TOKEN);
+            TokenInfo tokenInfo = TokenManager.getTokenInfoById(token);
             //查询菜单列表
             msgPack = menuManagerService.getBusinessMenuList(tokenInfo.getRoleId());
         }

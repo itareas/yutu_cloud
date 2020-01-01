@@ -5,8 +5,8 @@
         <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
         <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
         <result column="user_account" jdbcType="VARCHAR" property="userAccount"/>
-        <result column="user_pwd" jdbcType="VARCHAR" property="userPwd"/>
-        <result column="user_question" jdbcType="VARCHAR" property="userQuestion"/>
+<!--        <result column="user_pwd" jdbcType="VARCHAR" property="userPwd"/>-->
+<!--        <result column="user_question" jdbcType="VARCHAR" property="userQuestion"/>-->
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="user_sex" jdbcType="INTEGER" property="userSex"/>
         <result column="user_title" jdbcType="VARCHAR" property="userTitle"/>
@@ -204,4 +204,10 @@
             JOIN t_sys_user_organization O ON U.`uuid`=R.`user_uuid`
         WHERE U.user_account=#{userName} and U.user_pwd=#{userPwd}
   </select>
+
+    <select id="getUserAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sys_user
+    </select>
 </mapper>
