@@ -1,64 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="th" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>宇图框架</title>
-    <link rel="stylesheet" type="text/css" href="css/login.css"/>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" type="text/css" href="css/layer.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css" >
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <script src="../static/js/md5.js"></script>
 </head>
 <body>
+<div class="background">
+    <img src="img/home/bg.png">
+</div>
+<div class="content">
+</div>
+<div class="logo">
+    <span>大数据服务平台</span>
+</div>
 <div class="login">
-    <div id="logincont">
-        <div id="logo">
-            <!--<span>宇图框架</span>-->
+    <input id="log" name="log" class="log" type="button" value="登录" />
+</div>
+<div class="right">
+    <div id="name" class="name">
+        <div id = "admin-icon" class="admin-icon"></div>
+        <a id="user" class="user">
+            <span id="admin"  th:text="${userName}"></span>
+        </a>
+        <div id="edit" class="edit">
+            <ul>
+                <li id="yunwei"><a id="operationCenter" onclick="getSystemCenter()">运维中心</a></li>
+                <li><a id="modify">修改密码</a></li>
+            </ul>
         </div>
-        <p class="loginTitle">用户登录</p>
-        <div>
-            <input class="yhm" id="yhm" type="text" placeholder="用户名" value="admin"/>
-            <input class="yhm" id="pass" type="password" placeholder="密码" value="admin"/>
-        </div>
-        <div class="jzmm">
-            <div>
-                <input type="checkbox" id="jz"/>记住密码
-            </div>
-            <span id="">忘记密码</span>
-        </div>
-        <button id="btn">登录</button>
     </div>
+    <a id="exit" class="exit">退出 </a>
+</div>
+<!--系统功能模块导航-->
+<div class="navigate" id="showMen">
+    <ul class="list">
+        <li id="10" class="sjhj vertical " url="http://localhost:8096/loginSSO" parentId="">
+            <img src="img/home/sjhj.png"/>
+            <p>综合数据服务系统</p>
+        </li>
+        <li id="20" class="yzt vertical " url="http://localhost:8097/loginSSO"  parentId="">
+            <img src="img/home/sjk.png"/>
+            <p>生态环保信息综合数据库<p>
+        </li>
+        <li id="30" class="hbyq vertical " url="http://localhost:8098/loginSSO" parentId="">
+            <img src="img/home/kjdq.png"/>
+            <p>跨界大气环境风险防范系统</p>
+        </li>
+        <li id="40" class="lsgyl " url="#" parentId="">
+            <img src="img/home/yg.png"/>
+            <p>生态环境状况遥感<br/>监测与评估系统</p>
+        </li>
+        <li id="50" class="lsslsz" url="#" parentId="">
+            <img src="img/home/jcss.png"/>
+            <p>基础设施与产能合作<br/>生态影响评估系统</p>
+        </li>
+        <li id="60" class="hbcy vertical" url="#" parentId="">
+            <img src="img/home/yq.png"/>
+            <p>舆情分析系统</p>
+        </li>
+    </ul>
+</div>
+
+<!--登录遮罩层及弹出框-->
+<div id="dialogCover" class="dialog-cover"></div>
+<div id="loginWindow" class="login-window">
+    <div class="login-dialog">
+        <a href="javascript:void(0)" class="login-win-close">
+            <img id="close" src="img/home/close_defaut.png"/>
+        </a>
+        <div class="container">
+            <p class="login-title">安全登录</p>
+            <input id="flag"  value="0" type="hidden"/>
+            <form action="" method="post" enctype="text/plain">
+                <div class="username">
+                    <img src="img/home/admin.png"/>
+                    <input type="text" id="username" name="username" class="inp-username" placeholder="请输入账户"  value="admin"/>
+                </div>
+                <div class="password">
+                    <img src="img/home/pwd.png"/>
+                    <input type="password" id="pwd" name="pwd" class="inp-pwd" placeholder="请输入密码" value="admin"/>
+                </div>
+                <div class="verifycode" >
+                    <input type="text" id="captcha"  name="captcha" maxlength="10"  placeholder="请输入验证码">
+                    <img src="/login/captchato" id="captchaImage"  >
+                </div>
+                <div id="error" class="form-error"></div>
+                <div id="codeError" class="form-error"></div>
+                <div>
+                    <input id="submit" name="submit-btn" type="button" value="登录" class="login-submit"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <input type="hidden" id="msgLogin" value="">
 </div>
 </body>
-<script src="plugin/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-    $(function () {
-        //回车提交事件
-        $("#pass").keydown(function (event) {
-            if (event.keyCode == "13") {//keyCode=13是回车键
-                $('#btn').click();
-            }
-        });
-    })
-
-    $("#btn").click(function () {
-        var yhm = $("#yhm").val();
-        var pass = $("#pass").val();
-        $.ajax({
-            url: '../login/getLoginVerification',
-            type: 'POST',
-            async: false,
-            data: {userAccount: yhm, userPwd: pass},
-            dataType: "JSON",
-            success: function (data) {
-                if (data.status == 1) {
-                    window.location.href = "./index";
-                } else {
-                    alert("账号或密码错误");
-                }
-
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
-    })
-</script>
+</html>
+<script type="text/javascript" src="plugin/jquery-1.11.3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="plugin/layui/layui.all.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/login.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/md5.js" ></script>
 </html>

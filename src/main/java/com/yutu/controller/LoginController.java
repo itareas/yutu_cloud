@@ -1,15 +1,11 @@
 package com.yutu.controller;
 
-import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
-import com.yutu.entity.SessionUser;
-import com.yutu.entity.table.TLogLanding;
-import com.yutu.service.ILogManagerService;
 import com.yutu.service.ILoginService;
-import com.yutu.util.RedisUtils;
+import com.yutu.util.CaptchaUtils;
 import com.yutu.util.SessionUserManager;
-import com.yutu.util.TokenManager;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -17,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
-import java.util.UUID;
 
 /**
  * @ClassName:LoginController
@@ -62,6 +56,34 @@ public class LoginController {
         HttpSession session = request.getSession();
         sessionUserManager.logoutSessionUser(session);
         //刷新页面
-        response.sendRedirect("../login");
+        response.sendRedirect("../");
+    }
+
+
+    @RequestMapping(value = "/captchato")
+    public void captchato(HttpServletRequest request, HttpServletResponse response, HttpSession session, String timestamp) throws IOException, java.io.IOException {
+        //response.setHeader("Content-Security-Policy", "script-src 'self'; object-src 'none'; style-src cdn.example.org third-party.org;");
+        CaptchaUtils.outputCaptcha(request, response);
+    }
+
+    @RequestMapping(value ="/check")
+    public String check(String yanzhengma, HttpSession session) {
+        String verification = "";
+        char[] arr = yanzhengma.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            if ((arr[i] >= 'a') && (arr[i] <= 'z')) {
+                int tmpVer = i;
+                char[] tmpVers = arr;
+                tmpVers[tmpVer] = ((char) (tmpVers[tmpVer] - ' '));
+            }
+        }
+        String string = new String(arr);
+        String validateCode = (String) session.getAttribute("randomString");
+        if (validateCode.equals(string))
+            verification = "true";
+        else {
+            verification = "false";
+        }
+        return verification;
     }
 }

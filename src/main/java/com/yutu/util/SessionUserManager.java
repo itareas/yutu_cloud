@@ -66,8 +66,8 @@ public class SessionUserManager {
                 case "session":
                     if (session.getId() != null) {
                         //Session版获取数据
-                        SessionUser sessionUs = (SessionUser) session.getAttribute("zbcCloud-" + session.getId());
-                        return sessionUs;
+                        SessionUser sessionUser = (SessionUser) session.getAttribute("zbcCloud-" + session.getId());
+                        return sessionUser;
                     }
                     break;
                 case "redis":
@@ -93,7 +93,7 @@ public class SessionUserManager {
      * @Date: 2019/12/22 9:42
      * @Description: 存储Session信息
      **/
-    public MsgPack setSessionUser(String sessionId, String security, Map<String, String> userInfo, List<TMenuSystem> listMenuSys,List<TMenuBusiness> listMenuBus) {
+    public MsgPack setSessionUser(String sessionId, String security, Map<String, String> userInfo, List<TMenuSystem> listMenuSys, List<TMenuBusiness> listMenuBus) {
         MsgPack msgPack = new MsgPack();
         //设置sessionUser值
         SessionUser sessionUser = new SessionUser();
@@ -110,7 +110,7 @@ public class SessionUserManager {
         HttpSession session = request.getSession(false);
         //判断是ses否为空
         if (session != null && sessionId.length() > 0) {
-            if (session.isNew()) {
+//            if (session.isNew()) {
                 switch (SystemPropertiesConfig.System_LoginStorage_Type) {
                     case "session":
                         //设置对外tokenId到Session中
@@ -154,18 +154,12 @@ public class SessionUserManager {
                         redisUtils.set(sessionUser.getSessionId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
                         msgPack.setStatus(1);
                         break;
-                    default:
-                        //存储到session中去
-                        request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
-                        request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemPropertiesConfig.System_Token_TimeOut));
-                        msgPack.setStatus(1);
-                        break;
                 }
             } else {
                 //session有值，不在存储
                 msgPack.setStatus(1);
             }
-        }
+//        }
         return msgPack;
     }
 

@@ -1,8 +1,12 @@
 package com.yutu.controller;
 
+import com.yutu.entity.SessionUser;
+import com.yutu.util.SessionUserManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -14,6 +18,8 @@ import java.io.IOException;
  **/
 @Controller
 public class RedirectController {
+    @Resource
+    private SessionUserManager sessionUserManager;
 
     /**
      * @Author:zhaobc
@@ -32,8 +38,14 @@ public class RedirectController {
      * @Description:系统首页
      **/
     @RequestMapping("/index")
-    public String index() {
-        return "index";
+    public String index(ModelMap modelMap) {
+        SessionUser sessionUser = sessionUserManager.getSessionUser();
+        String userName = "";
+        if (sessionUser != null) {
+            userName = sessionUser.getUserName();
+        }
+        modelMap.put("userName", userName);
+        return "login";
     }
 
 }

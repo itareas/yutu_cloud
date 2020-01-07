@@ -122,7 +122,7 @@ public class MyFilter implements Filter {
     private boolean isWhiteListUrl(String httpUrl, String[] whiteUrl) {
         if (whiteUrl != null) {
             for (String eu : whiteUrl) {
-                if (httpUrl.equals(eu.trim()) || (httpUrl.contains("/api/") || httpUrl.contains(".css") || httpUrl.contains(".js") || httpUrl.contains(".png") || httpUrl.contains(".jpg"))) {
+                if (httpUrl.contains(eu.trim()) || ( httpUrl.contains(".css") || httpUrl.contains(".js") || httpUrl.contains(".png") || httpUrl.contains(".jpg"))) {
                     return true;
                 }
             }
