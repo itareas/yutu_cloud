@@ -155,11 +155,11 @@ public class SessionUserManager {
                         msgPack.setStatus(1);
                         break;
                 }
-            } else {
-                //session有值，不在存储
-                msgPack.setStatus(1);
-            }
-//        }
+//            } else {
+//                //session有值，不在存储
+//                msgPack.setStatus(1);
+//            }
+        }
         return msgPack;
     }
 
