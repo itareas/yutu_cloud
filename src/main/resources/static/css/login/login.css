@@ -116,7 +116,6 @@ body{
 .message .verifyNumber{
     width: 25%;
     height: 33px;
-    line-height: 33px;
     border: 1px solid #02d2ff;
     border-radius: 2px;
     color: #fff;
@@ -144,6 +143,7 @@ body{
     border: none;
     cursor: pointer;
     text-align: center;
+    padding-right: 25px;
 }
 .message .submit:hover{
     color:#02d2ff;

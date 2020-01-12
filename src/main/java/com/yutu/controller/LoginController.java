@@ -2,9 +2,8 @@ package com.yutu.controller;
 
 import com.yutu.entity.MsgPack;
 import com.yutu.service.ILoginService;
+import com.yutu.util.CaptchaUtils;
 import com.yutu.util.SessionUserManager;
-import com.yutu.util.ValidateCodeProcessorHolder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +27,6 @@ public class LoginController {
     @Resource
     private SessionUserManager sessionUserManager;
     @Resource
-    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
-    @Resource
     HttpServletRequest request;
     @Resource
     HttpServletResponse response;
@@ -41,9 +38,17 @@ public class LoginController {
      **/
     @RequestMapping(value = "getLoginVerification")
     public MsgPack getLoginVerification(HttpServletRequest request) {
+        MsgPack msgPak = new MsgPack();
+        //获取验证码 转小写
+        String code = request.getParameter("code").toLowerCase();
+        String codeNew=CaptchaUtils.getCaptchas().toLowerCase();
+        if (!code.equals(codeNew)) {
+            msgPak.setMsg("验证码不正确");
+            return msgPak;
+        }
         String userAccount = request.getParameter("userAccount");
         String userPwd = request.getParameter("userPwd");
-        MsgPack msgPak = loginService.getLoginVerification(userAccount, userPwd);
+        msgPak = loginService.getLoginVerification(userAccount, userPwd);
         return msgPak;
     }
 
@@ -61,13 +66,9 @@ public class LoginController {
         response.sendRedirect("../");
     }
 
-    /**
-    * @Author: zhaobc
-    * @Date: 2020/1/12 12:09
-    * @Description: 获得验证码
-    **/
-    @RequestMapping("/generateValidateCode/{type}")
-    public void generateValidateCode(HttpServletRequest request,HttpServletResponse response,@PathVariable String type) throws Exception{
-        validateCodeProcessorHolder.findValidateCodeProcessor(type).create(request,response);
+    @RequestMapping(value = "/captchato")
+    public void captchato(HttpServletRequest request, HttpServletResponse response, HttpSession session, String time) throws IOException, java.io.IOException {
+        CaptchaUtils.outputCaptcha(request, response);
     }
+
 }
