@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>大数据服务平台</title>
+    <!--    <link rel="stylesheet" type="text/css" href="/css/index/layer.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/index/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/index/home.css">
+
+</head>
+<body>
+<div class="background">
+    <img src="/img/index/bg.png">
+</div>
+<div class="content">
+</div>
+<div class="logo">
+    <span>大数据服务平台</span>
+</div>
+<div class="right">
+    <div id="name" class="name">
+        <div id="admin-icon" class="admin-icon"></div>
+        <a id="user" class="user">
+            <span id="admin" th:text="${userName}"></span>
+        </a>
+        <div id="edit" class="edit">
+            <ul>
+                <li><a id="modify">修改密码</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="name">
+        <div id="management-icon" class="management-icon"></div>
+        <a id="management" class="user" onclick="managementClick()">系统管理 </a>
+    </div>
+    <div class="name">
+        <div id="exit-icon" class="exit-icon"></div>
+        <a id="exit" class="exit" onclick="logoutClick()">退出 </a>
+    </div>
+</div>
+<!--系统功能模块导航-->
+<div class="navigate" id="showMen">
+    <ul class="list" id="menuList">
+    </ul>
+</div>
+<input type="hidden" id="msgLogin" value="">
+</body>
+</html>
+<script type="text/javascript" src="/plugin/jquery-1.11.3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/plugin/layui/layui.all.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/index/index.js" charset="utf-8"></script>
+</html>

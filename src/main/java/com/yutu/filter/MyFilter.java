@@ -122,7 +122,8 @@ public class MyFilter implements Filter {
     private boolean isWhiteListUrl(String httpUrl, String[] whiteUrl) {
         if (whiteUrl != null) {
             for (String eu : whiteUrl) {
-                if (httpUrl.contains(eu.trim()) || ( httpUrl.contains(".css") || httpUrl.contains(".js") || httpUrl.contains(".png") || httpUrl.contains(".jpg"))) {
+                //在白名单中、默认登录页、前端静态放行
+                if (httpUrl.contains(eu.trim()) || httpUrl.equals("/") ||( httpUrl.contains(".css") || httpUrl.contains(".js") || httpUrl.contains(".png") || httpUrl.contains(".jpg"))) {
                     return true;
                 }
             }

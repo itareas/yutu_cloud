@@ -1,107 +1,72 @@
 <!DOCTYPE html>
-<html lang="th" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>主页</title>
-    <link rel="stylesheet" type="text/css" href="css/layer.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css" >
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <script src="../static/js/md5.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/login/slider.css">
+    <link rel="stylesheet" href="/css/login/login.css">
+    <title>大数据服务平台</title>
 </head>
 <body>
-<div class="background">
-    <img src="img/home/bg.png">
-</div>
-<div class="content">
-</div>
 <div class="logo">
-    <span>大数据服务平台</span>
+      <h1>大数据服务平台</h1>
 </div>
 <div class="login">
-    <input id="log" name="log" class="log" type="button" value="登录" />
-</div>
-<div class="right">
-    <div id="name" class="name">
-        <div id = "admin-icon" class="admin-icon"></div>
-        <a id="user" class="user">
-            <span id="admin"  th:text="${userName}"></span>
-        </a>
-        <div id="edit" class="edit">
-            <ul>
-                <li id="yunwei"><a id="operationCenter" onclick="getSystemCenter()">运维中心</a></li>
-                <li><a id="modify">修改密码</a></li>
-            </ul>
-        </div>
-    </div>
-    <a id="exit" class="exit">退出 </a>
-</div>
-<!--系统功能模块导航-->
-<div class="navigate" id="showMen">
-    <ul class="list">
-        <li id="10" class="sjhj vertical " url="http://localhost:8096/loginSSO" parentId="">
-            <img src="img/home/sjhj.png"/>
-            <p>综合数据服务系统</p>
-        </li>
-        <li id="20" class="yzt vertical " url="http://localhost:8097/loginSSO"  parentId="">
-            <img src="img/home/sjk.png"/>
-            <p>生态环保信息综合数据库<p>
-        </li>
-        <li id="30" class="hbyq vertical " url="http://localhost:8098/loginSSO" parentId="">
-            <img src="img/home/kjdq.png"/>
-            <p>跨界大气环境风险防范系统</p>
-        </li>
-        <li id="40" class="lsgyl " url="#" parentId="">
-            <img src="img/home/yg.png"/>
-            <p>生态环境状况遥感<br/>监测与评估系统</p>
-        </li>
-        <li id="50" class="lsslsz" url="#" parentId="">
-            <img src="img/home/jcss.png"/>
-            <p>基础设施与产能合作<br/>生态影响评估系统</p>
-        </li>
-        <li id="60" class="hbcy vertical" url="#" parentId="">
-            <img src="img/home/yq.png"/>
-            <p>舆情分析系统</p>
-        </li>
-    </ul>
-</div>
+    <div class="welcome">
 
-<!--登录遮罩层及弹出框-->
-<div id="dialogCover" class="dialog-cover"></div>
-<div id="loginWindow" class="login-window">
-    <div class="login-dialog">
-        <a href="javascript:void(0)" class="login-win-close">
-            <img id="close" src="img/home/close_defaut.png"/>
-        </a>
-        <div class="container">
-            <p class="login-title">安全登录</p>
-            <input id="flag"  value="0" type="hidden"/>
-            <form action="" method="post" enctype="text/plain">
-                <div class="username">
-                    <img src="img/home/admin.png"/>
-                    <input type="text" id="username" name="username" class="inp-username" placeholder="请输入账户"  value="admin"/>
-                </div>
-                <div class="password">
-                    <img src="img/home/pwd.png"/>
-                    <input type="password" id="pwd" name="pwd" class="inp-pwd" placeholder="请输入密码" value="admin"/>
-                </div>
-                <div class="verifycode" >
-                    <input type="text" id="captcha"  name="captcha" maxlength="10"  placeholder="请输入验证码">
-                    <img src="/login/captchato" id="captchaImage"  >
-                </div>
-                <div id="error" class="form-error"></div>
-                <div id="codeError" class="form-error"></div>
-                <div>
-                    <input id="submit" name="submit-btn" type="button" value="登录" class="login-submit"/>
-                </div>
-            </form>
-        </div>
     </div>
-    <input type="hidden" id="msgLogin" value="">
+    <form id="formId" class="message" method="post" action="">
+        <input type="text" class="admin" placeholder="用户名" name="userAccount" id="userAccount" value="admin">
+        <input type="password" class="password" placeholder="密码" name="userPwd" id="userPwd" value="admin">
+        <div class="yanzheng">
+            <input type="text" class="verify" placeholder="验证码" name="code" id="code">
+            <div class="verifyNumber" id="validateCodeDiv">
+                <img id="validateCode" alt=""/>
+            </div>
+        </div>
+        <!-- <div class="yanzheng">
+            <div class="demo1" style="width: 83%;margin-bottom: 5px;">
+                <div id="slider1" class="slider">
+                    <div class="ui-slider-wrap"
+                        style="width: 300px; height: 34px; border: 1px solid #0376bc!important">
+                        <div class="ui-slider-text ui-slider-no-select"
+                            style="line-height: 34px; font-size: 12px; color: rgb(102, 102, 102);">请按住滑块，拖动到最右边
+                        </div>
+                        <div class="ui-slider-btn init ui-slider-no-select"
+                            style="width: 34px; height: 34px; line-height: 34px; left: 0px;"></div>
+                        <div class="ui-slider-bg"
+                            style="height: 34px; background-color:rgba(22,62,225,.3); width: 0px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="result" style="color: #fff;display: none">验证结果：<span id="result1"></span></div>
+            </div>
+        </div> -->
+        <div class="button">
+            <button class="submit" type="button" id="loginButton">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+        </div>
+        <div class="remember">
+            <span id="errorInfo" style="color:red;"></span>
+            <!-- <input type="checkbox" name="remember-me" id="rememberBox">
+            <span>记住我</span> -->
+        </div>
+    </form>
+
 </div>
+<!--<script src="/js/common/commonJs.js"></script>-->
+<script type="text/javascript" src="/plugin/jquery-1.11.3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/plugin/jQuery.fontFlex.js" charset="utf-8"></script>
+<script type="text/javascript" src="/plugin/md5.js" charset="utf-8"></script>
+<script type="text/javascript"  src="/js/login/slider.js"></script>
+<script type="text/javascript"  src="/js/login/login.js"></script>
+<script>
+    $("#slider1").slider({
+        callback: function (result) {
+            result = (result == false ? "" : true);
+            $("#result1").text(result);
+        }
+    });
+</script>
 </body>
-</html>
-<script type="text/javascript" src="plugin/jquery-1.11.3.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="plugin/layui/layui.all.js" charset="utf-8"></script>
-<script type="text/javascript" src="js/login.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/md5.js" ></script>
 </html>

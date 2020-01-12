@@ -1,0 +1,204 @@
+@charset "utf-8";
+/*清除元素默认的内外边距  */
+* {
+    margin: 0;
+    padding: 0
+}
+/*让所有斜体 不倾斜*/
+em,
+i {
+    font-style: normal;
+}
+/*去掉列表前面的小点*/
+li {
+    list-style: none;
+}
+/*图片没有边框   去掉图片底侧的空白缝隙*/
+img {
+    border: 0;  /*ie6*/
+    vertical-align: middle;
+}
+/*让button 按钮 变成小手*/
+button {
+    cursor: pointer;
+}
+/*取消链接的下划线*/
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+/* 页面样式 */
+html,body{
+    height: 100%;
+    width: 100%;
+}
+body{
+    position: relative;
+    background:url(/img/login/tucen.png)  no-repeat center center;
+    background-size:cover;
+    background-attachment:fixed;
+    background-color:#CCCCCC;
+ }
+.logo{
+    position: absolute;
+    top: 9%;
+    left: 50%;
+    height: 8%;
+    color: white;
+    transform: translateX(-50%);
+    /*background: url(/img/login/logo.png) no-repeat center center;*/
+    background-size:cover;
+}
+.login{
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 57%;
+    background: url(/img/login/dengluk.png) no-repeat center center;
+    background-size:contain;
+}
+.welcome{
+    position: absolute;
+    left: 18%;
+    top: 13%;
+    width: 25%;
+    height: 9%;
+    background: url(/img/login/welcome.png) no-repeat center center;
+    background-size:contain;
+}
+.message{
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+}
+.message input{
+    width: 83%;
+    height: 33px;
+    margin-bottom: 15px;
+    padding-left: 45px;
+    color: #fff;
+    font-size: 12px;
+    border: 1px solid #02d2ff;
+    border-radius: 2px;
+    background-color: rgba(0,0,0,0);
+}
+/* 发光效果 */
+.message input:hover{
+    box-shadow: 0 0 6px #02d2ff;
+}
+.message input::-webkit-input-placeholder{
+    color:#fff;
+    font-size: 12px;
+} 
+.message .admin{
+    background: url(/img/login/login_03.png) no-repeat;
+    background-size: contain;
+}
+.message .password{
+    background: url(/img/login/password_06.png) no-repeat;
+    background-size: contain;
+}
+.yanzheng{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-size: contain;
+}
+.message .verify{
+    width: 56%;
+    background: url(/img/login/yzm_08.png) no-repeat;
+    background-size: contain;
+}
+.message .verifyNumber{
+    width: 25%;
+    height: 33px;
+    line-height: 33px;
+    border: 1px solid #02d2ff;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+}
+.button{
+    width: 100%;
+    text-align: center;
+}
+/* .button div{
+	width: 100%;
+    text-align: right;
+} */
+.message .submit{
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 56%;
+    height: 50px;
+    color: #fff;
+    font-size: 12px;
+    background: url(/img/login/1920.png) no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+.message .submit:hover{
+    color:#02d2ff;
+    text-shadow: 0 0 2px #02d2ff;
+    transition: all 0.8s;
+}
+
+
+/* 媒体查询 */
+@media  screen and (min-width:1900px){
+    .welcome{
+        position: absolute;
+        left: 17%;
+        top: 17%;
+    }
+    .message{
+        top: 33%;
+    }
+   .message input{
+        height: 40px;
+        width: 86%;
+        font-size: 16px;
+        margin-bottom: 25px;
+        padding-left: 50px;
+    }
+    .message .verifyNumber{
+        height: 40px;
+        line-height: 40px;
+    }
+    .message .submit{
+       width: 46%;
+       height: 60px;
+       font-size: 16px;
+       text-align: center;
+    }
+    .message input::-webkit-input-placeholder{
+        font-size: 16px;
+    } 
+}
+/* 滑块 */
+.remember{
+	float:right;
+	height:30px;
+	line-height:30px;
+	text-align:right;
+}
+.remember span{
+	float:right;
+    margin-left: 1px;
+    font-size: 12px;
+    color: #fff;
+}
+.remember input{
+	height:30px;
+	width:10px;
+	line-height:30px;
+    vertical-align: middle
+}

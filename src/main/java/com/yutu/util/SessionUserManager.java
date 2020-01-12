@@ -110,7 +110,7 @@ public class SessionUserManager {
         HttpSession session = request.getSession(false);
         //判断是ses否为空
         if (session != null && sessionId.length() > 0) {
-//            if (session.isNew()) {
+            if (session.isNew()) {
                 switch (SystemPropertiesConfig.System_LoginStorage_Type) {
                     case "session":
                         //设置对外tokenId到Session中
@@ -155,10 +155,10 @@ public class SessionUserManager {
                         msgPack.setStatus(1);
                         break;
                 }
-//            } else {
-//                //session有值，不在存储
-//                msgPack.setStatus(1);
-//            }
+            } else {
+                //session有值，不在存储
+                msgPack.setStatus(1);
+            }
         }
         return msgPack;
     }

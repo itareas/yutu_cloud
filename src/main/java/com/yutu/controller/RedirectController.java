@@ -7,8 +7,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @ClassName:RedirectController
@@ -45,7 +43,18 @@ public class RedirectController {
             userName = sessionUser.getUserName();
         }
         modelMap.put("userName", userName);
-        return "login";
+        return "index/index";
+    }
+
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2020/1/12 16:10
+    * @Description: 系统管理
+    **/
+    @RequestMapping("/management")
+    public String management() {
+        return "management/index";
     }
 
 }

@@ -2,10 +2,10 @@ package com.yutu.controller;
 
 import com.yutu.entity.MsgPack;
 import com.yutu.service.ILoginService;
-import com.yutu.util.CaptchaUtils;
 import com.yutu.util.SessionUserManager;
+import com.yutu.util.ValidateCodeProcessorHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -27,6 +27,8 @@ public class LoginController {
     private ILoginService loginService;
     @Resource
     private SessionUserManager sessionUserManager;
+    @Resource
+    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
     @Resource
     HttpServletRequest request;
     @Resource
@@ -59,31 +61,13 @@ public class LoginController {
         response.sendRedirect("../");
     }
 
-
-    @RequestMapping(value = "/captchato")
-    public void captchato(HttpServletRequest request, HttpServletResponse response, HttpSession session, String timestamp) throws IOException, java.io.IOException {
-        //response.setHeader("Content-Security-Policy", "script-src 'self'; object-src 'none'; style-src cdn.example.org third-party.org;");
-        CaptchaUtils.outputCaptcha(request, response);
-    }
-
-    @RequestMapping(value ="/check")
-    public String check(String yanzhengma, HttpSession session) {
-        String verification = "";
-        char[] arr = yanzhengma.toCharArray();
-        for (int i = 0; i < arr.length; i++) {
-            if ((arr[i] >= 'a') && (arr[i] <= 'z')) {
-                int tmpVer = i;
-                char[] tmpVers = arr;
-                tmpVers[tmpVer] = ((char) (tmpVers[tmpVer] - ' '));
-            }
-        }
-        String string = new String(arr);
-        String validateCode = (String) session.getAttribute("randomString");
-        if (validateCode.equals(string))
-            verification = "true";
-        else {
-            verification = "false";
-        }
-        return verification;
+    /**
+    * @Author: zhaobc
+    * @Date: 2020/1/12 12:09
+    * @Description: 获得验证码
+    **/
+    @RequestMapping("/generateValidateCode/{type}")
+    public void generateValidateCode(HttpServletRequest request,HttpServletResponse response,@PathVariable String type) throws Exception{
+        validateCodeProcessorHolder.findValidateCodeProcessor(type).create(request,response);
     }
 }
