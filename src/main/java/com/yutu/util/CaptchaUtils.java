@@ -1,13 +1,14 @@
 package com.yutu.util;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.Random;
  * @Description:
  */
 public class CaptchaUtils {
+    static Logger logger = Logger.getLogger(CaptchaUtils.class);
+
     private static List<String> list = new ArrayList<String>();
 
     /*
@@ -49,7 +52,7 @@ public class CaptchaUtils {
      */
 
     private static Color getRamColor() {
-        return new Color(0, 0, 0,0);
+        return new Color(14, 62, 158);
     }
 
     /*
@@ -57,12 +60,12 @@ public class CaptchaUtils {
      */
 
     public static Color getReverseColor() {
-        return new Color(random.nextInt(100)+155, random.nextInt(100)+155, random.nextInt(100)+155);
+        return new Color(random.nextInt(50) + 205, random.nextInt(50) + 205, random.nextInt(50) + 205);
     }
 
     public static void outputCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int width=100;
-        int height=40;
+        int width = 100;
+        int height = 40;
         String strWidth = request.getParameter("width");
         if (strWidth != null) {
             width = Integer.parseInt(strWidth);
@@ -80,34 +83,53 @@ public class CaptchaUtils {
         } else {
             list.add(randomString);
         }
-
         //color
         Color color = getRamColor();
         Color reverse = getReverseColor();
-        //生成只有红、绿、蓝色图片
-        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D g = bi.createGraphics();
-        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        g.setColor(color);
-        g.fillRect(0, 0, width, height);
-        g.setColor(reverse);
-        g.drawString(randomString, 12, 25);
-        //生成10条干扰线；
-        for (int i = 0; i < 20; i++) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            int x1 = random.nextInt(12);
-            int y1 = random.nextInt(12);
-            g.drawLine(x, y, x + x1, y + y1);
+        //设置参数
+        ByteArrayOutputStream out = null;
+        byte[] b = null;
+        try {
+            //生成只有红、绿、蓝色图片
+            BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+            Graphics2D g = bi.createGraphics();
+            g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+            g.setColor(color);
+            g.fillRect(0, 0, width, height);
+            g.setColor(reverse);
+            g.drawString(randomString, width / 10, 25);
+            //生成10条干扰线；
+            for (int i = 0; i < 20; i++) {
+                int x = random.nextInt(width);
+                int y = random.nextInt(height);
+                int x1 = random.nextInt(12);
+                int y1 = random.nextInt(12);
+                g.drawLine(x, y, x + x1, y + y1);
+            }
+            for (int i = 0, n = random.nextInt(100); i < n; i++) {
+                g.drawRect(random.nextInt(width), random.nextInt(height), 1, 1);
+            }
+            //转成JPEG格式
+            out = new ByteArrayOutputStream();
+            ServletOutputStream outResponse = response.getOutputStream();
+            ImageIO.write(bi, "jpg", out);
+            out.flush();
+            b = out.toByteArray();
+            out.close();
+            bi.flush();
+            bi = null;
+            outResponse.write(b);
+        } catch (IOException e) {
+            logger.error(e);
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        for (int i = 0, n = random.nextInt(100); i < n; i++) {
-            g.drawRect(random.nextInt(width), random.nextInt(height), 1, 1);
-        }
-        //转成JPEG格式
-        ServletOutputStream out = response.getOutputStream();
-        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-        encoder.encode(bi);
-        out.flush();
     }
 
     //获取验证码

@@ -47,10 +47,12 @@ function submitFormInfo() {
                 window.location.href = "./index";
             } else {
                 if (data.msg != "failure") {
+                    initValidateCode();
                     $("#code").val("");
                     $("#code").focus();
                     $("#errorInfo").text("验证码不正确！");
                 } else {
+                    initValidateCode();
                     $("#userAccount").val("");
                     $("#userPwd").val("");
                     $("#code").val("");

@@ -44,7 +44,7 @@ body{
 .right{
     position: absolute;
     top: 30px;
-    right: 30px;
+    right: 10px;
     z-index: 3;
     height: 27px;
     line-height: 27px;
@@ -52,7 +52,7 @@ body{
 .name{
     float:left;
     position: relative;
-    margin-right: 20px;
+    margin-right: 10px;
     height: 27px;
     border: 1px solid #1053A3;
     border-radius: 20px;
@@ -139,7 +139,7 @@ body{
 }
  
 .exit{
-    width: 50px;
+    width: 45px;
     height: 100%;
     color: #87D3FF;
     font-size:14px;

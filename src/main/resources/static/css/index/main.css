@@ -38,7 +38,6 @@ a:hover {
     line-height: 25px;
     font-size:14px;
     color: #87D3FF;
-    background: url(../images/common/up.png) right 13px no-repeat;
-    padding-right:13px;
+    padding-right:5px;
     margin-right:8px;
 }
