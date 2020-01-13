@@ -45,20 +45,18 @@ function submitFormInfo() {
         success: function (data) {
             if (data.status == 1) {
                 window.location.href = "./index";
+            } else if (data.status == 2){
+                initValidateCode();
+                $("#code").val("");
+                $("#code").focus();
+                $("#errorInfo").text("验证码不正确！");
             } else {
-                if (data.msg != "failure") {
-                    initValidateCode();
-                    $("#code").val("");
-                    $("#code").focus();
-                    $("#errorInfo").text("验证码不正确！");
-                } else {
-                    initValidateCode();
-                    $("#userAccount").val("");
-                    $("#userPwd").val("");
-                    $("#code").val("");
-                    $("#userAccount").focus();
-                    $("#errorInfo").text("用户密码错误！");
-                }
+                initValidateCode();
+                $("#userAccount").val("");
+                $("#userPwd").val("");
+                $("#code").val("");
+                $("#userAccount").focus();
+                $("#errorInfo").text("用户密码错误！");
             }
         },
         error: function (error) {

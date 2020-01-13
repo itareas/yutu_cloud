@@ -43,7 +43,7 @@ public class LoginController {
         String code = request.getParameter("code").toLowerCase();
         String codeNew=CaptchaUtils.getCaptchas().toLowerCase();
         if (!code.equals(codeNew)) {
-            msgPak.setMsg("验证码不正确");
+            msgPak.setStatus(2);
             return msgPak;
         }
         String userAccount = request.getParameter("userAccount");
