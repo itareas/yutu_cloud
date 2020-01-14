@@ -40,7 +40,7 @@ public class MyFilter implements Filter {
     @Resource
     private SessionUserManager sessionUserManager;
 
-    Logger logger = Logger.getLogger(MyFilter.class);
+    private Logger logger = Logger.getLogger(MyFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

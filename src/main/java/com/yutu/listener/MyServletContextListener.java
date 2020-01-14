@@ -5,8 +5,10 @@ import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.Blacklist;
 import com.yutu.entity.ClientVisiting;
 import com.yutu.entity.ConfigConstants;
+import com.yutu.filter.MyFilter;
 import com.yutu.util.BlacklistUitls;
 import com.yutu.util.StreamUtils;
+import org.apache.log4j.Logger;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.WebApplicationContext;
@@ -31,6 +33,7 @@ import java.util.*;
  **/
 @WebListener
 public class MyServletContextListener implements ServletContextListener {
+   private Logger logger = Logger.getLogger(MyServletContextListener.class);
     /**
      * @Author: zhaobc
      * @Date: 2019/6/1 12:15
@@ -72,6 +75,9 @@ public class MyServletContextListener implements ServletContextListener {
      * @Description: 系统启动时加载的文件
      **/
     public void startupRunnerConfig() {
+        //业务配置文件缓存
+        runConfigConstants();
+        //获取所有注入的地址
         SystemPropertiesConfig.System_Register_Request = getRegisterUrl();
     }
 
@@ -110,7 +116,7 @@ public class MyServletContextListener implements ServletContextListener {
         try {
             //获取给定的文件在服务器上面的绝对路径。   springboot 无法使用ServletContext 路径
             // String path = context.getRealPath(ConfigConstants.System_BlacklistPath);
-            String path = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "config/Black/";
+            String path = ConfigConstants.Attachment_Path + "/config/Black/";
             //判断路径是否存在，不存在创建
             File fileDir = new File(path);
             if (!fileDir.exists()) {
@@ -133,7 +139,7 @@ public class MyServletContextListener implements ServletContextListener {
         try {
             //获取给定的文件在服务器上面的绝对路径。 springboot 无法使用ServletContext 路径
             //String path = context.getRealPath(ConfigConstants.System_BlacklistPath);
-            String path = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "config/Black/";
+            String path = ConfigConstants.Attachment_Path + "/config/Black/";
             //判断路径是否存在，不存在创建
             File fileDir = new File(path);
             if (!fileDir.exists()) {
@@ -148,6 +154,25 @@ public class MyServletContextListener implements ServletContextListener {
             }
         } catch (Exception e) {
             System.out.print("==============>反序列化失败：" + e.getMessage());
+        }
+    }
+
+    /**
+    * @Author: zhaobc
+    * @Date: 2020-01-14 11:02
+    * @Description: 业务配置文件位置
+    **/
+    public void runConfigConstants() {
+        try {
+            // 读取config配置文件，并赋值到ConfigConstants常量类静态属性中  可以进行加密处理
+            Properties properties = PropertiesLoaderUtils.loadAllProperties("config/web.properties");
+            //获取业务配置文件区域
+            ConfigConstants.Auth_AppKey = properties.getProperty("Auth_AppKey");
+            ConfigConstants.Attachment_Path = properties.getProperty("Attachment_Path");
+
+        } catch (IOException e) {
+            logger.error(e);
+            e.printStackTrace();
         }
     }
 
