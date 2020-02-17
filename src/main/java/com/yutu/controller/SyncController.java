@@ -8,16 +8,14 @@ import com.yutu.entity.table.TLogOperation;
 import com.yutu.entity.table.TSysOrganization;
 import com.yutu.entity.table.TSysUser;
 import com.yutu.mapper.mysql.TCodConfigMapper;
+import com.yutu.service.IAuthorityManagerService;
 import com.yutu.service.ILogManagerService;
-import com.yutu.service.IOrganizationManagerService;
-import com.yutu.service.IUserManagerService;
 import com.yutu.util.RestClientUtils;
 import com.yutu.util.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -29,9 +27,7 @@ import java.util.*;
 @RequestMapping(value = "sync")
 public class SyncController {
     @Resource
-    private IUserManagerService userManagerService;
-    @Resource
-    private IOrganizationManagerService organizationManagerService;
+    private IAuthorityManagerService authorityManagerService;
     @Resource
     private TCodConfigMapper tCodConfigMapper;
     @Resource
@@ -46,7 +42,7 @@ public class SyncController {
      **/
     @RequestMapping(value = "user")
     public MsgPack syncUser(String appkey) {
-        MsgPack msgPack = userManagerService.getUserAll();
+        MsgPack msgPack = authorityManagerService.getUserAll();
         if (msgPack.getStatus() == 1) {
             List<TSysUser> listSysUser = (List<TSysUser>) msgPack.getData();
             List<TCodConfig> listCinfig = tCodConfigMapper.getConfigListById(ConfigConstants.Auth_AppKey, appkey);
@@ -95,7 +91,7 @@ public class SyncController {
      **/
     @RequestMapping(value = "organize")
     public MsgPack syncOrganization(String appkey) {
-        MsgPack msgPack = organizationManagerService.getOrganizationAll();
+        MsgPack msgPack = authorityManagerService.getOrganizationAll();
         if (msgPack.getStatus() == 1) {
             List<TSysOrganization> listOrg = (List<TSysOrganization>) msgPack.getData();
             List<TCodConfig> listCinfig = tCodConfigMapper.getConfigListById(ConfigConstants.Auth_AppKey, appkey);

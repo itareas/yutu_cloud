@@ -60,4 +60,34 @@ public class LogManagerServiceImpl implements ILogManagerService {
         logger.info("=============================>"+"数据操作日志插入" + operationCount + "条-------------------------------\r\n");
         return msgPack;
     }
+
+    @Override
+    public MsgPack getLogLandingList(int pageIndex, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getLogOperationList(int pageIndex, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getLogErrorList(int pageIndex, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getLogLandingDelById(String id) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getLogOperationDelById(String id) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getLogErrorDelById(String id) {
+        return null;
+    }
 }

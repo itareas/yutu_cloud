@@ -37,7 +37,7 @@ function submitFormInfo() {
         return;
     }
     $.ajax({
-        url: '../login/getLoginVerification',
+        url: '../login/verification',
         type: 'POST',
         async: false,
         data: {userAccount: userAccount, userPwd: hex_md5(userPwd),code:code},

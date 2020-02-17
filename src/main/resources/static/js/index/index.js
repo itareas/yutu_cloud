@@ -10,7 +10,7 @@ $(function () {
 function loadMenu() {
     //加载菜单
     $.ajax({
-        url: '/home/getSysMenuList',
+        url: '/home/menu/sys/list',
         type: 'POST',
         async: true,
         data: {},

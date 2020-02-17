@@ -35,7 +35,7 @@ public class HomeController {
     * @Date: 2019/12/15 18:07
     * @Description: 获得系统菜单列表
     **/
-    @RequestMapping(value = "getSysMenuList")
+    @RequestMapping(value = "menu/sys/list")
     public MsgPack getSysMenuList(HttpServletRequest request) {
         MsgPack<List<TMenuSystem>> msgPask = new MsgPack<List<TMenuSystem>>();
         SessionUser sessionUser =(SessionUser) sessionUserManager.getSessionUser();

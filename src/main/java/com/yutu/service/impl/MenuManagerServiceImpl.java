@@ -2,6 +2,7 @@ package com.yutu.service.impl;
 
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.table.TMenuBusiness;
+import com.yutu.entity.table.TMenuSystem;
 import com.yutu.mapper.mysql.TMenuBusinessMapper;
 import com.yutu.mapper.mysql.TMenuSystemMapper;
 import com.yutu.service.IMenuManagerService;
@@ -29,5 +30,55 @@ public class MenuManagerServiceImpl implements IMenuManagerService {
             msgPack.setData(listMenu);
         }
         return msgPack;
+    }
+
+    @Override
+    public MsgPack getMenuSysList(int pageIndex, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuBusList(int pageIndex, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuSysInsertById(TMenuSystem menuSystem) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuBusInsertById(TMenuBusiness menuBusiness) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuSysDelById(String id) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuBusDelById(String id) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuSysUpdateById(String id, TMenuSystem menuSystem) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuBusUpdateById(String id, TMenuBusiness menuBusiness) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuSysInfoById(String id) {
+        return null;
+    }
+
+    @Override
+    public MsgPack getMenuBusInfoById(String id) {
+        return null;
     }
 }

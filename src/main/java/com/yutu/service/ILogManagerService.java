@@ -26,4 +26,17 @@ public interface ILogManagerService {
      **/
     MsgPack insertOperationLog(TLogOperation operation);
 
+
+
+    MsgPack getLogLandingList(int pageIndex,int pageSize);
+
+    MsgPack getLogOperationList(int pageIndex,int pageSize);
+
+    MsgPack getLogErrorList(int pageIndex,int pageSize);
+
+    MsgPack getLogLandingDelById(String id);
+
+    MsgPack getLogOperationDelById(String id);
+
+    MsgPack getLogErrorDelById(String id);
 }

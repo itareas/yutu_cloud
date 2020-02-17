@@ -36,7 +36,7 @@ public class LoginController {
      * @Date: 2019/4/20 21:55
      * @Description: 用户登录验证
      **/
-    @RequestMapping(value = "getLoginVerification")
+    @RequestMapping(value = "verification")
     public MsgPack getLoginVerification(HttpServletRequest request) {
         MsgPack msgPak = new MsgPack();
         //获取验证码 转小写
@@ -66,7 +66,7 @@ public class LoginController {
         response.sendRedirect("../");
     }
 
-    @RequestMapping(value = "/captchato")
+    @RequestMapping(value = "captchato")
     public void captchato(HttpServletRequest request, HttpServletResponse response, HttpSession session, String time) throws IOException, java.io.IOException {
         CaptchaUtils.outputCaptcha(request, response);
     }
