@@ -7,6 +7,7 @@ import com.yutu.entity.table.TSysUser;
 import com.yutu.mapper.mysql.TSysOrganizationMapper;
 import com.yutu.mapper.mysql.TSysUserMapper;
 import com.yutu.service.IAuthorityManagerService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * @Date: 2020/1/21 10:33
  * @Description: 权限业务处理层
  */
+@Service
 public class AuthorityManagerServiceImpl implements IAuthorityManagerService {
     @Resource
     private TSysOrganizationMapper tSysOrganizationMapper;
