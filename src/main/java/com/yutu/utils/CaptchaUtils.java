@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import org.apache.log4j.Logger;
 

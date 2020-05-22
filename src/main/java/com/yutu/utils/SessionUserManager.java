@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.yutu.configuration.SystemPropertiesConfig;

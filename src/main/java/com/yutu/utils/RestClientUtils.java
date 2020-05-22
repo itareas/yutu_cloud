@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;

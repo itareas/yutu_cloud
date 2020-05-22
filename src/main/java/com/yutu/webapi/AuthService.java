@@ -1,15 +1,11 @@
 package com.yutu.webapi;
 
-import com.alibaba.fastjson.JSON;
 import com.yutu.entity.MsgPack;
 import com.yutu.service.ILoginService;
-import com.yutu.util.TokenManager;
+import com.yutu.utils.TokenManager;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 

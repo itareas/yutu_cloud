@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import java.util.List;
 import java.util.Map;

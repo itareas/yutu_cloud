@@ -1,23 +1,11 @@
-package com.yutu.util;
+package com.yutu.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.Blacklist;
 import com.yutu.entity.ClientVisiting;
-import com.yutu.entity.ConfigConstants;
-import com.yutu.exception.GlobalExceptionHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.lf5.viewer.configure.ConfigurationManager;
-import org.omg.CORBA.OBJ_ADAPTER;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;

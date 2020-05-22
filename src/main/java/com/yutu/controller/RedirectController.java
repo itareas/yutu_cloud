@@ -1,7 +1,7 @@
 package com.yutu.controller;
 
 import com.yutu.entity.SessionUser;
-import com.yutu.util.SessionUserManager;
+import com.yutu.utils.SessionUserManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;

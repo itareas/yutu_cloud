@@ -10,8 +10,8 @@ import com.yutu.entity.table.TMenuBusiness;
 import com.yutu.entity.table.TMenuSystem;
 import com.yutu.mapper.mysql.*;
 import com.yutu.service.ILoginService;
-import com.yutu.util.SessionUserManager;
-import com.yutu.util.TokenManager;
+import com.yutu.utils.SessionUserManager;
+import com.yutu.utils.TokenManager;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName:LoginServiceImpl

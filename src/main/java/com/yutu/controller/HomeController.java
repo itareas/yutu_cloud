@@ -4,15 +4,13 @@ import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TMenuSystem;
 import com.yutu.service.IHomeService;
-import com.yutu.util.JsonListUtil;
-import com.yutu.util.RedisUtils;
-import com.yutu.util.SessionUserManager;
+import com.yutu.utils.JsonListUtil;
+import com.yutu.utils.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 

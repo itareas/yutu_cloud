@@ -1,16 +1,11 @@
 package com.yutu.webapi;
 
 import com.yutu.entity.MsgPack;
-import com.yutu.entity.SessionUser;
 import com.yutu.entity.TokenInfo;
 import com.yutu.service.ILoginService;
 import com.yutu.service.IMenuManagerService;
-import com.yutu.util.SessionUserManager;
-import com.yutu.util.TokenManager;
+import com.yutu.utils.TokenManager;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.ws.rs.*;

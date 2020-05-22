@@ -1,8 +1,7 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.TokenInfo;
-import org.apache.log4j.lf5.viewer.configure.ConfigurationManager;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

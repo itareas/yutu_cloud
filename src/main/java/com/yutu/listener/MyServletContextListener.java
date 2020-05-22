@@ -1,23 +1,18 @@
 package com.yutu.listener;
 
-import com.alibaba.fastjson.JSON;
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.Blacklist;
-import com.yutu.entity.ClientVisiting;
 import com.yutu.entity.ConfigConstants;
-import com.yutu.filter.MyFilter;
-import com.yutu.util.BlacklistUitls;
-import com.yutu.util.StreamUtils;
+import com.yutu.utils.BlacklistUitls;
+import com.yutu.utils.StreamUtils;
 import org.apache.log4j.Logger;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;

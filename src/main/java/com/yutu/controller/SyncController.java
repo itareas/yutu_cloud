@@ -10,8 +10,8 @@ import com.yutu.entity.table.TSysUser;
 import com.yutu.mapper.mysql.TCodConfigMapper;
 import com.yutu.service.IAuthorityManagerService;
 import com.yutu.service.ILogManagerService;
-import com.yutu.util.RestClientUtils;
-import com.yutu.util.SessionUserManager;
+import com.yutu.utils.RestClientUtils;
+import com.yutu.utils.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

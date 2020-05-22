@@ -1,6 +1,5 @@
-package com.yutu.util;
+package com.yutu.utils;
 
-import java.lang.reflect.ParameterizedType;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.logging.Level;

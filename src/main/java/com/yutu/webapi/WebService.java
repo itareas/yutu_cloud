@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.table.TSysUser;
 import com.yutu.service.ILogManagerService;
-import com.yutu.util.AESUtils;
-import com.yutu.util.RedisUtils;
+import com.yutu.utils.AESUtils;
+import com.yutu.utils.RedisUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

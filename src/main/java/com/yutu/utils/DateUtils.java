@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;

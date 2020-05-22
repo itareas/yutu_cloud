@@ -15,14 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
-import com.yutu.util.RedisUtils;
-import com.yutu.util.SessionUserManager;
+import com.yutu.utils.RedisUtils;
+import com.yutu.utils.SessionUserManager;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 
-import com.yutu.entity.ConfigConstants;
 import com.yutu.entity.SessionUser;
-import com.yutu.util.BlacklistUitls;
+import com.yutu.utils.BlacklistUitls;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.yutu.webapi;
 
 import com.yutu.entity.MsgPack;
-import com.yutu.util.AESUtils;
+import com.yutu.utils.AESUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

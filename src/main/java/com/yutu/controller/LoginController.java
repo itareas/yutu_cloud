@@ -2,8 +2,8 @@ package com.yutu.controller;
 
 import com.yutu.entity.MsgPack;
 import com.yutu.service.ILoginService;
-import com.yutu.util.CaptchaUtils;
-import com.yutu.util.SessionUserManager;
+import com.yutu.utils.CaptchaUtils;
+import com.yutu.utils.SessionUserManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

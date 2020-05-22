@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import java.io.*;
 import java.util.Arrays;

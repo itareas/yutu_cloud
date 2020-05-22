@@ -1,4 +1,4 @@
-package com.yutu.util;
+package com.yutu.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
