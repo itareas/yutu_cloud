@@ -66,9 +66,9 @@ public class AuthService {
     public MsgPack token(@QueryParam("token") String token) {
         MsgPack msgPack = new MsgPack();
         if (TokenManager.verificationToken(token, TokenManager.getSecurity(request))) {
-            msgPack.setStatus(MsgStatus.SUCCESS);
+            msgPack.setStatus(MsgStatus.SUCCESS.getCode());
         } else {
-            msgPack.setStatus(MsgStatus.FAIL);
+            msgPack.setStatus(MsgStatus.FAIL.getCode());
         }
         return msgPack;
     }

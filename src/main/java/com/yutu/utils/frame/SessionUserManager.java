@@ -11,7 +11,7 @@ import com.yutu.entity.table.TLogLanding;
 import com.yutu.entity.table.TMenuBusiness;
 import com.yutu.entity.table.TMenuSystem;
 import com.yutu.service.frame.IPowerService;
-import com.yutu.utils.redis.RedisUtils;
+import com.yutu.utils.database.redis.RedisUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -123,7 +123,7 @@ public class SessionUserManager {
                     //存储到session中去 并设置超时时间
                     request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
                     request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemPropertiesConfig.System_Token_TimeOut));
-                    msgPack.setStatus(MsgStatus.SUCCESS);
+                    msgPack.setStatus(MsgStatus.SUCCESS.getCode());
 
                     //设置对外接口参数
                     TokenInfo tokenInfo = new TokenInfo();
@@ -157,7 +157,7 @@ public class SessionUserManager {
                     //存储到redis
                     sessionUser.setToken(sessionUser.getSessionId());
                     redisUtils.set(sessionUser.getSessionId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
-                    msgPack.setStatus(MsgStatus.SUCCESS);
+                    msgPack.setStatus(MsgStatus.SUCCESS.getCode());
                     break;
             }
 //            } else {
@@ -182,13 +182,13 @@ public class SessionUserManager {
                     //存储到session中去
                     request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
                     request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemPropertiesConfig.System_Token_TimeOut));
-                    msgPack.setStatus(MsgStatus.SUCCESS);
+                    msgPack.setStatus(MsgStatus.SUCCESS.getCode());
                     msgPack.setData(sessionUser);
                     break;
                 case "redis":
                     //存储到redis
                     redisUtils.expire(sessionUser.getSessionId(), Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
-                    msgPack.setStatus(MsgStatus.SUCCESS);
+                    msgPack.setStatus(MsgStatus.SUCCESS.getCode());
                     msgPack.setData(sessionUser);
                     break;
             }

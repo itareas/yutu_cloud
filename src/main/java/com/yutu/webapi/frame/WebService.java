@@ -5,7 +5,7 @@ import com.yutu.entity.MsgPack;
 import com.yutu.entity.table.TSysUser;
 import com.yutu.service.frame.IPowerService;
 import com.yutu.utils.data.encryption.AESUtils;
-import com.yutu.utils.redis.RedisUtils;
+import com.yutu.utils.database.redis.RedisUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

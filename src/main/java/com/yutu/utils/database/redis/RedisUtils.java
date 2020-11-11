@@ -1,4 +1,4 @@
-package com.yutu.utils.redis;
+package com.yutu.utils.database.redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

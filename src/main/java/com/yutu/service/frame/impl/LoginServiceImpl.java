@@ -108,7 +108,7 @@ public class LoginServiceImpl implements ILoginService {
         //验证token是否过期
         TokenInfo tokenInfo = TokenManager.getTokenInfoById(token, request.getRemoteAddr());
         if (tokenInfo != null) {
-            msgPack.setStatus(MsgStatus.SUCCESS);
+            msgPack.setStatus(MsgStatus.SUCCESS.getCode());
             msgPack.setData(tokenInfo.getApiUser());
         }
         //返回用户信息
@@ -143,7 +143,7 @@ public class LoginServiceImpl implements ILoginService {
         Map<String, String> mapData = new HashMap<>();
         mapData.put("token", tokenId);
         mapData.put("expire", sdf.format(nowTime.getTime()));
-        msgPack.setStatus(MsgStatus.SUCCESS);
+        msgPack.setStatus(MsgStatus.SUCCESS.getCode());
         msgPack.setData(mapData);
         return msgPack;
     }
