@@ -1,0 +1,9 @@
+${AnsiColor.MAGENTA}
+ _____  _______         _____   ______             _____
+|_   _||__   __| /\    |  __ \ |  ____|    /\     / ____|
+  | |     | |   /  \   | |__) || |__      /  \   | (___
+  | |     | |  / /\ \  |  _  / |  __|    / /\ \   \___ \
+ _| |_    | | / ____ \ | | \ \ | |____  / ____ \  ____) |
+|_____|   |_|/_/    \_\|_|  \_\|______|/_/    \_\|_____/
+${AnsiColor.BLACK}---------------------------------------------<${AnsiColor.GREEN}author${AnsiColor.BLACK}:zhaobc>-
+${AnsiColor.BLACK}:: ${AnsiColor.GREEN} Spring Boot ${AnsiColor.BLACK}  ::        ${spring-boot.formatted-version}
