@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.frame.TBasAppMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TBasApp">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="app_key" jdbcType="VARCHAR" property="appKey" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="app_type" jdbcType="INTEGER" property="appType" />
+    <result column="enable" jdbcType="INTEGER" property="enable" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, app_key, app_name, app_type, enable, update_time, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_bas_app
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_bas_app
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yutu.entity.table.TBasApp">
+    insert into t_bas_app (uuid, app_key, app_name, 
+      app_type, enable, update_time, 
+      remarks)
+    values (#{uuid,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{appType,jdbcType=INTEGER}, #{enable,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TBasApp">
+    insert into t_bas_app
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="appKey != null">
+        app_key,
+      </if>
+      <if test="appName != null">
+        app_name,
+      </if>
+      <if test="appType != null">
+        app_type,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null">
+        #{appType,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TBasApp">
+    update t_bas_app
+    <set>
+      <if test="appKey != null">
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null">
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null">
+        app_type = #{appType,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TBasApp">
+    update t_bas_app
+    set app_key = #{appKey,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      app_type = #{appType,jdbcType=INTEGER},
+      enable = #{enable,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getAppCount" resultType="java.lang.Integer">
+  select count(0) from  t_bas_app where app_key=#{appKey,jdbcType=VARCHAR} and enable=1
+</select>
+</mapper>

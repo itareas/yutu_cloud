@@ -56,30 +56,6 @@ public class DataSourceSqlServerConfig {
     @Value("${spring.datasource.sqlserver.minEvictableIdleTimeMillis}")
     private int minEvictableIdleTimeMillis;
 
-    @Value("${spring.datasource.sqlserver.validationQuery}")
-    private String validationQuery;
-
-    @Value("${spring.datasource.sqlserver.testWhileIdle}")
-    private boolean testWhileIdle;
-
-    @Value("${spring.datasource.sqlserver.testOnBorrow}")
-    private boolean testOnBorrow;
-
-    @Value("${spring.datasource.sqlserver.testOnReturn}")
-    private boolean testOnReturn;
-
-    @Value("${spring.datasource.sqlserver.poolPreparedStatements}")
-    private boolean poolPreparedStatements;
-
-    @Value("${spring.datasource.sqlserver.maxPoolPreparedStatementPerConnectionSize}")
-    private int maxPoolPreparedStatementPerConnectionSize;
-
-    @Value("${spring.datasource.sqlserver.filters}")
-    private String filters;
-
-    @Value("${spring.datasource.sqlserver.connectionProperties}")
-    private String connectionProperties;
-
 
     /**
      * @Author: zhaobc
@@ -100,11 +76,6 @@ public class DataSourceSqlServerConfig {
         dataSource.setMaxWait(maxWait);
         dataSource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
         dataSource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-        dataSource.setValidationQuery(validationQuery);
-        dataSource.setTestWhileIdle(testWhileIdle);
-        dataSource.setTestOnBorrow(testOnBorrow);
-        dataSource.setTestOnReturn(testOnReturn);
-        dataSource.setPoolPreparedStatements(poolPreparedStatements);
 
         return dataSource;
     }

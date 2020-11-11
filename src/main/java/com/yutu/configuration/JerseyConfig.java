@@ -1,8 +1,8 @@
 package com.yutu.configuration;
 
-import com.yutu.webapi.AuthService;
-import com.yutu.webapi.LogService;
-import com.yutu.webapi.MenuService;
+import com.yutu.webapi.frame.AuthService;
+import com.yutu.webapi.frame.LogService;
+import com.yutu.webapi.frame.MenuService;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;

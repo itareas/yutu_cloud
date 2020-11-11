@@ -1,7 +1,5 @@
 package com.yutu.entity;
 
-import java.util.Map;
-
 /**
  * @Author: zhaobc
  * @Date: 2019/4/20 21:57
@@ -11,11 +9,22 @@ public class MsgPack<T> {
 
     /**
     * @Author: zhaobc
+    * @Date: 2020/6/17 22:34
+    * @Description: 构造函数
+    **/
+    public MsgPack(int status, String msg, T data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+    }
+
+    /**
+    * @Author: zhaobc
     * @Date: 2019-12-23 10:24
     * @Description: 构造函数 设置默认值
     **/
-    public  MsgPack(){
-       this.setStatus(0);
+    public MsgPack(){
+       this.setStatus(MsgStatus.FAIL);
     }
 
     /**
@@ -44,10 +53,10 @@ public class MsgPack<T> {
 
     public void setStatus(int status) {
         switch (status) {
-            case 0:
+            case MsgStatus.FAIL:
                 this.msg = "failure";
                 break;
-            case 1:
+            case MsgStatus.SUCCESS:
                 this.msg = "success";
                 break;
         }

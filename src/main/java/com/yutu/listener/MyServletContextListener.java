@@ -3,9 +3,11 @@ package com.yutu.listener;
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.Blacklist;
 import com.yutu.entity.ConfigConstants;
-import com.yutu.utils.BlacklistUitls;
-import com.yutu.utils.StreamUtils;
-import org.apache.log4j.Logger;
+import com.yutu.utils.data.stream.StreamUtils;
+import com.yutu.utils.frame.BlacklistUitls;
+import com.yutu.utils.frame.SessionUserManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
@@ -28,7 +30,7 @@ import java.util.*;
  **/
 @WebListener
 public class MyServletContextListener implements ServletContextListener {
-   private Logger logger = Logger.getLogger(MyServletContextListener.class);
+    private final Logger logger = LoggerFactory.getLogger(MyServletContextListener.class);
     /**
      * @Author: zhaobc
      * @Date: 2019/6/1 12:15
@@ -162,11 +164,10 @@ public class MyServletContextListener implements ServletContextListener {
             // 读取config配置文件，并赋值到ConfigConstants常量类静态属性中  可以进行加密处理
             Properties properties = PropertiesLoaderUtils.loadAllProperties("config/web.properties");
             //获取业务配置文件区域
-            ConfigConstants.Auth_AppKey = properties.getProperty("Auth_AppKey");
             ConfigConstants.Attachment_Path = properties.getProperty("Attachment_Path");
 
         } catch (IOException e) {
-            logger.error(e);
+            logger.error("异常：",e);
             e.printStackTrace();
         }
     }

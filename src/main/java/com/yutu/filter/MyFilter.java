@@ -15,13 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import com.yutu.configuration.SystemPropertiesConfig;
 import com.yutu.entity.MsgPack;
-import com.yutu.utils.RedisUtils;
-import com.yutu.utils.SessionUserManager;
-import org.apache.log4j.Logger;
-import org.apache.commons.lang3.StringUtils;
-
 import com.yutu.entity.SessionUser;
-import com.yutu.utils.BlacklistUitls;
+import com.yutu.utils.frame.BlacklistUitls;
+import com.yutu.utils.frame.SessionUserManager;
+import com.yutu.utils.redis.RedisUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -39,8 +39,7 @@ public class MyFilter implements Filter {
     @Resource
     private SessionUserManager sessionUserManager;
 
-    private Logger logger = Logger.getLogger(MyFilter.class);
-
+    private final Logger logger = LoggerFactory.getLogger(MyFilter.class);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -105,7 +104,7 @@ public class MyFilter implements Filter {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            logger.error(e);
+            logger.error("异常",e);
         }
     }
 

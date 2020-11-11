@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.frame.TSysUserOrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TSysUserOrganization">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="org_uuid" jdbcType="VARCHAR" property="orgUuid" />
+    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, org_uuid, user_uuid, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_user_organization
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_sys_user_organization
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yutu.entity.table.TSysUserOrganization">
+    insert into t_sys_user_organization (uuid, org_uuid, user_uuid, 
+      remarks)
+    values (#{uuid,jdbcType=VARCHAR}, #{orgUuid,jdbcType=VARCHAR}, #{userUuid,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TSysUserOrganization">
+    insert into t_sys_user_organization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="orgUuid != null">
+        org_uuid,
+      </if>
+      <if test="userUuid != null">
+        user_uuid,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgUuid != null">
+        #{orgUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TSysUserOrganization">
+    update t_sys_user_organization
+    <set>
+      <if test="orgUuid != null">
+        org_uuid = #{orgUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TSysUserOrganization">
+    update t_sys_user_organization
+    set org_uuid = #{orgUuid,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

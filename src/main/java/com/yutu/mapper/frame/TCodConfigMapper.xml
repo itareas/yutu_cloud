@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yutu.mapper.frame.TCodConfigMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TCodConfig">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="config_code" jdbcType="VARCHAR" property="configCode" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="config_parent" jdbcType="VARCHAR" property="configParent" />
+    <result column="config_level" jdbcType="INTEGER" property="configLevel" />
+    <result column="config_status" jdbcType="INTEGER" property="configStatus" />
+    <result column="order_by" jdbcType="INTEGER" property="orderBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, config_code, config_name, config_parent, config_level, config_status, order_by, 
+    update_time, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_cod_config
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_cod_config
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yutu.entity.table.TCodConfig">
+    insert into t_cod_config (uuid, config_code, config_name, 
+      config_parent, config_level, config_status, 
+      order_by, update_time, remarks
+      )
+    values (#{uuid,jdbcType=VARCHAR}, #{configCode,jdbcType=VARCHAR}, #{configName,jdbcType=VARCHAR}, 
+      #{configParent,jdbcType=VARCHAR}, #{configLevel,jdbcType=INTEGER}, #{configStatus,jdbcType=INTEGER}, 
+      #{orderBy,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TCodConfig">
+    insert into t_cod_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="configCode != null">
+        config_code,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="configParent != null">
+        config_parent,
+      </if>
+      <if test="configLevel != null">
+        config_level,
+      </if>
+      <if test="configStatus != null">
+        config_status,
+      </if>
+      <if test="orderBy != null">
+        order_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="configCode != null">
+        #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configParent != null">
+        #{configParent,jdbcType=VARCHAR},
+      </if>
+      <if test="configLevel != null">
+        #{configLevel,jdbcType=INTEGER},
+      </if>
+      <if test="configStatus != null">
+        #{configStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderBy != null">
+        #{orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TCodConfig">
+    update t_cod_config
+    <set>
+      <if test="configCode != null">
+        config_code = #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configName != null">
+        config_name = #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configParent != null">
+        config_parent = #{configParent,jdbcType=VARCHAR},
+      </if>
+      <if test="configLevel != null">
+        config_level = #{configLevel,jdbcType=INTEGER},
+      </if>
+      <if test="configStatus != null">
+        config_status = #{configStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderBy != null">
+        order_by = #{orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TCodConfig">
+    update t_cod_config
+    set config_code = #{configCode,jdbcType=VARCHAR},
+      config_name = #{configName,jdbcType=VARCHAR},
+      config_parent = #{configParent,jdbcType=VARCHAR},
+      config_level = #{configLevel,jdbcType=INTEGER},
+      config_status = #{configStatus,jdbcType=INTEGER},
+      order_by = #{orderBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getConfigListById" resultMap="BaseResultMap">
+      SELECT * FROM t_cod_config C WHERE C.config_parent=#{key} and C.config_code=#{appkey}
+  </select>
+
+</mapper>

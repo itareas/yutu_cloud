@@ -56,29 +56,7 @@ public class DataSourceOracleConfig {
     @Value("${spring.datasource.oracle.minEvictableIdleTimeMillis}")
     private int minEvictableIdleTimeMillis;
 
-    @Value("${spring.datasource.oracle.validationQuery}")
-    private String validationQuery;
 
-    @Value("${spring.datasource.oracle.testWhileIdle}")
-    private boolean testWhileIdle;
-
-    @Value("${spring.datasource.oracle.testOnBorrow}")
-    private boolean testOnBorrow;
-
-    @Value("${spring.datasource.oracle.testOnReturn}")
-    private boolean testOnReturn;
-
-    @Value("${spring.datasource.oracle.poolPreparedStatements}")
-    private boolean poolPreparedStatements;
-
-    @Value("${spring.datasource.oracle.maxPoolPreparedStatementPerConnectionSize}")
-    private int maxPoolPreparedStatementPerConnectionSize;
-
-    @Value("${spring.datasource.oracle.filters}")
-    private String filters;
-
-    @Value("${spring.datasource.oracle.connectionProperties}")
-    private String connectionProperties;
 
 
     /**
@@ -100,11 +78,6 @@ public class DataSourceOracleConfig {
         dataSource.setMaxWait(maxWait);
         dataSource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
         dataSource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-        dataSource.setValidationQuery(validationQuery);
-        dataSource.setTestWhileIdle(testWhileIdle);
-        dataSource.setTestOnBorrow(testOnBorrow);
-        dataSource.setTestOnReturn(testOnReturn);
-        dataSource.setPoolPreparedStatements(poolPreparedStatements);
 
         return dataSource;
     }

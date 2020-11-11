@@ -64,30 +64,6 @@ public class DataSourceMySqlConfig {
     @Value("${spring.datasource.mysql.minEvictableIdleTimeMillis}")
     private int minEvictableIdleTimeMillis;
 
-    @Value("${spring.datasource.mysql.validationQuery}")
-    private String validationQuery;
-
-    @Value("${spring.datasource.mysql.testWhileIdle}")
-    private boolean testWhileIdle;
-
-    @Value("${spring.datasource.mysql.testOnBorrow}")
-    private boolean testOnBorrow;
-
-    @Value("${spring.datasource.mysql.testOnReturn}")
-    private boolean testOnReturn;
-
-    @Value("${spring.datasource.mysql.poolPreparedStatements}")
-    private boolean poolPreparedStatements;
-
-    @Value("${spring.datasource.mysql.maxPoolPreparedStatementPerConnectionSize}")
-    private int maxPoolPreparedStatementPerConnectionSize;
-
-    @Value("${spring.datasource.mysql.filters}")
-    private String filters;
-
-    @Value("${spring.datasource.mysql.connectionProperties}")
-    private String connectionProperties;
-
 
     /**
      * @Author: zhaobc
@@ -95,7 +71,6 @@ public class DataSourceMySqlConfig {
      * @Description: 数据源配置加载配置文件
      **/
     @Bean(name = "mySqlDataSource")
-    @Primary
     public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(this.driverClassName);
@@ -109,12 +84,6 @@ public class DataSourceMySqlConfig {
         dataSource.setMaxWait(maxWait);
         dataSource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
         dataSource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-        dataSource.setValidationQuery(validationQuery);
-        dataSource.setTestWhileIdle(testWhileIdle);
-        dataSource.setTestOnBorrow(testOnBorrow);
-        dataSource.setTestOnReturn(testOnReturn);
-        dataSource.setPoolPreparedStatements(poolPreparedStatements);
-        dataSource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
 
         return dataSource;
     }
@@ -125,7 +94,6 @@ public class DataSourceMySqlConfig {
      * @Description: 创建该数据源的连接数据库工厂
      **/
     @Bean(name = "mySqlSqlSessionFactory")
-    @Primary
     public SqlSessionFactory sqlSessionFactory(@Qualifier("mySqlDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
@@ -139,7 +107,6 @@ public class DataSourceMySqlConfig {
      * @Description: 该数据源事务控制  用法 @Transactional(transactionManager="mySqlTransactionManager")
      **/
     @Bean(name = "mySqlTransactionManager")
-    @Primary
     public DataSourceTransactionManager transactionManager(@Qualifier("mySqlDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
@@ -150,7 +117,6 @@ public class DataSourceMySqlConfig {
      * @Description: MyBatis提供的持久层访问模板化的工具，线程安全，可通过构造参数或依赖注入SqlSessionFactory实例
      **/
     @Bean(name = "mySqlSqlSessionTemplate")
-    @Primary
     public SqlSessionTemplate sqlSessionTemplate(@Qualifier("mySqlSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }

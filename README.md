@@ -2,7 +2,7 @@
 
 * 系统框架： **SpringBoot+Mybatis+Druid+Redis+Thymeleaf+jersey+Docker+Vue**
 
-* 系统版本： **V0.7.0**
+* 系统版本： **V0.8.0**
 
 * 支持数据库：**SqlServer、Oracle、MySql、Redis...**
 
@@ -48,96 +48,6 @@
 >      resources/log4j.properties：日志配置文件；
 >      resources/mybatis-config.xml：mybatis核心配置；
 >      resources/readme.md：系统开发手册；       
-
-------------------------------------------------------------------
-
-## 后台开发要求
-
-* controller
->   1.RedirectController 为系统统一前台页面统一注册页，由前段人员参与维护
->   2.依赖注入方法统一用 @Resource
->   3.常规前台业务交互层返回数据统一用**MsgPack**类统一进行返回，类注解统一用@RestController，返回参数时无需再转json
->>      示例：         
->>               @RestController
->>               @RequestMapping("login")
->>               public class LoginController {
->>                   @Resource
->>                   private ServiceFactory serviceFactory;
->>    
->>                   @RequestMapping("getLoginVerification")
->>                   public MsgPack getLoginVerification(HttpServletRequest request){
->>                      //正常业务处理
->>                      MsgPack msgPak= serviceFactory.getLoginService().业务处理方法;               
->>                      return msgPak;
->>                   }
->>                }  
-> 4.创建类和方法时候及时写注释，注释上必须标明创建人、创建时间、此方法/类简介
-
-* entity
-> 1.数据实体类统一放到table文件夹下，公用开发实力类放到主目录下
-
-> 2.创建类和方法时候及时写注释，注释上必须标明创建人、创建时间、此方法/类简介
-
-* mapper
-> 1.遵循mybatis规范
-
-* service
-> 1.接口首字母用I，后面采用pascal 命名法
-
-> 2.依赖注入方法统一用 @Resource
-
-* webapi
-> 1.接口之间通信统一用JSON,类注解统一用@RestController，交互json标准为：MsgPack实体类 
-
-> 2.所有接口返回数据前必须通过**AES进行加密**，AES加密实体类在 /util/AESUtil
->>     加密： String aesMsgPack = AESUtil.encrypt(msgPack);
->>     解密： MsgPack decryptMsgPack=AESUtil.decrypt(aesMsgPack);
-
-* **配置区的文件正常开发请勿乱动，如需要更改，请联系研发负责人** 
-
-------------------------------------------------------------------
-
-## 前段开发要求
-
-* 静态页规范
->  1.首级目录命令为 templates  
->
->  2.主html页面放到 templates/*.html      
->>     例如：login.html/error.html 
->
->  3.模块下业务html根据各个模块分好文件夹 templates/ModularOne/*.html    
->>     例如：ModularOne     
-
-* 其他资源规范
->  1.首级目录命令为 static
->
->  2.二级目录根据资源类型分类  static/js  static/css   static/img    static/script   其他类型造此类推 
->
->  3.三级目录 按模块划分，**具体命名与静态页一致**，主文件放外面，模块文件放到下一级目录
->>     例如：static/js/ModularOne/login.js   static/js/ModularOne/*.js  
->
->  4.第三方js框架统一放到 static/script目录下 
-   
-* 与后台交互规范 初版
->  1.与后台交互统一用ajax post 方式，传递参数命名采用驼峰命名法
->
->  2.后台与前台交互传递数据统一用json数据格式  
->>     例如：{"status":0,"msg":"用户名或密码错误","data":null} 
->>	    status：0：成功，  1：失败
->>	    msg：提示信息
->>     data：返回json数据
-
-
-
-------------------------------------------------------------------
-
-## 未完成的问题
-
-> 1.XSS和SQL注入攻击实用性测试
-
-> 2.监听器进行存文件和读文件时候会有一次，不稳定
-
-> 3.Docker打包发布功能开发
 
 ------------------------------------------------------------------
 
@@ -240,3 +150,11 @@
  
 * 2020年05月22日
 >   1.  工具类进行改名
+>
+
+* 2020年11月08日  v0.9.0
+>   1.  升级springboot到2.3.5
+>   2.  重新优化工具类命名规范
+>   3.  升级日志管理到logback
+>   4.  升级全局异常捕获
+>   5.  优化验证单点登录
