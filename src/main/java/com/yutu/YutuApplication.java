@@ -8,9 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 //程序住入口
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-//定时任务
-@EnableScheduling
-//扫描拦截器的WebFilter的
+//监视器扫描
 @ServletComponentScan
 public class YutuApplication {
 
