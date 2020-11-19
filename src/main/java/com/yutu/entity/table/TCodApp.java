@@ -8,7 +8,7 @@ package com.yutu.entity.table;
 import java.io.Serializable;
 import java.util.Date;
 
-public class TBasApp implements Serializable {
+public class TCodApp implements Serializable {
     /**
     * @Author: zhaobc
     * @Date 2020-07-28 17:32

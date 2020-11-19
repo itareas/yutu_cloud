@@ -5,10 +5,10 @@
 **/
 package com.yutu.mapper.frame;
 
-import com.yutu.entity.table.TBasApp;
+import com.yutu.entity.table.TCodApp;
 import org.apache.ibatis.annotations.Param;
 
-public interface TBasAppMapper {
+public interface TCodAppMapper {
     /**
     * @Author: zhaobc
     * @Date 2020-07-28 17:32
@@ -21,35 +21,35 @@ public interface TBasAppMapper {
     * @Date 2020-07-28 17:32
     * @Description: 
     **/
-    int insert(TBasApp record);
+    int insert(TCodApp record);
 
     /**
     * @Author: zhaobc
     * @Date 2020-07-28 17:32
     * @Description: 
     **/
-    int insertSelective(TBasApp record);
+    int insertSelective(TCodApp record);
 
     /**
     * @Author: zhaobc
     * @Date 2020-07-28 17:32
     * @Description: 
     **/
-    TBasApp selectByPrimaryKey(String uuid);
+    TCodApp selectByPrimaryKey(String uuid);
 
     /**
     * @Author: zhaobc
     * @Date 2020-07-28 17:32
     * @Description: 
     **/
-    int updateByPrimaryKeySelective(TBasApp record);
+    int updateByPrimaryKeySelective(TCodApp record);
 
     /**
     * @Author: zhaobc
     * @Date 2020-07-28 17:32
     * @Description: 
     **/
-    int updateByPrimaryKey(TBasApp record);
+    int updateByPrimaryKey(TCodApp record);
 
     /**
      * @Author: zhaobc

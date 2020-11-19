@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yutu.mapper.frame.TBasAppMapper">
-  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TBasApp">
+<mapper namespace="com.yutu.mapper.frame.TCodAppMapper">
+  <resultMap id="BaseResultMap" type="com.yutu.entity.table.TCodApp">
     <id column="uuid" jdbcType="VARCHAR" property="uuid" />
     <result column="app_key" jdbcType="VARCHAR" property="appKey" />
     <result column="app_name" jdbcType="VARCHAR" property="appName" />
@@ -23,7 +23,7 @@
     delete from t_bas_app
     where uuid = #{uuid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yutu.entity.table.TBasApp">
+  <insert id="insert" parameterType="com.yutu.entity.table.TCodApp">
     insert into t_bas_app (uuid, app_key, app_name, 
       app_type, enable, update_time, 
       remarks)
@@ -31,7 +31,7 @@
       #{appType,jdbcType=INTEGER}, #{enable,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yutu.entity.table.TBasApp">
+  <insert id="insertSelective" parameterType="com.yutu.entity.table.TCodApp">
     insert into t_bas_app
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TBasApp">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TCodApp">
     update t_bas_app
     <set>
       <if test="appKey != null">
@@ -104,7 +104,7 @@
     </set>
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TBasApp">
+  <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TCodApp">
     update t_bas_app
     set app_key = #{appKey,jdbcType=VARCHAR},
       app_name = #{appName,jdbcType=VARCHAR},

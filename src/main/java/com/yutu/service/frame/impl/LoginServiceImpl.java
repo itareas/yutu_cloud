@@ -37,7 +37,7 @@ public class LoginServiceImpl implements ILoginService {
     @Resource
     private TMenuBusinessMapper tMenuBusinessMapper;
     @Resource
-    private TBasAppMapper tBasAppMapper;
+    private TCodAppMapper tCodAppMapper;
     @Resource
     private SessionUserManager sessionUserManager;
     @Resource
@@ -119,7 +119,7 @@ public class LoginServiceImpl implements ILoginService {
     public MsgPack getTokenByAppkey(String appKey) {
         MsgPack msgPack = new MsgPack();
         //验证appkey
-        int appCount = tBasAppMapper.getAppCount(appKey);
+        int appCount = tCodAppMapper.getAppCount(appKey);
         if (appCount < 1) {
             msgPack.setMsg("该appKey不正确，请联系管理员重新申请！");
             return msgPack;
