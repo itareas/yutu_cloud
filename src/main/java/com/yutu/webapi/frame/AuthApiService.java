@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Component
 @Path("auth")
-public class AuthService {
+public class AuthApiService {
     @Resource
     private ILoginService loginService;
     @Resource

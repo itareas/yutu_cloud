@@ -18,7 +18,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/api/app")
-public class AppService {
+public class AppApiService {
     @RequestMapping(value = "/getTest", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getTest(String key, String value) {

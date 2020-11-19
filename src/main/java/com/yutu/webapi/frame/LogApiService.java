@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Component
 @Path("log")
-public class LogService {
+public class LogApiService {
     @Resource
     private IPowerService iPowerService;
 

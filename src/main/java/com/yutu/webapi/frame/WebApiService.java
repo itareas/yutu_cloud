@@ -22,7 +22,7 @@ import java.util.Map;
  **/
 @Component
 @Path("Service")
-public class WebService {
+public class WebApiService {
     @Resource
     private RedisUtils redisUtils;
     @Resource

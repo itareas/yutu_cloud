@@ -1,8 +1,8 @@
 package com.yutu.configuration;
 
-import com.yutu.webapi.frame.AuthService;
-import com.yutu.webapi.frame.LogService;
-import com.yutu.webapi.frame.MenuService;
+import com.yutu.webapi.frame.AuthApiService;
+import com.yutu.webapi.frame.LogApiService;
+import com.yutu.webapi.frame.MenuApiService;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
@@ -23,8 +23,8 @@ public class JerseyConfig extends ResourceConfig {
         // 注册JSON转换器
         register(JacksonJsonProvider.class);
         //注册文接口模块
-        register(AuthService.class);
-        register(LogService.class);
-        register(MenuService.class);
+        register(AuthApiService.class);
+        register(LogApiService.class);
+        register(MenuApiService.class);
     }
 }

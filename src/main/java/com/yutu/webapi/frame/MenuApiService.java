@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Component
 @Path("menu")
-public class MenuService {
+public class MenuApiService {
 
     @Resource
     private IPowerService iPowerService;
