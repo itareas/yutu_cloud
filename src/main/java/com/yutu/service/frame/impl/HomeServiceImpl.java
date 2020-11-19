@@ -1,11 +1,9 @@
 package com.yutu.service.frame.impl;
 
 import com.yutu.entity.MsgPack;
-import com.yutu.mapper.mysql.IMySqlMapper;
 import com.yutu.service.frame.IHomeService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +16,7 @@ import java.util.Map;
  **/
 @Service
 public class HomeServiceImpl implements IHomeService {
-    @Resource
-    private IMySqlMapper mySqlMapper;
+
 
 
     @Override
@@ -28,21 +25,21 @@ public class HomeServiceImpl implements IHomeService {
         MsgPack msgPack = new MsgPack();
 
         //获得不同数据源信息
-        List<Map<String, Object>> listMySql = mySqlMapper.getMySqlTest("yt");
+//        List<Map<String, Object>> listMySql = mySqlMapper.getMySqlTest("yt");
 
-        //判断是否成功
-        if (listMySql.size() > 0) {
-            msgPack.setStatus(1);
-            msgPack.setMsg("获取数据成功");
-        } else {
-            msgPack.setStatus(0);
-            msgPack.setMsg("获取数据失败");
-        }
+//        //判断是否成功
+//        if (listMySql.size() > 0) {
+//            msgPack.setStatus(1);
+//            msgPack.setMsg("获取数据成功");
+//        } else {
+//            msgPack.setStatus(0);
+//            msgPack.setMsg("获取数据失败");
+//        }
 
         //集成数据
-        Map<String, Object> mapData = new HashMap<String, Object>();
-        mapData.put("MySql", listMySql);
-        msgPack.setData(mapData);
+//        Map<String, Object> mapData = new HashMap<String, Object>();
+//        mapData.put("MySql", listMySql);
+//        msgPack.setData(mapData);
 
         return msgPack;
     }

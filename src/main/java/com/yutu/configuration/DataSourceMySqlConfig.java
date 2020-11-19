@@ -28,8 +28,8 @@ import javax.sql.DataSource;
  * @Date: 2019/5/19 19:57
  * @Description: MySql多数据源配置      @Primary为主数据库
  **/
-@Configuration
-@MapperScan(basePackages = "com.yutu.mapper.mysql", sqlSessionTemplateRef = "mySqlSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = "com.yutu.mapper.mysql", sqlSessionTemplateRef = "mySqlSqlSessionTemplate")
 public class DataSourceMySqlConfig {
 
 
