@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.6 (64 bit)
-MySQL - 8.0.18 : Database - yutucloud
+MySQL - 8.0.20 : Database - cloud
 *********************************************************************
 */
 
@@ -12,28 +12,28 @@ MySQL - 8.0.18 : Database - yutucloud
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`yutucloud` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`cloud` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `yutucloud`;
+USE `cloud`;
 
-/*Table structure for table `t_bas_app` */
+/*Table structure for table `t_cod_app` */
 
-DROP TABLE IF EXISTS `t_bas_app`;
+DROP TABLE IF EXISTS `t_cod_app`;
 
-CREATE TABLE `t_bas_app` (
+CREATE TABLE `t_cod_app` (
   `uuid` varchar(64) NOT NULL COMMENT '编码',
   `app_key` varchar(64) DEFAULT NULL COMMENT '应用标识',
   `app_name` varchar(512) DEFAULT NULL COMMENT '应用名称',
-  `app_type` int(11) DEFAULT '0' COMMENT '应用类型：0：项目； 1:产品',
-  `enable` int(11) DEFAULT '1' COMMENT '是否启动：0：不启动； 1：启动',
+  `app_type` int DEFAULT '0' COMMENT '应用类型：0：项目； 1:产品',
+  `enable` int DEFAULT '1' COMMENT '是否启动：0：不启动； 1：启动',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='应用系统标识';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='码表_系统标识';
 
-/*Data for the table `t_bas_app` */
+/*Data for the table `t_cod_app` */
 
-insert  into `t_bas_app`(`uuid`,`app_key`,`app_name`,`app_type`,`enable`,`update_time`,`remarks`) values 
+insert  into `t_cod_app`(`uuid`,`app_key`,`app_name`,`app_type`,`enable`,`update_time`,`remarks`) values 
 ('4091cadd-d0a1-11ea-b236-f4e9d46bc792','ZKYT-HB-1912-001','黄山新型智慧城市系统',0,1,'2020-07-28 15:09:52',NULL),
 ('5a94f38a-d0a1-11ea-b236-f4e9d46bc792','ZKYT-PT-2020-002','模型应用展示平台',1,1,'2020-07-28 15:12:03',NULL),
 ('906dc8b4-d0a1-11ea-b236-f4e9d46bc792','ZKYT-PT-2020-003','精准治霾调控平台',1,1,'2020-07-28 15:12:00',NULL),
@@ -50,13 +50,13 @@ CREATE TABLE `t_cod_config` (
   `config_code` varchar(64) DEFAULT NULL COMMENT '配置编码',
   `config_name` varchar(512) DEFAULT NULL COMMENT '配置名称',
   `config_parent` varchar(64) DEFAULT NULL COMMENT '配置父类',
-  `config_level` int(11) DEFAULT NULL COMMENT '配置等级',
-  `config_status` int(11) DEFAULT '1' COMMENT '配置状态：0:关闭；1:开启',
-  `order_by` int(11) DEFAULT '1' COMMENT '排序',
+  `config_level` int DEFAULT NULL COMMENT '配置等级',
+  `config_status` int DEFAULT '1' COMMENT '配置状态：0:关闭；1:开启',
+  `order_by` int DEFAULT '1' COMMENT '排序',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通用_码表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='码表_通用配置';
 
 /*Data for the table `t_cod_config` */
 
@@ -81,7 +81,7 @@ CREATE TABLE `t_log_error` (
   `log_message` text COMMENT '详细信息',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志管理_异常错误信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志_异常信息表';
 
 /*Data for the table `t_log_error` */
 
@@ -97,14 +97,14 @@ CREATE TABLE `t_log_landing` (
   `login_sessionid` varchar(128) DEFAULT NULL COMMENT '登陆sessionId',
   `login_date` datetime DEFAULT NULL COMMENT '登陆时间',
   `login_type` varchar(32) DEFAULT NULL COMMENT '登陆类型： 登陆/退出登录',
-  `login_result` int(11) DEFAULT NULL COMMENT '登陆结果   0：登陆成功   1：登陆失败',
+  `login_result` int DEFAULT NULL COMMENT '登陆结果   0：登陆成功   1：登陆失败',
   `login_appname` varchar(256) DEFAULT NULL COMMENT '登录子系统/模块名称',
   `login_address` varchar(256) DEFAULT NULL COMMENT '登陆系统地址',
   `appkey` varchar(128) DEFAULT NULL COMMENT 'appKey',
   `token` varchar(128) DEFAULT NULL COMMENT 'token',
   `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统日志_用户登录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志_登录记录表';
 
 /*Data for the table `t_log_landing` */
 
@@ -440,6 +440,7 @@ insert  into `t_log_landing`(`uuid`,`login_userid`,`login_account`,`login_ip`,`l
 ('a92b84e7-809e-4cce-a435-b477374a9951','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','4607F7A2F9477B67472B8BE84E8505EC','2019-12-20 23:05:58','门户登陆',1,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
 ('a968ac1f-ca83-40b1-87af-af53a2862285','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','D686566C25235CA0079AB3E31D73F31C','2019-12-31 21:59:41','登陆',1,'子系统一','/loginSSO','yutu_web','05535a3f-2328-4085-9596-13617b7c81ab',NULL),
 ('a9920e56-bd66-43c8-920f-c800df54c95c','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','CB75D0A3A88D29BCE9EE2A026AEA1496','2019-12-29 14:51:39','门户登陆',1,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
+('a9963e98-52d8-46ff-b722-1b7557357f32','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','743702F003A9BA3A62A677494EB535E1','2020-11-19 11:11:25','门户登陆',1,'系统门户网站','/login/verification',NULL,NULL,NULL),
 ('aa0a8935-1efd-4b0e-8fcd-8279d495c5fc','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','0C08A81C089FB599A2695AADBC08492B','2019-12-29 23:04:00','门户登陆',1,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
 ('aa43ef69-a5bf-44d1-bddb-947d8ce96ab7','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','33963F9BBB749DC8988C2E2DE0C4DF07','2019-12-29 10:58:24','门户登陆',1,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
 ('aacaee78-16b7-469c-9cc6-ea81a8739de4','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','E4BDEAE6B5432DD8897A5D6304EB21A1','2019-12-22 11:04:24','门户登陆',0,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
@@ -505,6 +506,7 @@ insert  into `t_log_landing`(`uuid`,`login_userid`,`login_account`,`login_ip`,`l
 ('c2a68ab2-d3e6-458f-b871-a696dcebd3ea','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','2CECE49F7A29216FEE3246B0F509C628','2020-01-01 11:16:45','登陆',1,'子系统一','/loginSSO','yutu_web','db68b294-acba-4819-81b9-1157e9eabb8b',NULL),
 ('c329f5a3-2dd9-49d3-a741-16601e153650','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','750B789B90604F5320B148BCF02FD224','2019-12-29 14:13:55','门户登陆',1,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
 ('c3ab3bda-f7f3-4798-b8b9-5b784613788b',NULL,'admin','0:0:0:0:0:0:0:1',NULL,'2019-12-15 18:04:54','用户登陆',0,NULL,'/login/getLoginVerification',NULL,NULL,NULL),
+('c3e7d02d-f27b-4447-9558-eba08ba1c914','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','743702f003a9ba3a62a677494eb535e1','2020-11-19 11:11:28','门户注销',1,'系统门户网站','/login/logout',NULL,NULL,NULL),
 ('c41ded4e-09f3-4166-8971-ab33c856e890','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','07484D6FD5EC9EC44F020A1FF02E65AA','2019-12-29 23:00:37','登陆',1,'子系统一','/loginSSO','yutu_web','d7302744-02a3-4eb4-8ce7-741eb2249901',NULL),
 ('c44f0e61-c91c-410c-92e6-623e6910bb0b','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','ED3837F5E9A11A1CF093AD8BA7B322EA','2020-01-07 22:36:58','门户登陆',1,'系统门户网站','/login/getLoginVerification',NULL,NULL,NULL),
 ('c4fefa64-e6ea-4192-b2ae-3b7660297010','ae771cf1-23f0-4e8e-b235-fc12a6fb4884','admin','0:0:0:0:0:0:0:1','2AE644F21753E7F81878DB2A1FF474D4','2020-11-11 10:58:24','登陆',1,'子系统一','/loginSSO','yutu_web','Cloud-ZBCf554c0d6-4646-46dd-9e6e-e2b70a6b1add',NULL),
@@ -620,7 +622,7 @@ CREATE TABLE `t_log_operation` (
   `operate_type` varchar(64) DEFAULT NULL COMMENT '操作类型   增删改',
   `operate_primarykey` varchar(2048) DEFAULT NULL COMMENT '主键',
   `operate_content` text COMMENT '操作内容',
-  `operate_status` int(11) DEFAULT NULL COMMENT '操作是否成功  0：失败  1：成功',
+  `operate_status` int DEFAULT NULL COMMENT '操作是否成功  0：失败  1：成功',
   `operate_person` varchar(64) DEFAULT NULL COMMENT '操作人',
   `operate_datetime` datetime DEFAULT NULL COMMENT '操作时间',
   `log_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '日志类型',
@@ -628,19 +630,19 @@ CREATE TABLE `t_log_operation` (
   `token` varchar(128) DEFAULT NULL COMMENT 'token',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志管理_数据操作表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志_操作记录表';
 
 /*Data for the table `t_log_operation` */
 
 insert  into `t_log_operation`(`uuid`,`operate_db`,`operate_dt`,`operate_type`,`operate_primarykey`,`operate_content`,`operate_status`,`operate_person`,`operate_datetime`,`log_type`,`appkey`,`token`,`remarks`) values 
-('205de587-21e5-4c0a-bb58-067e446bdc1c','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据',NULL,'admin','2020-01-01 13:36:40','数据同步','yutu_web','zbcCloud-F3C00FE8D624DBB8AA7443BF86E4733B',NULL),
-('28e90b17-c1ab-4e74-9e1f-e6be4d859dcb','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:14:34','数据同步','yutu_web','zbcCloud-8F645A0381C8971B7A4959FEA9C60999',NULL),
-('46aec451-31b4-4e31-b8ec-cde7655fd1bb','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据',NULL,'admin','2020-01-01 13:35:41','数据同步','yutu_web','zbcCloud-F3C00FE8D624DBB8AA7443BF86E4733B',NULL),
-('6664d6f3-902b-4be6-9d6c-65064fb7ec36','yutuCloud','t_sys_organization','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:29:59','数据同步','yutu_web','zbcCloud-F2A3F46DB1490D61B27620E3974B4466',NULL),
-('6a9cc53b-9af4-484e-b66d-72f2a13b6ad3','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:27:15','数据同步','yutu_web','zbcCloud-09804FDA98F65BE17A87BF8982950339',NULL),
-('869b8720-59fa-4eee-a0d1-b5e34ddf21c8','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:18:14','数据同步','yutu_web','zbcCloud-162DEB7F7D72CA3DED5BD67513ABBA08',NULL),
-('882bb553-c056-4959-abd3-6a21d851bdf6','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:14:33','数据同步','yutu_web','zbcCloud-8F645A0381C8971B7A4959FEA9C60999',NULL),
-('a402b1fb-2436-424e-9e9e-5679f56dce72','yutuCloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:18:21','数据同步','yutu_web','zbcCloud-162DEB7F7D72CA3DED5BD67513ABBA08',NULL);
+('205de587-21e5-4c0a-bb58-067e446bdc1c','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据',NULL,'admin','2020-01-01 13:36:40','数据同步','yutu_web','zbcCloud-F3C00FE8D624DBB8AA7443BF86E4733B',NULL),
+('28e90b17-c1ab-4e74-9e1f-e6be4d859dcb','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:14:34','数据同步','yutu_web','zbcCloud-8F645A0381C8971B7A4959FEA9C60999',NULL),
+('46aec451-31b4-4e31-b8ec-cde7655fd1bb','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据',NULL,'admin','2020-01-01 13:35:41','数据同步','yutu_web','zbcCloud-F3C00FE8D624DBB8AA7443BF86E4733B',NULL),
+('6664d6f3-902b-4be6-9d6c-65064fb7ec36','cloud','t_sys_organization','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:29:59','数据同步','yutu_web','zbcCloud-F2A3F46DB1490D61B27620E3974B4466',NULL),
+('6a9cc53b-9af4-484e-b66d-72f2a13b6ad3','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:27:15','数据同步','yutu_web','zbcCloud-09804FDA98F65BE17A87BF8982950339',NULL),
+('869b8720-59fa-4eee-a0d1-b5e34ddf21c8','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:18:14','数据同步','yutu_web','zbcCloud-162DEB7F7D72CA3DED5BD67513ABBA08',NULL),
+('882bb553-c056-4959-abd3-6a21d851bdf6','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:14:33','数据同步','yutu_web','zbcCloud-8F645A0381C8971B7A4959FEA9C60999',NULL),
+('a402b1fb-2436-424e-9e9e-5679f56dce72','cloud','t_sys_user','update',NULL,'yutu_web子系统同步数据success',NULL,'admin','2020-01-01 18:18:21','数据同步','yutu_web','zbcCloud-162DEB7F7D72CA3DED5BD67513ABBA08',NULL);
 
 /*Table structure for table `t_menu_business` */
 
@@ -650,17 +652,17 @@ CREATE TABLE `t_menu_business` (
   `uuid` varchar(64) NOT NULL COMMENT '编码',
   `menu_parent` varchar(64) DEFAULT NULL COMMENT '菜单父类id',
   `menu_title` varchar(64) DEFAULT NULL COMMENT '菜单名称',
-  `menu_type` int(11) DEFAULT '2' COMMENT '菜单类型：1.外部sso弹出  2.内部跳转',
+  `menu_type` int DEFAULT '2' COMMENT '菜单类型：1.外部sso弹出  2.内部跳转',
   `menu_url` varchar(512) DEFAULT NULL COMMENT '菜单url地址',
   `menu_page_class` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '页面中的class，为了调整配置样式',
   `menu_page_img` varchar(512) DEFAULT NULL COMMENT '页面中的图标地址',
   `menu_page_other` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '页面中其他的属性值',
-  `menu_status` int(11) DEFAULT '0' COMMENT '菜单状态  0：未锁定  1：已锁定',
-  `order_by` int(11) DEFAULT '1' COMMENT '排序',
-  `delete_status` int(11) DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
+  `menu_status` int DEFAULT '0' COMMENT '菜单状态  0：未锁定  1：已锁定',
+  `order_by` int DEFAULT '1' COMMENT '排序',
+  `delete_status` int DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单管理_业务菜单';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单_业务菜单';
 
 /*Data for the table `t_menu_business` */
 
@@ -678,15 +680,15 @@ DROP TABLE IF EXISTS `t_menu_system`;
 CREATE TABLE `t_menu_system` (
   `uuid` varchar(64) NOT NULL COMMENT '编码',
   `menu_title` varchar(512) DEFAULT NULL COMMENT '菜单名称',
-  `menu_type` int(11) DEFAULT '1' COMMENT '菜单类型：1.外部sso弹出  2.内部跳转',
+  `menu_type` int DEFAULT '1' COMMENT '菜单类型：1.外部sso弹出  2.内部跳转',
   `menu_url` varchar(512) DEFAULT NULL COMMENT '菜单url地址',
   `menu_page_class` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '页面中的class，为了调整配置样式',
   `menu_page_other` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '页面中其他的属性值',
-  `order_by` int(11) DEFAULT '1' COMMENT '排序',
-  `delete_status` int(11) DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
+  `order_by` int DEFAULT '1' COMMENT '排序',
+  `delete_status` int DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单管理_门户子系统';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单_系统菜单表';
 
 /*Data for the table `t_menu_system` */
 
@@ -709,9 +711,9 @@ CREATE TABLE `t_sys_organization` (
   `org_phone` varchar(64) DEFAULT NULL COMMENT '部门电话',
   `org_address` varchar(2048) DEFAULT NULL COMMENT '部门地址',
   `org_Manager` varchar(64) DEFAULT NULL COMMENT '部门负责人',
-  `org_status` int(11) DEFAULT '0' COMMENT '部门状态 0：未锁定  1：已锁定',
-  `order_by` int(11) DEFAULT '1' COMMENT '排序',
-  `delete_status` int(11) DEFAULT '0' COMMENT '逻辑删除 0:未删除,  1:已删除',
+  `org_status` int DEFAULT '0' COMMENT '部门状态 0：未锁定  1：已锁定',
+  `order_by` int DEFAULT '1' COMMENT '排序',
+  `delete_status` int DEFAULT '0' COMMENT '逻辑删除 0:未删除,  1:已删除',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统_组织表';
@@ -729,9 +731,9 @@ CREATE TABLE `t_sys_role` (
   `uuid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '编码',
   `role_parent` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色父类ID（角色树）',
   `role_name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色名称',
-  `role_status` int(11) DEFAULT '0' COMMENT '角色状态 0：未锁定  1：已锁定',
-  `order_by` int(11) DEFAULT '1' COMMENT '排序',
-  `delete_status` int(11) DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
+  `role_status` int DEFAULT '0' COMMENT '角色状态 0：未锁定  1：已锁定',
+  `order_by` int DEFAULT '1' COMMENT '排序',
+  `delete_status` int DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统_权限表';
@@ -794,16 +796,16 @@ CREATE TABLE `t_sys_user` (
   `user_pwd` varchar(64) DEFAULT NULL COMMENT '用户密码',
   `user_question` varchar(256) DEFAULT NULL COMMENT '密码提示',
   `user_name` varchar(256) DEFAULT NULL COMMENT '用户真实姓名',
-  `user_sex` int(11) DEFAULT NULL COMMENT '用户性别  0：保密   1：男   2：女''',
+  `user_sex` int DEFAULT NULL COMMENT '用户性别  0：保密   1：男   2：女''',
   `user_title` varchar(256) DEFAULT NULL COMMENT '用户职称',
   `user_phone` varchar(64) DEFAULT NULL COMMENT '手机号',
   `user_email` varchar(256) DEFAULT NULL COMMENT '用户邮件',
-  `user_status` int(11) DEFAULT '0' COMMENT '用户锁定  0：正常   1：锁定',
-  `order_by` int(11) DEFAULT '1' COMMENT '排序',
-  `delete_status` int(11) DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
+  `user_status` int DEFAULT '0' COMMENT '用户锁定  0：正常   1：锁定',
+  `order_by` int DEFAULT '1' COMMENT '排序',
+  `delete_status` int DEFAULT '0' COMMENT '用户逻辑删除  0 ：正常   1：删除',
   `remarks` text COMMENT '备注',
   PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统_用户信息表';
 
 /*Data for the table `t_sys_user` */
 
