@@ -3,8 +3,6 @@ spring:
   profiles:
     # 选择系统配置文件  dev:开发阶段    prod：生产阶段
     active: dev
-  jersey:
-    application-path: webapi
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

@@ -1,6 +1,6 @@
 package com.yutu.service.frame.impl;
 
-import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.configuration.SystemCoreConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.MsgStatus;
 import com.yutu.entity.TokenInfo;
@@ -72,7 +72,7 @@ public class LoginServiceImpl implements ILoginService {
             //获得菜单列表
             List<TMenuSystem> listMenuSys = tMenuSystemMapper.getRoleMenuSys(userInfo.get("role_uuid"));
             List<TMenuBusiness> listMenuBus = new ArrayList<>();
-            if (SystemPropertiesConfig.System_LoginStorage_Type.equals("redis")) {
+            if (SystemCoreConfig.System_LoginStorage_Type.equals("redis")) {
                 listMenuBus = tMenuBusinessMapper.getRoleMenuBus(userInfo.get("role_uuid"));
             }
             //session存储用户信息操作
@@ -128,7 +128,7 @@ public class LoginServiceImpl implements ILoginService {
         TokenInfo tokenInfo = new TokenInfo();
         String tokenId = UUID.randomUUID().toString();
         // 获得过期时间
-        String expirationDate = SystemPropertiesConfig.System_Token_TimeOut;
+        String expirationDate = SystemCoreConfig.System_Token_TimeOut;
         SimpleDateFormat sdf = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss");// 设置日期格式
         Calendar nowTime = Calendar.getInstance();

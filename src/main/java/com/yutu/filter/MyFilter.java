@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.configuration.SystemCoreConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.SessionUser;
 import com.yutu.utils.database.redis.RedisUtils;
@@ -52,7 +52,7 @@ public class MyFilter implements Filter {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             String security = request.getRemoteAddr() + "<yutu_frame>" + request.getHeader("User-Agent");
             //判断是否启动黑名单
-            if (SystemPropertiesConfig.System_Blacklist_StartUp.equals("true")) {
+            if (SystemCoreConfig.System_Blacklist_StartUp.equals("true")) {
                 //开始启动黑名单
                 BlacklistUitls black = new BlacklistUitls();
                 if (!black.judgeBlacklist(request)) {
@@ -76,14 +76,14 @@ public class MyFilter implements Filter {
             if (isUserData && sessionUser.getUserSafety().equals(security)) {
                 if (url.equals("/")) {
                     //重定向到首页
-                    response.sendRedirect(SystemPropertiesConfig.System_Home_Page);
+                    response.sendRedirect(SystemCoreConfig.System_Home_Page);
                 }
                 chain.doFilter(request, response);
             } else {
                 //判断是否需要白名单
-                if (StringUtils.isNotBlank(SystemPropertiesConfig.System_Filter_Path)) {
+                if (StringUtils.isNotBlank(SystemCoreConfig.System_Filter_Path)) {
                     //白名单判断
-                    String[] whiteUrl = SystemPropertiesConfig.System_Filter_Path.split(",");
+                    String[] whiteUrl = SystemCoreConfig.System_Filter_Path.split(",");
                     //如果是白名单里的，放行
                     if (isWhiteListUrl(url, whiteUrl)) {
                         chain.doFilter(request, response);
@@ -94,7 +94,7 @@ public class MyFilter implements Filter {
                 String requestType = request.getHeader("X-Requested-With");
                 //判断是否是ajax请求 是ajax请求，返回错误信息
                 if (requestType != null && "XMLHttpRequest".equals(requestType)) {
-                    response.getWriter().write(SystemPropertiesConfig.System_Filter_Path);
+                    response.getWriter().write(SystemCoreConfig.System_Filter_Path);
                 } else {
                     //重定向到登录页(需要在static文件夹下建立此html文件)
                     redirectHome(request, response);
@@ -142,7 +142,7 @@ public class MyFilter implements Filter {
         out.write("<html>");
         out.write("<body>");
         out.write("<script type=\"text/javascript\">");
-        out.println("window.open ('" + request.getContextPath() + SystemPropertiesConfig.System_Login_Page + "','_top')");
+        out.println("window.open ('" + request.getContextPath() + SystemCoreConfig.System_Login_Page + "','_top')");
         out.write("</script>");
         out.write("</body>");
         out.write("</html>");

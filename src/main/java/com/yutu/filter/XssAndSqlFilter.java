@@ -8,15 +8,10 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yutu.configuration.SystemPropertiesConfig;
-import com.yutu.entity.ConfigConstants;
+import com.yutu.configuration.SystemCoreConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @ClassName: XssAndSqlFilter
@@ -35,7 +30,7 @@ public class XssAndSqlFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         //首先判断是否启动此机制
-        if (!SystemPropertiesConfig.System_XssAndSql_StartUp.equals("true")) {
+        if (!SystemCoreConfig.System_XssAndSql_StartUp.equals("true")) {
             chain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -57,7 +52,7 @@ public class XssAndSqlFilter implements Filter {
                     response.setContentType("application/json;charset=UTF-8");
                     PrintWriter out = response.getWriter();
                     //重定向到登录页  并给予错误提示
-                    response.sendRedirect(SystemPropertiesConfig.System_Login_Page);
+                    response.sendRedirect(SystemCoreConfig.System_Login_Page);
                     //out.write(JSONResponseUtil.getWrappedERRString("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!"));
                     return;
                 }
@@ -68,7 +63,7 @@ public class XssAndSqlFilter implements Filter {
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
             //重定向到登录页 并给予错误提示
-            response.sendRedirect(SystemPropertiesConfig.System_Login_Page);
+            response.sendRedirect(SystemCoreConfig.System_Login_Page);
             //out.write(JSONResponseUtil.getWrappedERRString("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!"));
             return;
         }

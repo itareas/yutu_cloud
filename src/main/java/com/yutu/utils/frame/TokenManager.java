@@ -1,6 +1,6 @@
 package com.yutu.utils.frame;
 
-import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.configuration.SystemCoreConfig;
 import com.yutu.entity.TokenInfo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,7 +89,7 @@ public class TokenManager {
             Date now = new Date();
             if (now.getTime() < tokenDate.getTime()) {
                 // 获得过期时间  增加时间段 接口过期为0.5*24=12小时
-                String expirationDate = SystemPropertiesConfig.System_Token_TimeOut;
+                String expirationDate = SystemCoreConfig.System_Token_TimeOut;
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
                 Calendar nowTime = Calendar.getInstance();
                 nowTime.add(Calendar.SECOND, Integer.parseInt(expirationDate) * 24);

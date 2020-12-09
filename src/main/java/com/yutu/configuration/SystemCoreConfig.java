@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 系统核心配置文件
  **/
 @Configuration
-public class SystemPropertiesConfig {
+public class SystemCoreConfig {
     /**
      * @Author: zhaobc
      * @Date: 2019-12-18 17:33

@@ -1,6 +1,6 @@
 package com.yutu.utils.frame;
 
-import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.configuration.SystemCoreConfig;
 import com.yutu.entity.Blacklist;
 import com.yutu.entity.ClientVisiting;
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class BlacklistUitls {
         String strMethod = request.getMethod();
 
         //获得所有本机写的地址,并判断释放和地址栏中匹配；
-        List<String> registerUrl = SystemPropertiesConfig.System_Register_Request.stream().filter(R -> strPath.trim().toLowerCase().contains(R.trim().toLowerCase())).collect(Collectors.toList());
+        List<String> registerUrl = SystemCoreConfig.System_Register_Request.stream().filter(R -> strPath.trim().toLowerCase().contains(R.trim().toLowerCase())).collect(Collectors.toList());
         //先判断黑名单中是否存在此ip
         List<Blacklist> blacklistJudge = new ArrayList<>();
         if (blacklist.size() > 0) {
@@ -109,7 +109,7 @@ public class BlacklistUitls {
      **/
     public void putClientVisiting(ClientVisiting clientInfo) {
         // 判断一分钟访问的次数
-        int maxCount = Integer.parseInt(SystemPropertiesConfig.System_Blacklist_MaxNumber);
+        int maxCount = Integer.parseInt(SystemCoreConfig.System_Blacklist_MaxNumber);
         //获得现在时间
         Date now = new Date();
         long dateCount = now.getTime() - clientInfo.getVisitDate().getTime();

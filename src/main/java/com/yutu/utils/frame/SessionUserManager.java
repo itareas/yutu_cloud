@@ -1,7 +1,7 @@
 package com.yutu.utils.frame;
 
 import com.alibaba.fastjson.JSON;
-import com.yutu.configuration.SystemPropertiesConfig;
+import com.yutu.configuration.SystemCoreConfig;
 import com.yutu.entity.MsgPack;
 import com.yutu.entity.MsgStatus;
 import com.yutu.entity.SessionUser;
@@ -66,7 +66,7 @@ public class SessionUserManager {
         if (session != null) {
             String sessionId = session.getId().toLowerCase();
             //判断用户登陆存储方式
-            switch (SystemPropertiesConfig.System_LoginStorage_Type) {
+            switch (SystemCoreConfig.System_LoginStorage_Type) {
                 case "session":
                     if (sessionId != null) {
                         //Session版获取数据
@@ -115,14 +115,14 @@ public class SessionUserManager {
         //判断是ses否为空
         if (session != null && sessionId.length() > 0) {
 //            if (session.isNew()) {
-            switch (SystemPropertiesConfig.System_LoginStorage_Type) {
+            switch (SystemCoreConfig.System_LoginStorage_Type) {
                 case "session":
                     //设置对外tokenId到Session中
                     String tokenId = "cloud-zbc" + UUID.randomUUID().toString();
                     sessionUser.setToken(tokenId);
                     //存储到session中去 并设置超时时间
                     request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
-                    request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemPropertiesConfig.System_Token_TimeOut));
+                    request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemCoreConfig.System_Token_TimeOut));
                     msgPack.setStatus(MsgStatus.SUCCESS.getCode());
 
                     //设置对外接口参数
@@ -131,7 +131,7 @@ public class SessionUserManager {
                     tokenInfo.setRoleId(userInfo.get("role_uuid"));
 
                     // 获得过期时间
-                    String expirationDate = SystemPropertiesConfig.System_Token_TimeOut;
+                    String expirationDate = SystemCoreConfig.System_Token_TimeOut;
                     SimpleDateFormat sdf = new SimpleDateFormat(
                             "yyyy-MM-dd HH:mm:ss");// 设置日期格式
                     Calendar nowTime = Calendar.getInstance();
@@ -156,7 +156,7 @@ public class SessionUserManager {
                 case "redis":
                     //存储到redis
                     sessionUser.setToken(sessionUser.getSessionId());
-                    redisUtils.set(sessionUser.getSessionId(), sessionUser, Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
+                    redisUtils.set(sessionUser.getSessionId(), sessionUser, Long.parseLong(SystemCoreConfig.System_Token_TimeOut));
                     msgPack.setStatus(MsgStatus.SUCCESS.getCode());
                     break;
             }
@@ -177,17 +177,17 @@ public class SessionUserManager {
     public MsgPack expireSessionUser(SessionUser sessionUser) {
         MsgPack msgPack = new MsgPack();
         if (sessionUser != null) {
-            switch (SystemPropertiesConfig.System_LoginStorage_Type) {
+            switch (SystemCoreConfig.System_LoginStorage_Type) {
                 case "session":
                     //存储到session中去
                     request.getSession().setAttribute(sessionUser.getSessionId(), sessionUser);
-                    request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemPropertiesConfig.System_Token_TimeOut));
+                    request.getSession().setMaxInactiveInterval(Integer.parseInt(SystemCoreConfig.System_Token_TimeOut));
                     msgPack.setStatus(MsgStatus.SUCCESS.getCode());
                     msgPack.setData(sessionUser);
                     break;
                 case "redis":
                     //存储到redis
-                    redisUtils.expire(sessionUser.getSessionId(), Long.parseLong(SystemPropertiesConfig.System_Token_TimeOut));
+                    redisUtils.expire(sessionUser.getSessionId(), Long.parseLong(SystemCoreConfig.System_Token_TimeOut));
                     msgPack.setStatus(MsgStatus.SUCCESS.getCode());
                     msgPack.setData(sessionUser);
                     break;
@@ -222,10 +222,10 @@ public class SessionUserManager {
         try {
             //清空本地session
             session.invalidate();
-            if (SystemPropertiesConfig.System_LoginStorage_Type.equals("session")) {
+            if (SystemCoreConfig.System_LoginStorage_Type.equals("session")) {
                 //删除token值
                 TokenManager.deleteTokenById(sessionUser.getToken());
-            } else if (SystemPropertiesConfig.System_LoginStorage_Type.equals("redis")) {
+            } else if (SystemCoreConfig.System_LoginStorage_Type.equals("redis")) {
                 //清空redis里数据
                 redisUtils.del(sessionUser.getSessionId());
             }

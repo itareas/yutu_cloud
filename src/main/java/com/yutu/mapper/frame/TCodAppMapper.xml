@@ -16,15 +16,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_bas_app
+    from t_cod_app
     where uuid = #{uuid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_bas_app
+    delete from t_cod_app
     where uuid = #{uuid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.yutu.entity.table.TCodApp">
-    insert into t_bas_app (uuid, app_key, app_name, 
+    insert into t_cod_app (uuid, app_key, app_name, 
       app_type, enable, update_time, 
       remarks)
     values (#{uuid,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
@@ -32,7 +32,7 @@
       #{remarks,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yutu.entity.table.TCodApp">
-    insert into t_bas_app
+    insert into t_cod_app
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uuid != null">
         uuid,
@@ -81,7 +81,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.yutu.entity.table.TCodApp">
-    update t_bas_app
+    update t_cod_app
     <set>
       <if test="appKey != null">
         app_key = #{appKey,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yutu.entity.table.TCodApp">
-    update t_bas_app
+    update t_cod_app
     set app_key = #{appKey,jdbcType=VARCHAR},
       app_name = #{appName,jdbcType=VARCHAR},
       app_type = #{appType,jdbcType=INTEGER},
@@ -116,6 +116,6 @@
   </update>
 
   <select id="getAppCount" resultType="java.lang.Integer">
-  select count(0) from  t_bas_app where app_key=#{appKey,jdbcType=VARCHAR} and enable=1
+  select count(0) from  t_cod_app where app_key=#{appKey,jdbcType=VARCHAR} and enable=1
 </select>
 </mapper>
