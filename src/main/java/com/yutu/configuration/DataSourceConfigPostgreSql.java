@@ -28,40 +28,40 @@ import javax.sql.DataSource;
  * @Date: 2019/5/19 19:57
  * @Description: MySql多数据源配置      @Primary为主数据库
  **/
-//@Configuration
-//@MapperScan(basePackages = "com.yutu.mapper.mysql", sqlSessionTemplateRef = "mySqlSqlSessionTemplate")
-public class DataSourceMySqlConfig {
+@Configuration
+@MapperScan(basePackages = "com.yutu.mapper.postgresql", sqlSessionTemplateRef = "postgreSqlSqlSessionTemplate")
+public class DataSourceConfigPostgreSql {
 
 
-    @Value("${spring.datasource.mysql.driverClassName}")
+    @Value("${spring.datasource.postgresql.driverClassName}")
     private String driverClassName;
 
-    @Value("${spring.datasource.mysql.url}")
+    @Value("${spring.datasource.postgresql.url}")
     private String url;
 
-    @Value("${spring.datasource.mysql.username}")
+    @Value("${spring.datasource.postgresql.username}")
     private String username;
 
-    @Value("${spring.datasource.mysql.password}")
+    @Value("${spring.datasource.postgresql.password}")
     private String password;
 
     //其他配置
-    @Value("${spring.datasource.mysql.initialSize}")
+    @Value("${spring.datasource.postgresql.initialSize}")
     private int initialSize;
 
-    @Value("${spring.datasource.mysql.minIdle}")
+    @Value("${spring.datasource.postgresql.minIdle}")
     private int minIdle;
 
-    @Value("${spring.datasource.mysql.maxActive}")
+    @Value("${spring.datasource.postgresql.maxActive}")
     private int maxActive;
 
-    @Value("${spring.datasource.mysql.maxWait}")
+    @Value("${spring.datasource.postgresql.maxWait}")
     private int maxWait;
 
-    @Value("${spring.datasource.mysql.timeBetweenEvictionRunsMillis}")
+    @Value("${spring.datasource.postgresql.timeBetweenEvictionRunsMillis}")
     private int timeBetweenEvictionRunsMillis;
 
-    @Value("${spring.datasource.mysql.minEvictableIdleTimeMillis}")
+    @Value("${spring.datasource.postgresql.minEvictableIdleTimeMillis}")
     private int minEvictableIdleTimeMillis;
 
 
@@ -70,7 +70,7 @@ public class DataSourceMySqlConfig {
      * @Date: 2019/6/20 16:18
      * @Description: 数据源配置加载配置文件
      **/
-    @Bean(name = "mySqlDataSource")
+    @Bean(name = "postgreSqlDataSource")
     public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(this.driverClassName);
@@ -93,11 +93,11 @@ public class DataSourceMySqlConfig {
      * @Date: 2019/6/20 16:19
      * @Description: 创建该数据源的连接数据库工厂
      **/
-    @Bean(name = "mySqlSqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("mySqlDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "postgreSqlSqlSessionFactory")
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("postgreSqlDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/yutu/mapper/mysql/*.xml"));
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:com/yutu/mapper/postgresql/*.xml"));
         return bean.getObject();
     }
 
@@ -106,8 +106,8 @@ public class DataSourceMySqlConfig {
      * @Date: 2019/6/20 16:21
      * @Description: 该数据源事务控制  用法 @Transactional(transactionManager="mySqlTransactionManager")
      **/
-    @Bean(name = "mySqlTransactionManager")
-    public DataSourceTransactionManager transactionManager(@Qualifier("mySqlDataSource") DataSource dataSource) {
+    @Bean(name = "postgreSqlTransactionManager")
+    public DataSourceTransactionManager transactionManager(@Qualifier("postgreSqlDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
@@ -116,8 +116,8 @@ public class DataSourceMySqlConfig {
      * @Date: 2019/6/20 16:25
      * @Description: MyBatis提供的持久层访问模板化的工具，线程安全，可通过构造参数或依赖注入SqlSessionFactory实例
      **/
-    @Bean(name = "mySqlSqlSessionTemplate")
-    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("mySqlSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+    @Bean(name = "postgreSqlSqlSessionTemplate")
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("postgreSqlSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

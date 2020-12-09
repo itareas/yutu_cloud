@@ -23,7 +23,7 @@ import javax.sql.DataSource;
  **/
 //@Configuration
 //@MapperScan(basePackages = "com.yutu.mapper.sqlserver", sqlSessionTemplateRef  = "sqlServerSqlSessionTemplate")
-public class DataSourceSqlServerConfig {
+public class DataSourceConfigSqlServer {
 
     @Value("${spring.datasource.sqlserver.driverClassName}")
     private String driverClassName;

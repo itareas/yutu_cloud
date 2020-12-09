@@ -52,9 +52,9 @@ public class RedirectController {
     * @Date: 2020/1/12 16:10
     * @Description: 系统管理
     **/
-    @RequestMapping("/management")
+    @RequestMapping("/console")
     public String management() {
-        return "management/index";
+        return "console/index";
     }
 
 }

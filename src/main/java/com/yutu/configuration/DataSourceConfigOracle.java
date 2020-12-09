@@ -23,7 +23,7 @@ import javax.sql.DataSource;
  **/
 //@Configuration
 //@MapperScan(basePackages = "com.yutu.mapper.oracle", sqlSessionTemplateRef  = "oracleSqlSessionTemplate")
-public class DataSourceOracleConfig {
+public class DataSourceConfigOracle {
 
     @Value("${spring.datasource.oracle.driverClassName}")
     private String driverClassName;

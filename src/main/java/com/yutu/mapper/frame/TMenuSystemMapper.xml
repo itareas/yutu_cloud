@@ -140,6 +140,6 @@
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
   <select id="getRoleMenuSys" resultMap="BaseResultMap"  >
-      SELECT S.* FROM t_menu_system S JOIN t_sys_role_menusys R ON S.`uuid`=R.`menusys_uuid` WHERE R.`role_uuid` =#{roleId} order by order_by
+      SELECT S.* FROM t_menu_system S JOIN t_sys_role_menusys R ON S.uuid=R.menusys_uuid WHERE R.role_uuid =#{roleId} order by order_by
   </select>
 </mapper>

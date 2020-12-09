@@ -1,6 +1,5 @@
-package com.yutu.mapper.mysql;
+package com.yutu.mapper.postgresql;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,6 +11,6 @@ import java.util.Map;
  * @Date:2019/4/17 10:48
  * @Description:
  **/
-public interface IMySqlMapper {
+public interface IPostgreSqlMapper {
     List<Map<String, Object>> getMySqlTest(@Param("userName") String userName);
 }

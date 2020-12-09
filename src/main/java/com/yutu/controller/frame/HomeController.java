@@ -2,6 +2,7 @@ package com.yutu.controller.frame;
 
 import com.alibaba.fastjson.JSON;
 import com.yutu.entity.MsgPack;
+import com.yutu.entity.MsgStatus;
 import com.yutu.entity.SessionUser;
 import com.yutu.entity.table.TMenuSystem;
 import com.yutu.service.frame.IHomeService;
@@ -52,6 +53,19 @@ public class HomeController {
         }else {
             msgPask.setStatus(0);
         }
+        return msgPask;
+    }
+
+
+    /**
+     * @Author: zhaobc
+     * @Date: 2019/12/15 18:07
+     * @Description: 获得系统菜单列表
+     **/
+    @RequestMapping(value = "data/test")
+    public MsgPack getHomeTest(HttpServletRequest request) {
+        MsgPack msgPask = new MsgPack();
+        msgPask=homeService.getDataSource();
         return msgPask;
     }
 }

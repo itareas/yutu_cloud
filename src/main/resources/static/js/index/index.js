@@ -60,5 +60,5 @@ function logoutClick() {
 
 //权限管理系统
 function managementClick() {
-    window.open("/management"); 
+    window.open("/console");
 }

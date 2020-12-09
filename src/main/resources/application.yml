@@ -1,0 +1,63 @@
+#======================<框架配置区域>=========================
+spring:
+  profiles:
+    # 选择系统配置文件  dev:开发阶段    prod：生产阶段
+    active: dev
+  jersey:
+    application-path: webapi
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: LEGACYHTML5
+    servlet:
+      content-type: text/html
+server:
+  #端口配置
+  port: 8095
+  maxHttpHeaderSize: 102400
+  servlet:
+    session:
+      cookie:
+        name: CLOUD_JSESSIONID
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:com/yutu/mapper/**/*.xml
+
+#======================<自定义配置区域>=========================
+SYSTEM:
+  LOGIN:
+    #系统登陆类型   用户密码登录PWD
+    TYPE: PWD
+    PAGE: /
+  LOGINSTORAGE:
+    #系统登陆方式 session/session
+    TYPE: session
+  AUTH:
+    #授权令牌名称
+    TOKEN: AuthToken
+  XSSANDSQL:
+    # Xss和Sql预防注入机制是否启动
+    STARTUP: true
+  BLACKLIST:
+    # 黑名单机制是否启动
+    STARTUP: true
+    MAXNUMBER: 60
+  TOKEN:
+    #redis 中token的过期时间
+    TIMEOUT: 1800
+  INTERCEPTOR:
+    #拦截器 是否启用 和超时时间（毫秒）
+    STARTUP: false
+    OVERTIME: 3000
+  FILTER:
+    #白名单放行
+    PATH: /login/,/webapi
+  HOME:
+    #首页地址
+    PAGE: /index
+
+
+

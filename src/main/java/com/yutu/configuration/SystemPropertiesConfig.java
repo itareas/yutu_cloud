@@ -104,62 +104,62 @@ public class SystemPropertiesConfig {
      **/
     public static String System_Token_TimeOut;
 
-    @Value("${System.LoginStorage.Type}")
+    @Value("${SYSTEM.LOGINSTORAGE.TYPE}")
     public void setSystem_LoginStorage_Type(String system_LoginStorage_Type) {
         System_LoginStorage_Type = system_LoginStorage_Type;
     }
 
-    @Value("${System.Login.Type}")
+    @Value("${SYSTEM.LOGIN.TYPE}")
     public void setSystem_Login_Type(String system_Login_Type) {
         System_Login_Type = system_Login_Type;
     }
 
-    @Value("${System.Auth.Token}")
+    @Value("${SYSTEM.AUTH.TOKEN}")
     public void setSystem_Auth_Token(String system_Auth_Token) {
         System_Auth_Token = system_Auth_Token;
     }
 
-    @Value("${System.Interceptor.StartUp}")
+    @Value("${SYSTEM.INTERCEPTOR.STARTUP}")
     public void setSystem_Interceptor_StartUp(String system_Interceptor_StartUp) {
         System_Interceptor_StartUp = system_Interceptor_StartUp;
     }
 
-    @Value("${System.Interceptor.OverTime}")
+    @Value("${SYSTEM.INTERCEPTOR.OVERTIME}")
     public void setSystem_Interceptor_OverTime(String system_Interceptor_OverTime) {
         System_Interceptor_OverTime = system_Interceptor_OverTime;
     }
 
-    @Value("${System.Blacklist.StartUp}")
+    @Value("${SYSTEM.BLACKLIST.STARTUP}")
     public void setSystem_Blacklist_StartUp(String system_Blacklist_StartUp) {
         System_Blacklist_StartUp = system_Blacklist_StartUp;
     }
 
-    @Value("${System.Blacklist.MaxNumber}")
+    @Value("${SYSTEM.BLACKLIST.MAXNUMBER}")
     public void setSystem_Blacklist_MaxNumber(String system_Blacklist_MaxNumber) {
         System_Blacklist_MaxNumber = system_Blacklist_MaxNumber;
     }
 
-    @Value("${System.XssAndSql.StartUp}")
+    @Value("${SYSTEM.XSSANDSQL.STARTUP}")
     public void setSystem_XssAndSql_StartUp(String system_XssAndSql_StartUp) {
         System_XssAndSql_StartUp = system_XssAndSql_StartUp;
     }
 
-    @Value("${System.Filter.Path}")
+    @Value("${SYSTEM.FILTER.PATH}")
     public void setSystem_Filter_Path(String system_Filter_Path) {
         System_Filter_Path = system_Filter_Path;
     }
 
-    @Value("${System.Home.Page}")
+    @Value("${SYSTEM.HOME.PAGE}")
     public void setSystem_Home_Page(String system_Home_Page) {
         System_Home_Page = system_Home_Page;
     }
 
-    @Value("${System.Login.Page}")
+    @Value("${SYSTEM.LOGIN.PAGE}")
     public void setSystem_Login_Page(String system_Login_Page) {
         System_Login_Page = system_Login_Page;
     }
 
-    @Value("${System.Token.TimeOut}")
+    @Value("${SYSTEM.TOKEN.TIMEOUT}")
     public void setSystem_Token_TimeOut(String system_Token_TimeOut) {
         System_Token_TimeOut = system_Token_TimeOut;
     }
